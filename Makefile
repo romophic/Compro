@@ -5,7 +5,6 @@ main:
 
 raw:
 	ccache g++ main.cpp -o main
-	./main
 
 del:
 	rm -f main
@@ -14,4 +13,4 @@ cp:
 	#for mac
 	#cat main.cpp | pbcopy
 	#for linux with xclip
-	#cat main.cpp | xclip -in -sel clip
+	cat main.cpp | xclip -in -sel clip
