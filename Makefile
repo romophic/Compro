@@ -6,7 +6,7 @@ main:
 raw:
 	ccache g++ main.cpp -o main
 
-del:
+rm:
 	rm -f main
 
 cp:
