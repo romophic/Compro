@@ -3,3 +3,5 @@
 - g++
 - ccache
 - make
+### 環境に合わせて"Makefile"の中を変更してください
+
