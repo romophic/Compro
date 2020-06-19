@@ -3,14 +3,14 @@ main:
 	./main
 	rm -f main
 
-raw:
-	ccache g++ main.cpp -o main
-
-rm:
+db:
+	ccache clang++ -g main.cpp -o main
+	lldb main
 	rm -f main
+	rm -rf -f main.dSYM
 
 cp:
-	#for mac
-	#cat main.cpp | pbcopy
-	#for linux with xclip
+	#for pbcopy
+	cat main.cpp | pbcopy
+	#for xclip
 	#cat main.cpp | xclip -in -sel clip
