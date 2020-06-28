@@ -8,9 +8,11 @@
 #include <algorithm>
 #include <array>
 #include <bitset>
+#include <cctype>
 #include <cmath>
 #include <complex>
 #include <cstdint>
+#include <cstdlib>
 #include <deque>
 #include <functional>
 #include <iomanip>
@@ -28,33 +30,36 @@
 #include <utility>
 #include <vector>
 
-typedef long long ll;
-using namespace std;
-#define INF 2147483647
-#define MOD 10000007
 #define REP(count_ver, lower, upper) for (long long count_ver = lower; count_ver < upper; count_ver++)
 
+typedef long long ll;
+using namespace std;
+const int MOD=10000007;
+
 int gcd(int a, int b) {
-  if (a % b == 0) {
-    return (b);
-  } else {
-    return (gcd(b, a % b));
+  if (a % b == 0) return (b);
+  else            return (gcd(b, a % b));
+}
+
+int lcm(int a, int b) { return a * b / gcd(a, b); }
+
+void divisor(long long n,vector<long long> &ret) {
+  for (long long i = 1; i * i <= n; i++) {
+    if (n % i == 0) {
+      ret.push_back(i);
+      if (i * i != n) ret.push_back(n / i);
+    }
   }
 }
-int lcm(int a, int b) { return a * b / gcd(a, b); }
-bool isPrime(int a) {
-  if (a == 1)     return false;
-  if (a == 2)     return true;
-  if (a % 2 == 0) return false;
-  for (int i = 3; i < sqrt(a) + 1; i += 2) if (a != i and a%i==0) return false;
-  return true;
-}
+
+//--------------------------------
 
 void execute(){
 
-
-
 }
+
+//--------------------------------
+
 int main() {
 
   cin.tie(0);
