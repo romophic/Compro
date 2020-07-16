@@ -1,6 +1,13 @@
-/* ( ε:)( ε:)(:ε )(:ε ) */
-/* ( ε:)Give me AC(:ε ) */
-/* ( ε:)( ε:)(:ε )(:ε ) */
+//////////////////////////
+/*      _        ____   */
+/*  U  /"\  u U /"___|  */
+/*   \/ _ \/  \| | u    */
+/*   / ___ \   | |/__   */
+/*  /_/   \_\   \____|  */
+/*   \\    >>  _// \\   */
+/*  (__)  (__)(__)(__)  */
+/*  Compro by NULL_CT©  */
+//////////////////////////
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -28,10 +35,12 @@
 #include <vector>
 
 #define REP(i, lower, upper) for (long long i = lower; i < upper; i++)
+#define ALL(list) (list.begin()), (list.end())
 
-typedef long long ll;
 using namespace std;
+typedef long long ll;
 const int MOD = 10000007;
+const long double PI = 3.14159265358979323846264338327950L;
 
 int gcd(int a, int b) {
   if (a % b == 0)
@@ -56,8 +65,7 @@ vector<long long> divisor(long long n) {
 
 //--------------------------------
 
-void execute() {
-}
+void execute() {}
 
 //--------------------------------
 

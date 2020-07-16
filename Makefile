@@ -14,3 +14,7 @@ cp:
 	#cat main.cpp | pbcopy
 	#for xclip
 	#cat main.cpp | xclip -in -sel clip
+
+clear:
+	rm -f main a.out
+	rm -rf -f main.dSYM
