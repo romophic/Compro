@@ -42,10 +42,10 @@
 
 #define REP(i, lower, upper) for (long long i = lower; i < upper; i++)
 #define ALL(list) (list.begin()), (list.end())
+#define int long long //Black Magic
 
 using namespace std;
 using bint = boost::multiprecision::cpp_int;
-typedef long long ll;
 
 constexpr int MOD = 10000007;
 
