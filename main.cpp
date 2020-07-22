@@ -64,7 +64,9 @@ vector<long long> divisor(long long n) {
 
 //--------------------------------
 
-void execute() {}
+void execute() {
+
+}
 
 //--------------------------------
 
