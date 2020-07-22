@@ -1,5 +1,5 @@
 main:
-	ccache clang++ -std=c++17 main.cpp -o main
+	ccache clang++ -std=c++17 -g main.cpp -o main
 	./main
 	rm -f main
 
