@@ -8,6 +8,7 @@
 /*  (__)  (__)(__)(__)  */
 /*  Compro by NULL_CT©  */
 //////////////////////////
+/*STL Libs*/
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -35,40 +36,35 @@
 #include <utility>
 #include <vector>
 
+/*Boost*/
+#include <boost/multiprecision/cpp_dec_float.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
+
 #define REP(i, lower, upper) for (long long i = lower; i < upper; i++)
 #define ALL(list) (list.begin()), (list.end())
 
 using namespace std;
+using bint = boost::multiprecision::cpp_int;
 typedef long long ll;
-const int MOD = 10000007;
-const long double PI = 3.14159265358979323846264338327950L;
 
-int gcd(int a, int b) {
-  if (a % b == 0)
-    return (b);
-  else
-    return (gcd(b, a % b));
-}
-
-int lcm(int a, int b) { return a * b / gcd(a, b); }
+constexpr int MOD = 10000007;
 
 vector<long long> divisor(long long n) {
-  vector<long long> ret;
+  vector<long long> head, tail;
   for (long long i = 1; i * i <= n; i++) {
     if (n % i == 0) {
-      ret.push_back(i);
+      head.push_back(i);
       if (i * i != n)
-        ret.push_back(n / i);
+        tail.push_back(n / i);
     }
   }
-  return (ret);
+  head.insert(head.end(), tail.rbegin(), tail.rend());
+  return (head);
 }
 
 //--------------------------------
 
-void execute() {
-
-}
+void execute() {}
 
 //--------------------------------
 
