@@ -40,18 +40,18 @@
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
 
-#define REP(i, lower, upper) for (long long i = lower; i < upper; i++)
-#define ALL(list) (list.begin()), (list.end())
 #define int long long //Black Magic
+#define REP(I, LIM) for (int I = 0; I < LIM; I++)
+#define ALL(LIST) (LIST.begin()), (LIST.end())
 
 using namespace std;
 using bint = boost::multiprecision::cpp_int;
 
 constexpr int MOD = 10000007;
 
-vector<long long> divisor(long long n) {
-  vector<long long> head, tail;
-  for (long long i = 1; i * i <= n; i++) {
+vector<int> divisor(int n) {
+  vector<int> head, tail;
+  for (int i = 1; i * i <= n; i++) {
     if (n % i == 0) {
       head.push_back(i);
       if (i * i != n)
@@ -70,7 +70,7 @@ void execute() {
 
 //--------------------------------
 
-int main() {
+signed main() {
   cin.tie(0);
   ios::sync_with_stdio(0);
   // cout<<fixed<<setprecision(20);
