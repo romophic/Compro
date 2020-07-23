@@ -1,10 +1,10 @@
 main:
-	ccache clang++ -std=c++17 main.cpp -o main
+	ccache clang++ -std=c++17 main.cpp -o main -I /usr/local/include
 	./main
 	rm -f main
 
 db:
-	ccache clang++ -std=c++17 -g main.cpp -o main
+	ccache clang++ -std=c++17 -g main.cpp -o main -I /usr/local/include
 	lldb main
 	rm -f main
 	rm -rf -f main.dSYM

@@ -40,7 +40,7 @@
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
 
-#define int long long //Black Magic
+#define int long long // Black Magic
 #define REP(I, LIM) for (int I = 0; I < LIM; I++)
 #define ALL(LIST) (LIST.begin()), (LIST.end())
 
@@ -64,9 +64,7 @@ vector<int> divisor(int n) {
 
 //--------------------------------
 
-void execute() {
-
-}
+void execute() {}
 
 //--------------------------------
 
