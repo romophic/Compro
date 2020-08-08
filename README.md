@@ -3,7 +3,5 @@
 - clang (コンパイル用)
 - ccache (高速化)
 - make (makeでほげほげ)
-- xclip or pb* (提出のために...)
-- github.com/NULLCT/Compro (ここで使用することを想定しています)
+- xclip or pbcopy (提出のために...)
 ### 環境に合わせて"Makefile"の中を変更してください
-
