@@ -1,19 +1,20 @@
 //////////////////////////
-/*      _        ____   */
-/*  U  /"\  u U /"___|  */
-/*   \/ _ \/  \| | u    */
-/*   / ___ \   | |/__   */
-/*  /_/   \_\   \____|  */
-/*   \\    >>  _// \\   */
-/*  (__)  (__)(__)(__)  */
-/*  Compro by NULL_CT©  */
+//      _        ____   //
+//  U  /"\  u U /"___|  //
+//   \/ _ \/  \| | u    //
+//   / ___ \   | |/__   //
+//  /_/   \_\   \____|  //
+//   \\    >>  _// \\   //
+//  (__)  (__)(__)(__)  //
+//  Compro by NULL_CT©  //
 //////////////////////////
-/*STL Libs*/
+//STL libs
 #include <algorithm>
 #include <array>
 #include <bitset>
 #include <cctype>
 #include <chrono>
+#include <climits>
 #include <cmath>
 #include <complex>
 #include <cstdint>
@@ -36,22 +37,17 @@
 #include <utility>
 #include <vector>
 
-/*Boost*/
-#include <boost/multiprecision/cpp_dec_float.hpp>
-#include <boost/multiprecision/cpp_int.hpp>
-
-#define int long long // Black Magic
-#define REP(I, LIM) for (int I = 0; I < LIM; I++)
+#define REP(I, LIM) for (int I = 0; I < (LIM); I++)
 #define ALL(LIST) (LIST.begin()), (LIST.end())
 
 using namespace std;
-using bint = boost::multiprecision::cpp_int;
 
 constexpr int MOD = 10000007;
+constexpr long INF = LONG_MAX;
 
-vector<int> divisor(int n) {
-  vector<int> head, tail;
-  for (int i = 1; i * i <= n; i++) {
+vector<long> divisor(long n) {
+  vector<long> head, tail;
+  for (long i = 1; i * i <= n; i++) {
     if (n % i == 0) {
       head.push_back(i);
       if (i * i != n)
@@ -62,13 +58,9 @@ vector<int> divisor(int n) {
   return (head);
 }
 
-//--------------------------------
+void execute();
 
-void execute() {}
-
-//--------------------------------
-
-signed main() {
+int main() {
   cin.tie(0);
   ios::sync_with_stdio(0);
   // cout<<fixed<<setprecision(20);
@@ -77,3 +69,5 @@ signed main() {
 
   return (0);
 }
+
+void execute() {}
