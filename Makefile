@@ -11,10 +11,10 @@ db:
 
 cp:
 	#for pbcopy
-	#cat main.cpp | pbcopy
+	cat main.cpp | pbcopy
 	#for xclip
 	#cat main.cpp | xclip -in -sel clip
 
-clear:
+clean:
 	rm -f main a.out
 	rm -rf -f main.dSYM
