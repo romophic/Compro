@@ -43,19 +43,27 @@
 using namespace std;
 
 constexpr int MOD = 10000007;
-constexpr long INF = LONG_MAX;
 
-vector<long> divisor(long n) {
+vector<long> divisor(long &_n) {
   vector<long> head, tail;
-  for (long i = 1; i * i <= n; i++) {
-    if (n % i == 0) {
+  for (long i = 1; i * i <= _n; i++) {
+    if (_n % i == 0) {
       head.push_back(i);
-      if (i * i != n)
-        tail.push_back(n / i);
+      if (i * i != _n)
+        tail.push_back(_n / i);
     }
   }
   head.insert(head.end(), tail.rbegin(), tail.rend());
-  return (head);
+  return head;
+}
+
+long kadanes(vector<long> &_ls) {
+  long highestMax=0,currentMax=0,length=_ls.size();
+  for(long i=0;i<length;i++){
+    currentMax=max(_ls[i],currentMax+_ls[i]);
+    highestMax=max(highestMax,currentMax);
+  }
+  return highestMax;
 }
 
 struct init {
