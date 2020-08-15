@@ -8,7 +8,7 @@
 //  (__)  (__)(__)(__)  //
 //  Compro by NULL_CT©  //
 //////////////////////////
-//STL libs
+// STL libs
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -58,16 +58,16 @@ vector<long> divisor(long n) {
   return (head);
 }
 
-void execute();
+struct init {
+  init() {
+    cin.tie(0);
+    ios::sync_with_stdio(0);
+    // cout<<fixed<<setprecision(20);
+  }
+} init;
+
+/*----------------------------*/
 
 int main() {
-  cin.tie(0);
-  ios::sync_with_stdio(0);
-  // cout<<fixed<<setprecision(20);
 
-  execute();
-
-  return (0);
 }
-
-void execute() {}
