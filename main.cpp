@@ -50,8 +50,7 @@ vector<long> divisor(long &_n) {
   for (long i = 1; i * i <= _n; i++) {
     if (_n % i == 0) {
       head.push_back(i);
-      if (i * i != _n)
-        tail.push_back(_n / i);
+      if (i * i != _n) tail.push_back(_n / i);
     }
   }
   head.insert(head.end(), tail.rbegin(), tail.rend());
@@ -59,10 +58,10 @@ vector<long> divisor(long &_n) {
 }
 
 long kadanes(vector<long> &_ls) {
-  long highestMax=0,currentMax=0,length=_ls.size();
-  for(long i=0;i<length;i++){
-    currentMax=max(_ls[i],currentMax+_ls[i]);
-    highestMax=max(highestMax,currentMax);
+  long highestMax = 0, currentMax = 0, length = _ls.size();
+  for (long i = 0; i < length; i++) {
+    currentMax = max(_ls[i], currentMax + _ls[i]);
+    highestMax = max(highestMax, currentMax);
   }
   return highestMax;
 }
@@ -77,6 +76,4 @@ struct init {
 
 /*----------------------------*/
 
-int main() {
-
-}
+int main() {}
