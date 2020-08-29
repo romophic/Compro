@@ -44,7 +44,9 @@
 
 using namespace std;
 
-constexpr int MOD = 10000007;
+typedef long long ll;
+
+const int MOD = pow(10,9)+7;
 
 vector<long> divisor(long &_n) {
   vector<long> head, tail;
@@ -78,5 +80,4 @@ struct init {
 /*----------------------------*/
 
 int main() {
-
 }
