@@ -1,16 +1,9 @@
 {
-  "version": "2.0.0",
   "tasks": [
     {
+      "label": "Build",
       "type": "shell",
-      "label": "C/C++: clang++-6.0 build active file",
       "command": "make -j",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "problemMatcher": [
-        "$gcc"
-      ],
       "group": {
         "kind": "build",
         "isDefault": true
