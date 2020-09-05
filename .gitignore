@@ -1,5 +1,4 @@
 .clangd/
-.vscode/
 main.dSYM
 compile_commands.json
 main
