@@ -1,13 +1,6 @@
-main:
-	ccache clang++ -std=c++2a main.cpp -o main -I /usr/local/include
-	./main
+main: main.cpp
 	rm -f main
-
-db:
 	ccache clang++ -std=c++2a -g main.cpp -o main -I /usr/local/include
-	lldb main
-	rm -f main
-	rm -rf -f main.dSYM
 
 cp:
 	#for pbcopy
