@@ -2,7 +2,7 @@ main: main.cpp
 	rm -f main
 	ccache clang++ -std=c++2a -g main.cpp -o main -I /usr/local/include
 
-cp:
+cp: main.cpp
 	#for pbcopy
 	#cat main.cpp | pbcopy
 	#for xclip
