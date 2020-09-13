@@ -1,10 +1,8 @@
 main: main.cpp
-	rm -f main
 	ccache clang++ -std=c++2a -g main.cpp -o main -I /usr/local/include
 
 run: main.cpp
-	rm -f main
-	ccache clang++ -std=c++2a -g main.cpp -o main -I /usr/local/include
+	make
 	./main
 
 cp: main.cpp
