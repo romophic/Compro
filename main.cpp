@@ -39,14 +39,20 @@
 #include <utility>
 #include <vector>
 
+// Boost
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/range/irange.hpp>
+
 #define REP(I, LIM) for (int I = 0; I < (LIM); I++)
 #define ALL(LIST) (LIST.begin()), (LIST.end())
 
 using namespace std;
+using boost::irange;
+using boost::multiprecision::cpp_int;
 
 typedef long long ll;
 
-const int MOD = pow(10,9)+7;
+const int MOD = 1000000007;
 
 vector<ll> divisor(ll &_n) {
   vector<ll> head, tail;
@@ -72,45 +78,45 @@ ll kadanes(vector<ll> &_ls) {
 
 class UnionFind {
 public:
-  vector<ll> par; // par[i]:iの親の番号　(例) par[3] = 2 : 3の親が2
+  vector<ll> par;
 
-  UnionFind(ll N) : par(N) { //最初は全てが根であるとして初期化
+  UnionFind(ll N) : par(N) {
     for (ll i = 0; i < N; i++)
       par[i] = i;
   }
-
-  ll root(ll x) { // データxが属する木の根を再帰で得る：root(x) = {xの木の根}
+  ll root(ll x) {
     if (par[x] == x)
       return x;
     return par[x] = root(par[x]);
   }
-
-  void unite(ll x, ll y) { // xとyの木を併合
-    ll rx = root(x);        // xの根をrx
-    ll ry = root(y);        // yの根をry
+  void unite(ll x, ll y) {
+    ll rx = root(x);
+    ll ry = root(y);
     if (rx == ry)
-      return; // xとyの根が同じ(=同じ木にある)時はそのまま
-    par[rx] =
-        ry; // xとyの根が同じでない(=同じ木にない)時：xの根rxをyの根ryにつける
+      return;
+    par[rx] = ry;
   }
-
-  bool same(ll x, ll y) { // 2つのデータx, yが属する木が同じならtrueを返す
+  bool same(ll x, ll y) {
     ll rx = root(x);
     ll ry = root(y);
     return rx == ry;
   }
 };
 
-struct init {
-  init() {
-    cin.tie(0);
-    ios::sync_with_stdio(0);
-    // cout<<fixed<<setprecision(20);
-  }
-} init;
+void execution();
+
+int main(){
+  cin.tie(0);
+  ios::sync_with_stdio(0);
+  // cout<<fixed<<setprecision(20);
+
+  execution();
+  return 0;
+}
 
 /*----------------------------*/
 
-int main() {
+void execution(){
 
 }
+
