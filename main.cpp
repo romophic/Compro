@@ -28,6 +28,7 @@
 #include <iterator>
 #include <map>
 #include <numeric>
+#include <ostream>
 #include <queue>
 #include <set>
 #include <stack>
@@ -117,6 +118,4 @@ int main(){
 /*----------------------------*/
 
 void execution(){
-
 }
-
