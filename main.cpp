@@ -42,8 +42,8 @@
 
 // Boost
 #include <boost/multiprecision/cpp_int.hpp>
-#include <boost/range/irange.hpp>
 #include <boost/pending/disjoint_sets.hpp>
+#include <boost/range/irange.hpp>
 
 #define REP(I, LIM) for (int I = 0; I < (LIM); I++)
 #define ALL(LIST) (LIST.begin()), (LIST.end())
@@ -54,7 +54,7 @@ using boost::multiprecision::cpp_int;
 
 typedef long long ll;
 
-const int MOD = 1000000007;
+constexpr int MOD = 1000000007;
 
 vector<ll> divisor(ll &_n) {
   vector<ll> head, tail;
@@ -80,7 +80,7 @@ ll kadanes(vector<ll> &_ls) {
 
 void execution();
 
-int main(){
+int main() {
   cin.tie(0);
   ios::sync_with_stdio(0);
   // cout<<fixed<<setprecision(20);
@@ -91,6 +91,6 @@ int main(){
 
 //--------------------------------------------------------------
 
-void execution(){
+void execution() {
 
 }
