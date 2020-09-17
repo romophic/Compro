@@ -43,6 +43,7 @@
 // Boost
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/range/irange.hpp>
+#include <boost/pending/disjoint_sets.hpp>
 
 #define REP(I, LIM) for (int I = 0; I < (LIM); I++)
 #define ALL(LIST) (LIST.begin()), (LIST.end())
@@ -77,33 +78,6 @@ ll kadanes(vector<ll> &_ls) {
   return highestMax;
 }
 
-class UnionFind {
-public:
-  vector<ll> par;
-
-  UnionFind(ll N) : par(N) {
-    for (ll i = 0; i < N; i++)
-      par[i] = i;
-  }
-  ll root(ll x) {
-    if (par[x] == x)
-      return x;
-    return par[x] = root(par[x]);
-  }
-  void unite(ll x, ll y) {
-    ll rx = root(x);
-    ll ry = root(y);
-    if (rx == ry)
-      return;
-    par[rx] = ry;
-  }
-  bool same(ll x, ll y) {
-    ll rx = root(x);
-    ll ry = root(y);
-    return rx == ry;
-  }
-};
-
 void execution();
 
 int main(){
@@ -118,4 +92,5 @@ int main(){
 /*----------------------------*/
 
 void execution(){
+
 }
