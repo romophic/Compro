@@ -55,7 +55,7 @@ typedef long long ll;
 
 constexpr int MOD = 1000000007;
 
-vector<ll> divisor(ll &_n) {
+vector<ll> divisor(const ll &_n) {
   vector<ll> head, tail;
   for (long i = 1; i * i <= _n; i++) {
     if (_n % i == 0) {
@@ -68,7 +68,7 @@ vector<ll> divisor(ll &_n) {
   return head;
 }
 
-ll kadanes(vector<ll> &_ls) {
+ll kadanes(const vector<ll> &_ls) {
   ll highestMax = 0, currentMax = 0, length = _ls.size();
   for (ll i = 0; i < length; i++) {
     currentMax = max(_ls[i], currentMax + _ls[i]);
