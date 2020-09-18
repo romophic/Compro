@@ -42,7 +42,6 @@
 
 // Boost
 #include <boost/multiprecision/cpp_int.hpp>
-#include <boost/pending/disjoint_sets.hpp>
 #include <boost/range/irange.hpp>
 
 #define REP(I, LIM) for (int I = 0; I < (LIM); I++)
@@ -90,7 +89,6 @@ int main() {
 }
 
 //--------------------------------------------------------------
-
 void execution() {
 
 }
