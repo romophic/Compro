@@ -1,8 +1,8 @@
 main: main.cpp
-	ccache clang++ -std=c++2a -g main.cpp -o main -I /usr/local/include
+	clang++ -std=c++17 -g main.cpp -o main -O2 -I /usr/local/include
 
 run: main.cpp
-	make
+	make -j
 	./main
 
 cp: main.cpp
@@ -13,4 +13,4 @@ cp: main.cpp
 
 clean:
 	rm -f main a.out
-	rm -rf -f main.dSYM
+	rm -rf main.dSYM .clangd
