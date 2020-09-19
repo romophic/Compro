@@ -1,5 +1,5 @@
 main: main.cpp
-	clang++ -std=c++17 -g main.cpp -o main -O2 -I /usr/local/include
+	clang++ -std=c++17 -O2 -Wall -g main.cpp -o main -I /usr/local/include
 
 run: main.cpp
 	make -j
