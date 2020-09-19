@@ -44,20 +44,17 @@
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/range/irange.hpp>
 
-#define REP(I, LIM) for (int I = 0; I < (LIM); I++)
 #define ALL(LIST) (LIST.begin()), (LIST.end())
 
 using namespace std;
 using boost::irange;
 using boost::multiprecision::cpp_int;
 
-typedef long long ll;
+constexpr int64_t MOD = 1000000007;
 
-constexpr int MOD = 1000000007;
-
-vector<ll> divisor(const ll &_n) {
-  vector<ll> head, tail;
-  for (long i = 1; i * i <= _n; i++) {
+vector<int64_t> divisor(const int64_t &_n) {
+  vector<int64_t> head, tail;
+  for (int64_t i = 1; i * i <= _n; i++) {
     if (_n % i == 0) {
       head.push_back(i);
       if (i * i != _n)
@@ -68,9 +65,9 @@ vector<ll> divisor(const ll &_n) {
   return head;
 }
 
-ll kadanes(const vector<ll> &_ls) {
-  ll highestMax = 0, currentMax = 0, length = _ls.size();
-  for (ll i = 0; i < length; i++) {
+int64_t kadanes(const vector<int64_t> &_ls) {
+  int64_t highestMax = 0, currentMax = 0, length = _ls.size();
+  for (int64_t i = 0; i < length; i++) {
     currentMax = max(_ls[i], currentMax + _ls[i]);
     highestMax = max(highestMax, currentMax);
   }
@@ -80,8 +77,8 @@ ll kadanes(const vector<ll> &_ls) {
 void execution();
 
 int main() {
-  cin.tie(0);
-  ios::sync_with_stdio(0);
+  cin.tie(nullptr);
+  ios::sync_with_stdio(false);
   // cout<<fixed<<setprecision(20);
 
   execution();
