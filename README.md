@@ -1,7 +1,17 @@
 # Competitive programming template
-### 必要なものは以下の通りです
+
+## 必要なものは以下の通りです
+
 - clang (コンパイル用)
-- ccache (高速化)
 - make (makeでほげほげ)
-- xclip or pbcopy (提出のために...)
-### 環境に合わせて"Makefile"の中を変更してください
+- xclip or pbcopy (コピペ用)
+
+## 使い方
+
+| コード | 何が起こるか |
+| --- | --- |
+| make | build/に実行ファイルをコンパイルします |
+| make run | makeの後実行ファイルを実行します |
+| make cp | pbcopyかxclipを用いてコードをコピーします。Makefileのコメントアウトが必要です |
+| make clean | build/*を削除します |
+| make check | ファイル&フォルダにエラーが無いか確かめます |
