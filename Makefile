@@ -1,16 +1,27 @@
-main: main.cpp
-	clang++ -std=c++17 -O2 -Wall -g main.cpp -o main -I /usr/local/include
+.PHONY: all
+CC = clang++
+INCLUDE = -I/usr/local/include
+CFLAGS = -std=c++17 -O2 -Wall -g -v $(INCLUDE)
+BUILDPATH = build/
+SRC = main.cpp
+OBJS = $(BUILDPATH)main.o
+TARGET = $(BUILDPATH)main
 
-run: main.cpp
-	make -j
-	./main
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $(TARGET)
 
-cp: main.cpp
+$(OBJS): $(SRC)
+	$(CC) $(CFLAGS) -c $(SRC) -o $(OBJS)
+
+run: $(SRC)
+	make $(TARGET)
+	./$(TARGET)
+
+cp: $(SRC)
 	#for pbcopy
 	#cat main.cpp | pbcopy
 	#for xclip
 	#cat main.cpp | xclip -in -sel clip
 
 clean:
-	rm -f main a.out
-	rm -rf main.dSYM .clangd
+	rm $(BUILDPATH)*
