@@ -30,3 +30,6 @@ cp: $(SRC)
 
 clean:
 	rm $(BUILDPATH)*
+
+check:
+	sh checker.sh
