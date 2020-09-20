@@ -2,7 +2,7 @@
 CC = clang++
 INCLUDE = -I/usr/local/include
 DEFINE = -D DEBUG
-CFLAGS = -std=c++17 -O2 -Wall -g -v $(INCLUDE) $(DEFINE)
+CPPFLAGS = -std=c++17 -O2 -Wall -g -v $(INCLUDE) $(DEFINE)
 BUILDPATH = build/
 SRC = main.cpp
 OBJS = $(BUILDPATH)main.o
