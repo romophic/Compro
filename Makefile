@@ -1,7 +1,8 @@
 .PHONY: all
 CC = clang++
 INCLUDE = -I/usr/local/include
-CFLAGS = -std=c++17 -O2 -Wall -g -v $(INCLUDE)
+DEFINE = -D DEBUG
+CFLAGS = -std=c++17 -O2 -Wall -g -v $(INCLUDE) $(DEFINE)
 BUILDPATH = build/
 SRC = main.cpp
 OBJS = $(BUILDPATH)main.o
@@ -15,13 +16,17 @@ $(OBJS): $(SRC)
 
 run: $(SRC)
 	make $(TARGET)
-	./$(TARGET)
+	@echo /////////////////////////////////
+	@./$(TARGET)
+	@echo //////////////// ///////////////
 
 cp: $(SRC)
 	#for pbcopy
 	#cat main.cpp | pbcopy
 	#for xclip
 	#cat main.cpp | xclip -in -sel clip
+	bat -pp $(SRC)
+	@echo 👆 👍
 
 clean:
 	rm $(BUILDPATH)*
