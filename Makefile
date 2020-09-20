@@ -12,7 +12,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $(TARGET)
 
 $(OBJS): $(SRC)
-	$(CC) $(CFLAGS) -c $(SRC) -o $(OBJS)
+	$(CC) $(CPPFLAGS) -c $(SRC) -o $(OBJS)
 
 run: $(SRC)
 	make $(TARGET)
