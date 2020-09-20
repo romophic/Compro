@@ -1,4 +1,4 @@
 .clangd/
-main.dSYM
+main.dSYM/
+build/
 compile_commands.json
-main
