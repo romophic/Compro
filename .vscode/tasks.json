@@ -13,7 +13,7 @@
     {
       "label": "Build and Run",
       "type": "shell",
-      "command": "make -j ; ./main",
+      "command": "make run -j",
       "group": {
         "kind": "build",
         "isDefault": true
