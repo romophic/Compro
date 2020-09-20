@@ -77,8 +77,10 @@ int64_t kadanes(const vector<int64_t> &_ls) {
 void execution();
 
 int main() {
+#ifndef DEBUG
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
+#endif
   // cout<<fixed<<setprecision(20);
 
   execution();
@@ -87,5 +89,4 @@ int main() {
 
 //--------------------------------------------------------------
 void execution() {
-
 }
