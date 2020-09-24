@@ -1,6 +1,6 @@
 .PHONY: all
 CC = clang++
-INCLUDE = -I/usr/local/include
+INCLUDE =
 DEFINE = -D DEBUG
 CPPFLAGS = -std=c++17 -O2 -Wall -g -v $(INCLUDE) $(DEFINE)
 BUILDPATH = build/
