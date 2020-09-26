@@ -14,6 +14,7 @@
 #include <bitset>
 #include <cctype>
 #include <chrono>
+#include <cinttypes>
 #include <climits>
 #include <cmath>
 #include <complex>
@@ -52,6 +53,33 @@ using boost::multiprecision::cpp_int;
 
 constexpr int64_t MOD = 1000000007;
 
+class UnionFind {
+public:
+  vector<int> par;
+
+  UnionFind(int N) : par(N) {
+    for (int i = 0; i < N; i++)
+      par[i] = i;
+  }
+  int root(int x) {
+    if (par[x] == x)
+      return x;
+    return par[x] = root(par[x]);
+  }
+  void unite(int x, int y) {
+    int rx = root(x);
+    int ry = root(y);
+    if (rx == ry)
+      return;
+    par[rx] = ry;
+  }
+  bool isSame(int x, int y) {
+    int rx = root(x);
+    int ry = root(y);
+    return rx == ry;
+  }
+};
+
 vector<int64_t> divisor(const int64_t &_n) {
   vector<int64_t> head, tail;
   for (int64_t i = 1; i * i <= _n; i++) {
@@ -77,10 +105,8 @@ int64_t kadanes(const vector<int64_t> &_ls) {
 void execution();
 
 int main() {
-#ifndef DEBUG
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-#endif
   // cout<<fixed<<setprecision(20);
 
   execution();
