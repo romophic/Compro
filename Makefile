@@ -1,6 +1,6 @@
 .PHONY: all
 CC = clang++
-INCLUDE =
+INCLUDE = -I /usr/local/include
 DEFINE = -D DEBUG
 CPPFLAGS = -std=c++17 -O2 -Wall -g -v $(INCLUDE) $(DEFINE)
 BUILDPATH = build/
@@ -25,8 +25,7 @@ cp: $(SRC)
 	#cat main.cpp | pbcopy
 	#for xclip
 	#cat main.cpp | xclip -in -sel clip
-	bat -pp $(SRC)
-	@echo 👆 👍
+	@echo 👍
 
 clean:
 	rm $(BUILDPATH)*
