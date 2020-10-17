@@ -12,6 +12,6 @@
 | --- | --- |
 | make | build/に実行ファイルをコンパイルします |
 | make run | makeの後実行ファイルを実行します |
-| make cp | pbcopyかxclipを用いてコードをコピーします。Makefileのコメントアウトが必要です |
+| make cp | pbcopyかxclipを用いてコードをコピーします。 |
 | make clean | build/*を削除します |
 | make check | ファイル&フォルダにエラーが無いか確かめます |
