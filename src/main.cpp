@@ -6,7 +6,7 @@
 //  /_/   \_\   \____|  //
 //   \\    >>  _// \\   //
 //  (__)  (__)(__)(__)  //
-//  Compro by NULL_CT©  //
+//  Compro by NULLCT   //
 //////////////////////////
 // STL libs
 #include <algorithm>
