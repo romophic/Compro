@@ -11,6 +11,7 @@
 // STL libs
 #include <algorithm>
 #include <array>
+#include <bits/stdint-intn.h>
 #include <bitset>
 #include <cctype>
 #include <chrono>
@@ -107,12 +108,13 @@ void execution();
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  // cout<<fixed<<setprecision(20);
+  cout<<fixed<<setprecision(10);
 
   execution();
   return 0;
 }
 
+#define int int64_t
 //--------------------------------------------------------------
 void execution() {
 
