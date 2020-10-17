@@ -5,6 +5,7 @@ DEFINE = -D DEBUG
 CPPFLAGS = -std=c++17 -O2 -Wall -g $(INCLUDE) $(DEFINE)
 SRCPATH = src/
 BUILDPATH = build/
+SCRIPTPATH = script/
 SRC = $(SRCPATH)main.cpp
 TARGET = $(BUILDPATH)main
 
@@ -18,14 +19,10 @@ run: $(SRC)
 	@echo //////////////// ///////////////
 
 cp: $(SRC)
-	#for pbcopy
-	#cat main.cpp | pbcopy
-	#for xclip
-	cat main.cpp | xclip -in -sel clip
-	@echo 👍
+	bash $(SCRIPTPATH)copy.sh
 
 clean:
 	rm $(BUILDPATH)*
 
 check:
-	sh checker.sh
+	bash $(SCRIPTPATH)checker.sh
