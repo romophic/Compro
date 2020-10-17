@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ "$(uname)" = 'Darwin' ]; then #Mac
   cat src/main.cpp | pbcopy
 else #Linux

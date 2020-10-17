@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 noerror=true
 
@@ -13,4 +13,3 @@ if $noerror ; then
 fi
 
 echo "Check is over"
-exit
