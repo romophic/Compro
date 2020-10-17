@@ -11,7 +11,6 @@
 // STL libs
 #include <algorithm>
 #include <array>
-#include <bits/stdint-intn.h>
 #include <bitset>
 #include <cctype>
 #include <chrono>
@@ -56,27 +55,27 @@ constexpr int64_t MOD = 1000000007;
 
 class UnionFind {
 public:
-  vector<int> par;
+  vector<int64_t> par;
 
-  UnionFind(int N) : par(N) {
-    for (int i = 0; i < N; i++)
+  UnionFind(int64_t N) : par(N) {
+    for (int64_t i = 0; i < N; i++)
       par[i] = i;
   }
-  int root(int x) {
+  int64_t root(int64_t x) {
     if (par[x] == x)
       return x;
     return par[x] = root(par[x]);
   }
-  void unite(int x, int y) {
-    int rx = root(x);
-    int ry = root(y);
+  void unite(int64_t x, int64_t y) {
+    int64_t rx = root(x);
+    int64_t ry = root(y);
     if (rx == ry)
       return;
     par[rx] = ry;
   }
-  bool isSame(int x, int y) {
-    int rx = root(x);
-    int ry = root(y);
+  bool isSame(int64_t x, int64_t y) {
+    int64_t rx = root(x);
+    int64_t ry = root(y);
     return rx == ry;
   }
 };
@@ -116,6 +115,5 @@ int main() {
 
 #define int int64_t
 //--------------------------------------------------------------
-void execution() {
-
+inline void execution() {
 }
