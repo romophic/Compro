@@ -53,62 +53,6 @@ using boost::multiprecision::cpp_int;
 
 constexpr long MOD = 1000000007;
 
-class ModNum {
-public:
-  long num;
-
-  ModNum(long long x = 0) : num((x % MOD + MOD) % MOD) {}
-
-  ModNum operator-() const { return ModNum(-num); }
-  ModNum &operator+=(const ModNum &a) {
-    if ((num += a.num) >= MOD)
-      num -= MOD;
-    return *this;
-  }
-  ModNum &operator-=(const ModNum &a) {
-    if ((num += MOD - a.num) >= MOD)
-      num -= MOD;
-    return *this;
-  }
-  ModNum &operator*=(const ModNum &a) {
-    (num *= a.num) %= MOD;
-    return *this;
-  }
-  ModNum &operator/=(const ModNum &a) { return (*this) *= a.inv(); }
-  ModNum operator+(const ModNum &a) const {
-    ModNum res(*this);
-    return res += a;
-  }
-  ModNum operator-(const ModNum &a) const {
-    ModNum res(*this);
-    return res -= a;
-  }
-  ModNum operator*(const ModNum &a) const {
-    ModNum res(*this);
-    return res *= a;
-  }
-  ModNum operator/(const ModNum &a) const {
-    ModNum res(*this);
-    return res /= a;
-  }
-
-  ModNum pow(long t) const {
-    if (!t)
-      return 1;
-    ModNum a = pow(t >> 1);
-    a *= a;
-    if (t & 1)
-      a *= *this;
-    return a;
-  }
-  ModNum inv() const { return pow(MOD - 2); }
-
-  friend ostream &operator<<(ostream &os, const ModNum &m) {
-    os << m.num;
-    return os;
-  }
-};
-
 class UnionFind {
 public:
   vector<long> par;
