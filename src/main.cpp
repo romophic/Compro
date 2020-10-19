@@ -132,7 +132,7 @@ public:
   bool isSame(long _x, long _y) { return root(_x) == root(_y); }
 };
 
-vector<long> divisor(const long &_n) {
+vector<long> divisor(const long _n) {
   vector<long> head, tail;
   for (long i = 1; i * i <= _n; i++) {
     if (_n % i == 0) {
