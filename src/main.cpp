@@ -57,23 +57,24 @@ class UnionFind {
 public:
   vector<long> par;
 
-  UnionFind(long _n) : par(_n) {
-    for (long i = 0; i < _n; i++)
-      par[i] = i;
-  }
+  UnionFind(long _n) : par(_n, -1) {}
   long root(long _n) {
-    if (par[_n] == _n)
+    if (par[_n] < 0)
       return _n;
-    return par[_n] = root(par[_n]);
+    else
+      return par[_n] = root(par[_n]);
   }
-  void unite(long _sub, long _main) {
-    long subroot = root(_sub);
+  bool unite(long _main, long _sub) {
     long mainroot = root(_main);
-    if (subroot == mainroot)
-      return;
+    long subroot = root(_sub);
+    if (mainroot == subroot)
+      return false;
+    par[mainroot] += par[subroot];
     par[subroot] = mainroot;
+    return true;
   }
   bool isSame(long _x, long _y) { return root(_x) == root(_y); }
+  long size(long _n) { return -par[root(_n)]; }
 };
 
 vector<long> divisor(const long _n) {
