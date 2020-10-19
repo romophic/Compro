@@ -53,6 +53,63 @@ using boost::multiprecision::cpp_int;
 
 constexpr int64_t MOD = 1000000007;
 
+class ModNum {
+public:
+  int64_t num;
+
+  ModNum(long long x = 0) : num((x % MOD + MOD) % MOD) {}
+
+  ModNum operator-() const { return ModNum(-num); }
+  ModNum &operator+=(const ModNum &a) {
+    if ((num += a.num) >= MOD)
+      num -= MOD;
+    return *this;
+  }
+  ModNum &operator-=(const ModNum &a) {
+    if ((num += MOD - a.num) >= MOD)
+      num -= MOD;
+    return *this;
+  }
+  ModNum &operator*=(const ModNum &a) {
+    (num *= a.num) %= MOD;
+    return *this;
+  }
+  ModNum &operator/=(const ModNum &a) { return (*this) *= a.inv(); }
+
+  ModNum operator+(const ModNum &a) const {
+    ModNum res(*this);
+    return res += a;
+  }
+  ModNum operator-(const ModNum &a) const {
+    ModNum res(*this);
+    return res -= a;
+  }
+  ModNum operator*(const ModNum &a) const {
+    ModNum res(*this);
+    return res *= a;
+  }
+  ModNum operator/(const ModNum &a) const {
+    ModNum res(*this);
+    return res /= a;
+  }
+
+  ModNum pow(int64_t t) const {
+    if (!t)
+      return 1;
+    ModNum a = pow(t >> 1);
+    a *= a;
+    if (t & 1)
+      a *= *this;
+    return a;
+  }
+  ModNum inv() const { return pow(MOD - 2); }
+
+  friend ostream &operator<<(ostream &os, const ModNum &m) {
+    os << m.num;
+    return os;
+  }
+};
+
 class UnionFind {
 public:
   vector<int64_t> par;
@@ -107,7 +164,7 @@ void execution();
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  cout<<fixed<<setprecision(10);
+  cout << fixed << setprecision(10);
 
   execution();
   return 0;
@@ -115,5 +172,4 @@ int main() {
 
 #define int int64_t
 //--------------------------------------------------------------
-inline void execution() {
-}
+inline void execution() {}
