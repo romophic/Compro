@@ -145,10 +145,10 @@ vector<long> divisor(const long _n) {
   return head;
 }
 
-long kadanes(const vector<long> &_ls) {
-  long highestMax = 0, currentMax = 0, length = _ls.size();
+long kadanes(const vector<long> &_n) {
+  long highestMax = 0, currentMax = 0, length = _n.size();
   for (long i = 0; i < length; i++) {
-    currentMax = max(_ls[i], currentMax + _ls[i]);
+    currentMax = max(_n[i], currentMax + _n[i]);
     highestMax = max(highestMax, currentMax);
   }
   return highestMax;
