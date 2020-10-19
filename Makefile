@@ -3,13 +3,14 @@ CC = clang++
 INCLUDE = -I /usr/local/include
 DEFINE = -D DEBUG
 CPPFLAGS = -std=c++17 -O2 -Wall -g $(INCLUDE) $(DEFINE)
-SRCPATH = src/
-BUILDPATH = build/
-SCRIPTPATH = script/
-SRC = $(SRCPATH)main.cpp
-TARGET = $(BUILDPATH)main
+SRCPATH = src
+BUILDPATH = build
+SCRIPTPATH = script
+SRC = $(SRCPATH)/main.cpp
+TARGET = $(BUILDPATH)/main
 
 $(TARGET): $(SRC)
+	-mkdir $(BUILDPATH)
 	$(CC) $(CPPFLAGS) $(SRC) -o $(TARGET)
 
 run: $(SRC)
@@ -19,10 +20,7 @@ run: $(SRC)
 	@echo //////////////// ///////////////
 
 cp: $(SRC)
-	bash $(SCRIPTPATH)copy.sh
+	bash $(SCRIPTPATH)/copy.sh
 
 clean:
-	rm $(BUILDPATH)*
-
-check:
-	bash $(SCRIPTPATH)checker.sh
+	rm $(BUILDPATH)/*
