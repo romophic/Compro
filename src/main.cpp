@@ -75,7 +75,6 @@ public:
     return *this;
   }
   ModNum &operator/=(const ModNum &a) { return (*this) *= a.inv(); }
-
   ModNum operator+(const ModNum &a) const {
     ModNum res(*this);
     return res += a;
