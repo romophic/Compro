@@ -51,11 +51,11 @@ using namespace std;
 using boost::irange;
 using boost::multiprecision::cpp_int;
 
-constexpr int64_t MOD = 1000000007;
+constexpr long MOD = 1000000007;
 
 class ModNum {
 public:
-  int64_t num;
+  long num;
 
   ModNum(long long x = 0) : num((x % MOD + MOD) % MOD) {}
 
@@ -93,7 +93,7 @@ public:
     return res /= a;
   }
 
-  ModNum pow(int64_t t) const {
+  ModNum pow(long t) const {
     if (!t)
       return 1;
     ModNum a = pow(t >> 1);
@@ -112,34 +112,34 @@ public:
 
 class UnionFind {
 public:
-  vector<int64_t> par;
+  vector<long> par;
 
-  UnionFind(int64_t N) : par(N) {
-    for (int64_t i = 0; i < N; i++)
+  UnionFind(long N) : par(N) {
+    for (long i = 0; i < N; i++)
       par[i] = i;
   }
-  int64_t root(int64_t x) {
+  long root(long x) {
     if (par[x] == x)
       return x;
     return par[x] = root(par[x]);
   }
-  void unite(int64_t x, int64_t y) {
-    int64_t rx = root(x);
-    int64_t ry = root(y);
+  void unite(long x, long y) {
+    long rx = root(x);
+    long ry = root(y);
     if (rx == ry)
       return;
     par[rx] = ry;
   }
-  bool isSame(int64_t x, int64_t y) {
-    int64_t rx = root(x);
-    int64_t ry = root(y);
+  bool isSame(long x, long y) {
+    long rx = root(x);
+    long ry = root(y);
     return rx == ry;
   }
 };
 
-vector<int64_t> divisor(const int64_t &_n) {
-  vector<int64_t> head, tail;
-  for (int64_t i = 1; i * i <= _n; i++) {
+vector<long> divisor(const long &_n) {
+  vector<long> head, tail;
+  for (long i = 1; i * i <= _n; i++) {
     if (_n % i == 0) {
       head.push_back(i);
       if (i * i != _n)
@@ -150,9 +150,9 @@ vector<int64_t> divisor(const int64_t &_n) {
   return head;
 }
 
-int64_t kadanes(const vector<int64_t> &_ls) {
-  int64_t highestMax = 0, currentMax = 0, length = _ls.size();
-  for (int64_t i = 0; i < length; i++) {
+long kadanes(const vector<long> &_ls) {
+  long highestMax = 0, currentMax = 0, length = _ls.size();
+  for (long i = 0; i < length; i++) {
     currentMax = max(_ls[i], currentMax + _ls[i]);
     highestMax = max(highestMax, currentMax);
   }
@@ -170,6 +170,6 @@ int main() {
   return 0;
 }
 
-#define int int64_t
+#define int long
 //--------------------------------------------------------------
 inline void execution() {}
