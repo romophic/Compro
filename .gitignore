@@ -1,3 +1,4 @@
+.cache/
 .clangd/
 main.dSYM/
 build/
