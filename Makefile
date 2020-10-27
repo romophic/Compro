@@ -20,7 +20,7 @@ run: $(SRC)
 	@echo //////////////// ///////////////
 
 cp: $(SRC)
-	bash $(SCRIPTPATH)/copy.sh
+	cat $(SRC) | $(SCRIPTPATH)/copi.sh
 
 clean:
 	rm $(BUILDPATH)/*
