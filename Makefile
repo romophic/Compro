@@ -6,8 +6,10 @@ CPPFLAGS = -std=c++17 -O2 -Wall -g $(INCLUDE) $(DEFINE)
 SRCPATH = src
 BUILDPATH = build
 SCRIPTPATH = script
+HISTORYPATH = history
 SRC = $(SRCPATH)/main.cpp
 TARGET = $(BUILDPATH)/main
+HISTORY = $(HISTORYPATH)/out.log
 
 $(TARGET): $(SRC)
 	-mkdir $(BUILDPATH)
@@ -16,7 +18,10 @@ $(TARGET): $(SRC)
 run: $(SRC)
 	make $(TARGET)
 	@echo /////////////////////////////////
-	@./$(TARGET)
+	-mkdir $(HISTORYPATH)
+	@echo '//--------------------------------' >>$(HISTORY)
+	@date -R >>$(HISTORY)
+	@./$(TARGET) | tee -a $(HISTORY)
 	@echo //////////////// ///////////////
 
 cp: $(SRC)

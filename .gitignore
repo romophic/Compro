@@ -2,4 +2,5 @@
 .clangd/
 main.dSYM/
 build/
+history
 compile_commands.json
