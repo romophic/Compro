@@ -2,7 +2,7 @@
 CC = clang++
 INCLUDE = -I /usr/local/include
 DEFINE = -D DEBUG
-CPPFLAGS = -std=c++17 -O2 -Wall -g $(INCLUDE) $(DEFINE)
+CPPFLAGS = -std=c++17 -O2 -g $(INCLUDE) $(DEFINE)
 SRCPATH = src
 BUILDPATH = build
 SCRIPTPATH = script
