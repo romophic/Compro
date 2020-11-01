@@ -17,10 +17,10 @@ $(TARGET): $(SRC)
 
 run: $(SRC)
 	make $(TARGET)
-	@echo /////////////////////////////////
 	-mkdir $(HISTORYPATH)
 	@echo '//--------------------------------' >>$(HISTORY)
 	@date -R >>$(HISTORY)
+	@echo /////////////////////////////////
 	@./$(TARGET) | tee -a $(HISTORY)
 	@echo //////////////// ///////////////
 
