@@ -57,14 +57,14 @@ class UnionFind {
 public:
   vector<long> par;
 
-  UnionFind(long _n) : par(_n, -1) {}
-  long root(long _n) {
+  UnionFind(const long _n) : par(_n, -1) {}
+  long root(const long _n) {
     if (par[_n] < 0)
       return _n;
     else
       return par[_n] = root(par[_n]);
   }
-  bool unite(long _main, long _sub) {
+  bool unite(const long _main, const long _sub) {
     long mainroot = root(_main);
     long subroot = root(_sub);
     if (mainroot == subroot)
@@ -73,8 +73,8 @@ public:
     par[subroot] = mainroot;
     return true;
   }
-  bool isSame(long _x, long _y) { return root(_x) == root(_y); }
-  long size(long _n) { return -par[root(_n)]; }
+  bool isSame(const long _x,const long _y) { return root(_x) == root(_y); }
+  long size(const long _n) { return -par[root(_n)]; }
 };
 
 vector<long> divisor(const long _n) {
@@ -90,10 +90,10 @@ vector<long> divisor(const long _n) {
   return head;
 }
 
-long kadanes(const vector<long> &_n) {
-  long highestMax = 0, currentMax = 0, length = _n.size();
-  for (long i = 0; i < length; i++) {
-    currentMax = max(_n[i], currentMax + _n[i]);
+long kadanes(vector<long>::iterator _begin,const vector<long>::iterator _end) {
+  long highestMax = 0, currentMax = 0;
+  for (;_begin < _end;_begin++) {
+    currentMax = max(*_begin, currentMax + *_begin);
     highestMax = max(highestMax, currentMax);
   }
   return highestMax;
