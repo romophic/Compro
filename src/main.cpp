@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <array>
 #include <bitset>
+#include <cassert>
 #include <cctype>
 #include <chrono>
 #include <cinttypes>
@@ -52,6 +53,72 @@ using boost::irange;
 using boost::multiprecision::cpp_int;
 
 constexpr long MOD = 1000000007;
+
+template <long MOD> class ModNum {
+public:
+  long num;
+
+  constexpr ModNum(long v = 0) noexcept : num(v % MOD) {
+    if (num < 0) num += MOD;
+  }
+  constexpr int getmod() { return MOD; }
+  constexpr ModNum operator-() const noexcept { return num ? MOD - num : 0; }
+  constexpr ModNum operator+(const ModNum &r) const noexcept {
+    return ModNum(*this) += r;
+  }
+  constexpr ModNum operator-(const ModNum &r) const noexcept {
+    return ModNum(*this) -= r;
+  }
+  constexpr ModNum operator*(const ModNum &r) const noexcept {
+    return ModNum(*this) *= r;
+  }
+  constexpr ModNum operator/(const ModNum &r) const noexcept {
+    return ModNum(*this) /= r;
+  }
+  constexpr ModNum &operator+=(const ModNum &r) noexcept {
+    num += r.num;
+    if (num >= MOD) num -= MOD;
+    return *this;
+  }
+  constexpr ModNum &operator-=(const ModNum &r) noexcept {
+    num -= r.num;
+    if (num < 0) num += MOD;
+    return *this;
+  }
+  constexpr ModNum &operator*=(const ModNum &r) noexcept {
+    num = num * r.num % MOD;
+    return *this;
+  }
+  constexpr ModNum &operator/=(const ModNum &r) noexcept {
+    long a = r.num, b = MOD, u = 1, v = 0;
+    while (b) {
+      long t = a / b;
+      a -= t * b;
+      swap(a, b);
+      u -= t * v;
+      swap(u, v);
+    }
+    num = num * u % MOD;
+    if (num < 0) num += MOD;
+    return *this;
+  }
+  constexpr bool operator==(const ModNum &r) const noexcept {
+    return this->num == r.num;
+  }
+  constexpr bool operator!=(const ModNum &r) const noexcept {
+    return this->num != r.val;
+  }
+  friend constexpr ostream &operator<<(ostream &os, const ModNum<MOD> &x) noexcept {
+    return os << x.num;
+  }
+  friend constexpr ModNum<MOD> modpow(const ModNum<MOD> &a, long long n) noexcept {
+    if (n == 0) return 1;
+    auto t = modpow(a, n / 2);
+    t = t * t;
+    if (n & 1) t = t * a;
+    return t;
+  }
+};
 
 class UnionFind {
 public:
