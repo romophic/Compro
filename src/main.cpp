@@ -1,4 +1,3 @@
-//////////////////////////
 //      _        ____   //
 //  U  /"\  u U /"___|  //
 //   \/ _ \/  \| | u    //
@@ -7,8 +6,7 @@
 //   \\    >>  _// \\   //
 //  (__)  (__)(__)(__)  //
 //  Compro by NULLCT   //
-//////////////////////////
-// STL libs
+
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -42,23 +40,20 @@
 #include <utility>
 #include <vector>
 
-// Boost
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/range/irange.hpp>
 
-#define ALL(LIST) (LIST.begin()), (LIST.end())
+#define int int64_t
 
 using namespace std;
 using boost::irange;
 using boost::multiprecision::cpp_int;
 
-constexpr long MOD = 1000000007;
-
-template <long MOD> class ModNum {
+template <int MOD> class ModNum {
 public:
-  long num;
+  int num;
 
-  constexpr ModNum(long v = 0) noexcept : num(v % MOD) {
+  constexpr ModNum(int v = 0) noexcept : num(v % MOD) {
     if (num < 0) num += MOD;
   }
   constexpr int getmod() { return MOD; }
@@ -90,9 +85,9 @@ public:
     return *this;
   }
   constexpr ModNum &operator/=(const ModNum &r) noexcept {
-    long a = r.num, b = MOD, u = 1, v = 0;
+    int a = r.num, b = MOD, u = 1, v = 0;
     while (b) {
-      long t = a / b;
+      int t = a / b;
       a -= t * b;
       swap(a, b);
       u -= t * v;
@@ -111,7 +106,7 @@ public:
   friend constexpr ostream &operator<<(ostream &os, const ModNum<MOD> &x) noexcept {
     return os << x.num;
   }
-  friend constexpr ModNum<MOD> modpow(const ModNum<MOD> &a, long long n) noexcept {
+  friend constexpr ModNum<MOD> modpow(const ModNum<MOD> &a, int n) noexcept {
     if (n == 0) return 1;
     auto t = modpow(a, n / 2);
     t = t * t;
@@ -122,31 +117,31 @@ public:
 
 class UnionFind {
 public:
-  vector<long> par;
+  vector<int> par;
 
-  UnionFind(const long _n) : par(_n, -1) {}
-  long root(const long _n) {
+  UnionFind(const int _n) : par(_n, -1) {}
+  int root(const int _n) {
     if (par[_n] < 0)
       return _n;
     else
       return par[_n] = root(par[_n]);
   }
-  bool unite(const long _main, const long _sub) {
-    long mainroot = root(_main);
-    long subroot = root(_sub);
+  bool unite(const int _main, const int _sub) {
+    int mainroot = root(_main);
+    int subroot = root(_sub);
     if (mainroot == subroot)
       return false;
     par[mainroot] += par[subroot];
     par[subroot] = mainroot;
     return true;
   }
-  bool isSame(const long _x,const long _y) { return root(_x) == root(_y); }
-  long size(const long _n) { return -par[root(_n)]; }
+  bool isSame(const int _x,const int _y) { return root(_x) == root(_y); }
+  int size(const int _n) { return -par[root(_n)]; }
 };
 
-vector<long> divisor(const long _n) {
-  vector<long> head, tail;
-  for (long i = 1; i * i <= _n; i++) {
+vector<int> divisor(const int _n) {
+  vector<int> head, tail;
+  for (int i = 1; i * i <= _n; i++) {
     if (_n % i == 0) {
       head.push_back(i);
       if (i * i != _n)
@@ -157,8 +152,8 @@ vector<long> divisor(const long _n) {
   return head;
 }
 
-long kadanes(vector<long>::iterator _begin,const vector<long>::iterator _end) {
-  long highestMax = 0, currentMax = 0;
+int kadanes(vector<int>::iterator _begin,const vector<int>::iterator _end) {
+  int highestMax = 0, currentMax = 0;
   for (;_begin < _end;_begin++) {
     currentMax = max(*_begin, currentMax + *_begin);
     highestMax = max(highestMax, currentMax);
@@ -168,7 +163,7 @@ long kadanes(vector<long>::iterator _begin,const vector<long>::iterator _end) {
 
 void execution();
 
-int main() {
+signed main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
   cout << fixed << setprecision(10);
@@ -177,6 +172,5 @@ int main() {
   return 0;
 }
 
-#define int long
 //--------------------------------------------------------------
 inline void execution() {}
