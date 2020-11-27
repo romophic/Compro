@@ -54,7 +54,8 @@ public:
   int num;
 
   constexpr ModNum(int v = 0) noexcept : num(v % MOD) {
-    if (num < 0) num += MOD;
+    if (num < 0)
+      num += MOD;
   }
   constexpr int getmod() { return MOD; }
   constexpr ModNum operator-() const noexcept { return num ? MOD - num : 0; }
@@ -72,12 +73,14 @@ public:
   }
   constexpr ModNum &operator+=(const ModNum &r) noexcept {
     num += r.num;
-    if (num >= MOD) num -= MOD;
+    if (num >= MOD)
+      num -= MOD;
     return *this;
   }
   constexpr ModNum &operator-=(const ModNum &r) noexcept {
     num -= r.num;
-    if (num < 0) num += MOD;
+    if (num < 0)
+      num += MOD;
     return *this;
   }
   constexpr ModNum &operator*=(const ModNum &r) noexcept {
@@ -94,7 +97,8 @@ public:
       swap(u, v);
     }
     num = num * u % MOD;
-    if (num < 0) num += MOD;
+    if (num < 0)
+      num += MOD;
     return *this;
   }
   constexpr bool operator==(const ModNum &r) const noexcept {
@@ -107,36 +111,64 @@ public:
     return os << x.num;
   }
   friend constexpr ModNum<MOD> modpow(const ModNum<MOD> &a, int n) noexcept {
-    if (n == 0) return 1;
+    if (n == 0)
+      return 1;
     auto t = modpow(a, n / 2);
     t = t * t;
-    if (n & 1) t = t * a;
+    if (n & 1)
+      t = t * a;
     return t;
   }
 };
 
 class UnionFind {
 public:
-  vector<int> par;
+  int n;
+  std::vector<int> par;
 
-  UnionFind(const int _n) : par(_n, -1) {}
-  int root(const int _n) {
-    if (par[_n] < 0)
-      return _n;
-    else
-      return par[_n] = root(par[_n]);
+  UnionFind() : n(0) {}
+  UnionFind(int _n) : n(_n), par(_n, -1) {}
+  int merge(int a, int b) {
+    assert(0 <= a && a < n);
+    assert(0 <= b && b < n);
+    int x = root(a), y = root(b);
+    if (x == y)
+      return x;
+    if (-par[x] < -par[y])
+      std::swap(x, y);
+    par[x] += par[y];
+    par[y] = x;
+    return x;
   }
-  bool unite(const int _main, const int _sub) {
-    int mainroot = root(_main);
-    int subroot = root(_sub);
-    if (mainroot == subroot)
-      return false;
-    par[mainroot] += par[subroot];
-    par[subroot] = mainroot;
-    return true;
+  bool isSame(int a, int b) {
+    assert(0 <= a && a < n);
+    assert(0 <= b && b < n);
+    return root(a) == root(b);
   }
-  bool isSame(const int _x,const int _y) { return root(_x) == root(_y); }
-  int size(const int _n) { return -par[root(_n)]; }
+  int root(int a) {
+    assert(0 <= a && a < n);
+    if (par[a] < 0)
+      return a;
+    return par[a] = root(par[a]);
+  }
+  int size(int a) {
+    assert(0 <= a && a < n);
+    return -par[root(a)];
+  }
+  vector<vector<int>> groups() {
+    vector<int> leader_buf(n), group_size(n);
+    for (int i = 0; i < n; i++) {
+      leader_buf[i] = root(i);
+      group_size[leader_buf[i]]++;
+    }
+    vector<vector<int>> result(n);
+    for (int i = 0; i < n; i++)
+      result[i].reserve(group_size[i]);
+    for (int i = 0; i < n; i++)
+      result[leader_buf[i]].push_back(i);
+    result.erase(std::remove_if(result.begin(), result.end(), [&](const std::vector<int> &v) { return v.empty(); }), result.end());
+    return result;
+  }
 };
 
 vector<int> divisor(const int _n) {
@@ -152,9 +184,9 @@ vector<int> divisor(const int _n) {
   return head;
 }
 
-int kadanes(vector<int>::iterator _begin,const vector<int>::iterator _end) {
+int kadanes(vector<int>::iterator _begin, const vector<int>::iterator _end) {
   int highestMax = 0, currentMax = 0;
-  for (;_begin < _end;_begin++) {
+  for (; _begin < _end; _begin++) {
     currentMax = max(*_begin, currentMax + *_begin);
     highestMax = max(highestMax, currentMax);
   }
