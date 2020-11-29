@@ -26,6 +26,7 @@
 #include <ios>
 #include <iostream>
 #include <iterator>
+#include <list>
 #include <map>
 #include <numeric>
 #include <ostream>
@@ -213,58 +214,4 @@ signed main() {
 }
 
 //--------------------------------------------------------------
-int n,k;
-deque<int> w;
-bool isGood(int mid){
-  int ans=0;
-  int sum=0;
-  for(int &i:w){
-    if(mid < i)
-      return false;
-
-    if(mid < sum+i){
-      ans++;
-      sum=i;
-      if(k < ans)
-        break;
-    }else{
-      sum+=i;
-    }
-  }
-  
-  if(sum != 0)
-    ans++;
-
-  return ans <= k;
-}
-inline void execution() {
-  cin>>n>>k;
-  w.resize(n);
-  for(auto &i:w)
-    cin>>i;
-
-  auto f = [](int mid){
-    int ans=0;
-    int sum=0;
-    for(int &i:w){
-      if(mid < i)
-        return false;
-
-      if(mid < sum+i){
-        ans++;
-        sum=i;
-        if(k < ans)
-          break;
-      }else{
-        sum+=i;
-      }
-    }
-
-    if(sum != 0)
-      ans++;
-
-    return ans <= k;
-  };
-
-  cout<<dichotomy(0,2e9,f)<<"\n";
-}
+inline void execution() {}
