@@ -41,14 +41,9 @@
 #include <utility>
 #include <vector>
 
-#include <boost/multiprecision/cpp_int.hpp>
-#include <boost/range/irange.hpp>
-
 #define int int64_t
 
 using namespace std;
-using boost::irange;
-using boost::multiprecision::cpp_int;
 
 template <int MOD> class ModNum {
 public:
