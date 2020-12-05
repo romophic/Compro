@@ -5,7 +5,7 @@ DEFINE = -D DEBUG
 CPPFLAGS = -std=c++17 -O2 -g $(INCLUDE) $(DEFINE)
 SRCPATH = src
 BUILDPATH = build
-SCRIPTPATH = script
+SCRIPTPATH = Copi
 HISTORYPATH = history
 SRC = $(SRCPATH)/main.cpp
 TARGET = $(BUILDPATH)/main
