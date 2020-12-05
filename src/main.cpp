@@ -120,7 +120,7 @@ public:
 class UnionFind {
 public:
   int n;
-  std::vector<int> par;
+  vector<int> par;
 
   UnionFind() : n(0) {}
   UnionFind(int _n) : n(_n), par(_n, -1) {}
@@ -131,7 +131,7 @@ public:
     if (x == y)
       return x;
     if (-par[x] < -par[y])
-      std::swap(x, y);
+      swap(x, y);
     par[x] += par[y];
     par[y] = x;
     return x;
@@ -162,7 +162,7 @@ public:
       result[i].reserve(group_size[i]);
     for (int i = 0; i < n; i++)
       result[leader_buf[i]].push_back(i);
-    result.erase(std::remove_if(result.begin(), result.end(), [&](const std::vector<int> &v) { return v.empty(); }), result.end());
+    result.erase(remove_if(result.begin(), result.end(), [&](const vector<int> &v) { return v.empty(); }), result.end());
     return result;
   }
 };
