@@ -209,8 +209,4 @@ signed main() {
 }
 
 //--------------------------------------------------------------
-class Psy{
-
-};
-inline void execution() {
-}
+inline void execution() {}
