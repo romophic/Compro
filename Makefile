@@ -3,10 +3,12 @@ CC = clang++
 INCLUDE = -I /usr/local/include
 DEFINE = -D DEBUG
 CPPFLAGS = -std=c++17 -O2 -g $(INCLUDE) $(DEFINE)
+
 SRCPATH = src
 BUILDPATH = build
 SCRIPTPATH = Copi
 HISTORYPATH = history
+
 SRC = $(SRCPATH)/main.cpp
 TARGET = $(BUILDPATH)/main
 HISTORY = $(HISTORYPATH)/out.log
