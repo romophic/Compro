@@ -7,6 +7,10 @@
 //  (__)  (__)(__)(__)  //
 //  Compro by NULLCT   //
 
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx")
+
 #include <algorithm>
 #include <array>
 #include <bitset>
