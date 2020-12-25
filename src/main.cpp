@@ -46,6 +46,16 @@
 #include <vector>
 
 #define int int64_t
+#ifdef DEBUG
+#define PRINT(var) cout << #var << ": " << var << "\n";
+#define PRINTARR(var)                \
+  cout << #var << ":\n";             \
+  for (const auto printarrvar : var) \
+    cout << "  " << printarrvar << "\n";
+#elif
+  #define PRINT(var) ;
+  #define PRINTARR(var) ;
+#endif
 
 using namespace std;
 
@@ -212,5 +222,9 @@ signed main() {
   return 0;
 }
 
+#define REP(var, lim) for (int var = 0; var < lim; var++)
+#define FOR(var, begin, end) for (int var = begin; var < end; var++)
+#define ALL(var) var.begin(), var.end()
+#define LEN(var) static_cast<long long>(var.size())
 //--------------------------------------------------------------
 inline void execution() {}
