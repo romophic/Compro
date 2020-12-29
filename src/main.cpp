@@ -11,6 +11,7 @@
 #pragma GCC optimize("unroll-loops")
 #pragma GCC target("avx")
 
+//STL
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -45,6 +46,10 @@
 #include <utility>
 #include <vector>
 
+//Boost
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/range/irange.hpp>
+
 #define int int64_t
 #ifdef DEBUG
 #define PRINTVAR(var) cout << #var << ": " << var << endl;
@@ -68,6 +73,8 @@
 #endif
 
 using namespace std;
+using boost::irange;
+using boost::multiprecision::cpp_int;
 
 template <int MOD>
 class ModNum {
@@ -192,23 +199,6 @@ public:
   }
 };
 
-class range {
-private:
-  struct I {
-    int x;
-    int operator*() { return x; }
-    bool operator!=(I &lhs) { return x < lhs.x; }
-    void operator++() { ++x; }
-  };
-  I i, n;
-
-public:
-  range(int n) : i({0}), n({n}) {}
-  range(int i, int n) : i({i}), n({n}) {}
-  I &begin() { return i; }
-  I &end() { return n; }
-};
-
 vector<int> divisor(const int _n) {
   vector<int> head, tail;
   for (int i = 1; i * i <= _n; i++) {
@@ -253,6 +243,6 @@ signed main() {
 #define REP(var, lim) for (int var = 0; var < (lim); var++)
 #define FOR(var, begin, end) for (int var = (begin); var < (end); var++)
 #define ALL(var) (var).begin(), (var).end()
-#define len(var) (static_cast<long long>(var.size()))
+#define LEN(var) (static_cast<long long>(var.size()))
 //--------------------------------------------------------------
 inline void execution() {}
