@@ -192,6 +192,23 @@ public:
   }
 };
 
+class range {
+private:
+  struct I {
+    int x;
+    int operator*() { return x; }
+    bool operator!=(I &lhs) { return x < lhs.x; }
+    void operator++() { ++x; }
+  };
+  I i, n;
+
+public:
+  range(int n) : i({0}), n({n}) {}
+  range(int i, int n) : i({i}), n({n}) {}
+  I &begin() { return i; }
+  I &end() { return n; }
+};
+
 vector<int> divisor(const int _n) {
   vector<int> head, tail;
   for (int i = 1; i * i <= _n; i++) {
@@ -233,9 +250,9 @@ signed main() {
   return 0;
 }
 
-#define REP(var, lim) for (int var = 0; var < lim; var++)
-#define FOR(var, begin, end) for (int var = begin; var < end; var++)
-#define ALL(var) var.begin(), var.end()
-#define LEN(var) static_cast<long long>(var.size())
+#define REP(var, lim) for (int var = 0; var < (lim); var++)
+#define FOR(var, begin, end) for (int var = (begin); var < (end); var++)
+#define ALL(var) (var).begin(), (var).end()
+#define len(var) (static_cast<long long>(var.size()))
 //--------------------------------------------------------------
 inline void execution() {}
