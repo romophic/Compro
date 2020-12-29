@@ -47,19 +47,30 @@
 
 #define int int64_t
 #ifdef DEBUG
-#define PRINT(var) cout << #var << ": " << var << "\n";
-#define PRINTARR(var)                \
-  cout << #var << ":\n";             \
-  for (const auto printarrvar : var) \
-    cout << "  " << printarrvar << "\n";
-#elif
-  #define PRINT(var) ;
-  #define PRINTARR(var) ;
+#define PRINTVAR(var) cout << #var << ": " << var << endl;
+#define PRINTARR(var)                    \
+  cout << #var << ":\n";                 \
+  for (const auto &printarrvar : var)    \
+    cout << "  " << printarrvar << "\n"; \
+  cout << flush;
+#define PRINTBOX(var)                    \
+  cout << #var << ":\n  ";               \
+  for (const auto &wrap : var) {         \
+    for (const auto &printarrvar : wrap) \
+      cout << printarrvar << " ";        \
+    cout << "\n  ";                      \
+  }                                      \
+  cout << endl;
+#else
+#define PRINTVAR(var) ;
+#define PRINTARR(var) ;
+#define PRINTBOX(var) ;
 #endif
 
 using namespace std;
 
-template <int MOD> class ModNum {
+template <int MOD>
+class ModNum {
 public:
   int num;
 
@@ -203,8 +214,8 @@ int kadanes(vector<int>::iterator _begin, const vector<int>::iterator _end) {
   return highestMax;
 }
 
-int dichotomy(int ng,int ok,function<bool(int)> discriminant){
-  while(ok - ng > 1){
+int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
+  while (ok - ng > 1) {
     int mid = (ng + ok) / 2;
     (discriminant(mid) ? ok : ng) = mid;
   }
