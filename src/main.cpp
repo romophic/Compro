@@ -60,8 +60,8 @@ template <typename T>
 ostream &operator<<(ostream &_ostr, const deque<T> &_v);
 template <typename T>
 ostream &operator<<(ostream &_ostr, const list<T> &_v);
-template <typename T,typename Y>
-ostream &operator<<(ostream &_ostr, const pair<T,Y> &_v);
+template <typename T, typename Y>
+ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v);
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t);
 
@@ -107,8 +107,8 @@ ostream &operator<<(ostream &_ostr, const list<T> &_v) {
   _ostr << "}";
   return _ostr;
 }
-template <typename T,typename Y>
-ostream &operator<<(ostream &_ostr, const pair<T,Y> &_v) {
+template <typename T, typename Y>
+ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
   _ostr << "p(" << _v.first << ", " << _v.second << ")";
   return _ostr;
 }
@@ -125,7 +125,7 @@ ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t) {
     };
     (print(args), ...);
   },
-     t);
+        t);
   _ostr << "]";
   return _ostr;
 }
@@ -295,9 +295,9 @@ signed main() {
 }
 
 #ifdef DEBUG
-# define PRINT(var) cout << var << endl;
+#define PRINT(var) cout << var << endl;
 #else
-# define PRINT(var) ;
+#define PRINT(var) ;
 #endif
 #define REP(var, lim) for (int var = 0; var < (lim); var++)
 #define FOR(var, begin, end) for (int var = (begin); var < (end); var++)
@@ -308,4 +308,3 @@ using boost::irange;
 using boost::multiprecision::cpp_int;
 //--------------------------------------------------------------
 inline void execution() {}
-
