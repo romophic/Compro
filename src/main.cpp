@@ -51,30 +51,84 @@
 #include <boost/range/irange.hpp>
 
 #define int int64_t
-#ifdef DEBUG
-#define PRINTVAR(var) cout << #var << ": " << var << endl;
-#define PRINTARR(var)                    \
-  cout << #var << ":\n";                 \
-  for (const auto &printarrvar : var)    \
-    cout << "  " << printarrvar << "\n"; \
-  cout << flush;
-#define PRINTBOX(var)                    \
-  cout << #var << ":\n  ";               \
-  for (const auto &wrap : var) {         \
-    for (const auto &printarrvar : wrap) \
-      cout << printarrvar << " ";        \
-    cout << "\n  ";                      \
-  }                                      \
-  cout << endl;
-#else
-#define PRINTVAR(var) ;
-#define PRINTARR(var) ;
-#define PRINTBOX(var) ;
-#endif
 
 using namespace std;
-using boost::irange;
-using boost::multiprecision::cpp_int;
+
+template <typename T>
+ostream &operator<<(ostream &_ostr, const vector<T> &_v);
+template <typename T>
+ostream &operator<<(ostream &_ostr, const deque<T> &_v);
+template <typename T>
+ostream &operator<<(ostream &_ostr, const list<T> &_v);
+template <typename T,typename Y>
+ostream &operator<<(ostream &_ostr, const pair<T,Y> &_v);
+template <class... Ts>
+ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t);
+
+template <typename T>
+ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
+  _ostr << "v";
+  if (_v.empty()) {
+    _ostr << "{ }";
+    return _ostr;
+  }
+  _ostr << "{" << *_v.begin();
+  for (auto itr = ++_v.begin(); itr != _v.end(); itr++) {
+    _ostr << ", " << *itr;
+  }
+  _ostr << "}";
+  return _ostr;
+}
+template <typename T>
+ostream &operator<<(ostream &_ostr, const deque<T> &_v) {
+  _ostr << "d";
+  if (_v.empty()) {
+    _ostr << "{ }";
+    return _ostr;
+  }
+  _ostr << "{" << *_v.begin();
+  for (auto itr = ++_v.begin(); itr != _v.end(); itr++) {
+    _ostr << ", " << *itr;
+  }
+  _ostr << "}";
+  return _ostr;
+}
+template <typename T>
+ostream &operator<<(ostream &_ostr, const list<T> &_v) {
+  _ostr << "l";
+  if (_v.empty()) {
+    _ostr << "{ }";
+    return _ostr;
+  }
+  _ostr << "{" << *_v.begin();
+  for (auto itr = ++_v.begin(); itr != _v.end(); itr++) {
+    _ostr << ", " << *itr;
+  }
+  _ostr << "}";
+  return _ostr;
+}
+template <typename T,typename Y>
+ostream &operator<<(ostream &_ostr, const pair<T,Y> &_v) {
+  _ostr << "p(" << _v.first << ", " << _v.second << ")";
+  return _ostr;
+}
+template <class... Ts>
+ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t) {
+  _ostr << "t[";
+  bool first = true;
+  apply([&_ostr, &first](auto &&... args) {
+    auto print = [&](auto &&val) {
+      if (!first)
+        _ostr << ",";
+      (_ostr << val);
+      first = false;
+    };
+    (print(args), ...);
+  },
+     t);
+  _ostr << "]";
+  return _ostr;
+}
 
 template <int MOD>
 class ModNum {
@@ -240,9 +294,18 @@ signed main() {
   return 0;
 }
 
+#ifdef DEBUG
+# define PRINT(var) cout << var << endl;
+#else
+# define PRINT(var) ;
+#endif
 #define REP(var, lim) for (int var = 0; var < (lim); var++)
 #define FOR(var, begin, end) for (int var = (begin); var < (end); var++)
 #define ALL(var) (var).begin(), (var).end()
-#define LEN(var) (static_cast<long long>(var.size()))
+#define LEN(var) (static_cast<int>(var.size()))
+
+using boost::irange;
+using boost::multiprecision::cpp_int;
 //--------------------------------------------------------------
 inline void execution() {}
+
