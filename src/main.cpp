@@ -64,6 +64,10 @@ template <typename T, typename Y>
 ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v);
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t);
+template <typename T, typename Y>
+ostream &operator<<(ostream &_ostr, const map<T, Y> &_v);
+template <typename T>
+ostream &operator<<(ostream &_ostr, const set<T> &_v);
 
 template <typename T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
@@ -113,7 +117,7 @@ ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
   return _ostr;
 }
 template <class... Ts>
-ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t) {
+ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   _ostr << "t[";
   bool first = true;
   apply([&_ostr, &first](auto &&... args) {
@@ -125,8 +129,34 @@ ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t) {
     };
     (print(args), ...);
   },
-        t);
+        _v);
   _ostr << "]";
+  return _ostr;
+}
+template <typename T, typename Y>
+ostream &operator<<(ostream &_ostr, const map<T, Y> &_v) {
+  _ostr << "m{";
+  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
+    _ostr << "(" << itr->first << ", " << itr->second << ")";
+    itr++;
+    if (itr != _v.end())
+      _ostr << ", ";
+    itr--;
+  }
+  _ostr << "}";
+  return _ostr;
+}
+template <typename T>
+ostream &operator<<(ostream &_ostr, const set<T> &_v) {
+  _ostr << "s{";
+  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
+    _ostr << *itr;
+    ++itr;
+    if (itr != _v.end())
+      _ostr << ", ";
+    itr--;
+  }
+  _ostr << "}";
   return _ostr;
 }
 
@@ -295,7 +325,7 @@ signed main() {
 }
 
 #ifdef DEBUG
-#define PRINT(var) cout << var << endl;
+#define PRINT(var) cout << #var << ": " << __func__ << " " << __LINE__ << "\n  " << var << endl;
 #else
 #define PRINT(var) ;
 #endif
