@@ -13,7 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      
+
+    # install boost C++
+    - name: boost
+      run: sudo apt update && sudo apt install -yq libboost-all-dev
+
     # compiling
     - name: make
       run: make
+
+    # run
+    - name: run
+      run: make run
