@@ -50,9 +50,20 @@
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/range/irange.hpp>
 
-#define int int64_t
-
+using boost::irange;
+using boost::multiprecision::cpp_int;
 using namespace std;
+
+#define int int64_t
+#ifdef DEBUG
+#define PRINT(var) cout << #var << ": " << __func__ << " " << __LINE__ << "\n  " << var << endl;
+#else
+#define PRINT(var) ;
+#endif
+#define REP(var, lim) for (int var = 0; var < (lim); var++)
+#define FOR(var, begin, end) for (int var = (begin); var < (end); var++)
+#define ALL(var) (var).begin(), (var).end()
+#define LEN(var) (static_cast<int>(var.size()))
 
 template <typename T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
@@ -324,17 +335,5 @@ signed main() {
   return 0;
 }
 
-#ifdef DEBUG
-#define PRINT(var) cout << #var << ": " << __func__ << " " << __LINE__ << "\n  " << var << endl;
-#else
-#define PRINT(var) ;
-#endif
-#define REP(var, lim) for (int var = 0; var < (lim); var++)
-#define FOR(var, begin, end) for (int var = (begin); var < (end); var++)
-#define ALL(var) (var).begin(), (var).end()
-#define LEN(var) (static_cast<int>(var.size()))
-
-using boost::irange;
-using boost::multiprecision::cpp_int;
 //--------------------------------------------------------------
 inline void execution() {}
