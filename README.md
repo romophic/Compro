@@ -1,17 +1,16 @@
 # Competitive programming template
 
-## 必要なものは以下の通りです
+## Depends
 
-- clang (コンパイル用)
-- make (makeでほげほげ)
-- xclip or pbcopy (コピペ用)
+- clang
+- make
+- xclip or pbcopy or copy.exe
 
-## 使い方
+## How
 
-| コード | 何が起こるか |
+| Code | What actually happens |
 | --- | --- |
-| make | build/に実行ファイルをコンパイルします |
-| make run | makeの後実行ファイルを実行します |
-| make cp | pbcopyかxclipを用いてコードをコピーします。 |
-| make clean | build/*を削除します |
-| make check | ファイル&フォルダにエラーが無いか確かめます |
+| make | touch execute file at build/main |
+| make run | run `make` and excute,logging |
+| make cp | copy src/main by [Copi](https://github.com/NULLCT/Copi) |
+| make clean | just clean |
