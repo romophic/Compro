@@ -4,6 +4,7 @@
 
 - clang
 - make
+- Boost
 - xclip or pbcopy or copy.exe
 
 ## How
