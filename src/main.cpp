@@ -79,6 +79,10 @@ template <typename T, typename Y>
 ostream &operator<<(ostream &_ostr, const map<T, Y> &_v);
 template <typename T>
 ostream &operator<<(ostream &_ostr, const set<T> &_v);
+template <typename T, typename Y>
+ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v);
+template <typename T>
+ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v);
 
 template <typename T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
@@ -157,9 +161,35 @@ ostream &operator<<(ostream &_ostr, const map<T, Y> &_v) {
   _ostr << "}";
   return _ostr;
 }
+template <typename T, typename Y>
+ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v) {
+  _ostr << "m{";
+  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
+    _ostr << "(" << itr->first << ", " << itr->second << ")";
+    itr++;
+    if (itr != _v.end())
+      _ostr << ", ";
+    itr--;
+  }
+  _ostr << "}";
+  return _ostr;
+}
 template <typename T>
 ostream &operator<<(ostream &_ostr, const set<T> &_v) {
   _ostr << "s{";
+  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
+    _ostr << *itr;
+    ++itr;
+    if (itr != _v.end())
+      _ostr << ", ";
+    itr--;
+  }
+  _ostr << "}";
+  return _ostr;
+}
+template <typename T>
+ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v) {
+  _ostr << "us{";
   for (auto itr = _v.begin(); itr != _v.end(); itr++) {
     _ostr << *itr;
     ++itr;
