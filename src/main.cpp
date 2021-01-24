@@ -7,9 +7,9 @@
 //  (__)  (__)(__)(__)  //
 //  Compro by NULLCT   //
 
+#pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-#pragma GCC target("avx")
 
 //STL
 #include <algorithm>
