@@ -7,7 +7,6 @@
 //  (__)  (__)(__)(__)  //
 //  Compro by NULLCT   //
 
-#pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
@@ -46,12 +45,6 @@
 #include <utility>
 #include <vector>
 
-//Boost
-#include <boost/multiprecision/cpp_int.hpp>
-#include <boost/range/irange.hpp>
-
-using boost::irange;
-using boost::multiprecision::cpp_int;
 using namespace std;
 
 #define int int64_t
