@@ -8,9 +8,7 @@
 //  Compro by NULLCT   //
 
 #pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
 
-//STL
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -45,16 +43,16 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
 #define int int64_t
-#define ALL(var) (var).begin(), (var).end()
-#define LEN(var) (static_cast<int>(var.size()))
+#define ALL(var) ((var).begin()), ((var).end())
+#define LEN(var) (static_cast<int>((var).size()))
 #ifdef DEBUG
-#define PRINT(var) cout << #var << ": " << __func__ << " " << __LINE__ << "\n  " << var << endl;
+# define PRINT(var) cout << #var << ": " << __func__ << " " << __LINE__ << "\n  " << var << endl;
 #else
-#define PRINT(var) ;
+# define PRINT(var) ;
 #endif
+
+using namespace std;
 
 template <typename T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
@@ -83,9 +81,8 @@ ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
     return _ostr;
   }
   _ostr << "{" << *_v.begin();
-  for (auto itr = ++_v.begin(); itr != _v.end(); itr++) {
+  for (auto itr = ++_v.begin(); itr != _v.end(); itr++)
     _ostr << ", " << *itr;
-  }
   _ostr << "}";
   return _ostr;
 }
@@ -97,9 +94,8 @@ ostream &operator<<(ostream &_ostr, const deque<T> &_v) {
     return _ostr;
   }
   _ostr << "{" << *_v.begin();
-  for (auto itr = ++_v.begin(); itr != _v.end(); itr++) {
+  for (auto itr = ++_v.begin(); itr != _v.end(); itr++)
     _ostr << ", " << *itr;
-  }
   _ostr << "}";
   return _ostr;
 }
@@ -111,9 +107,8 @@ ostream &operator<<(ostream &_ostr, const list<T> &_v) {
     return _ostr;
   }
   _ostr << "{" << *_v.begin();
-  for (auto itr = ++_v.begin(); itr != _v.end(); itr++) {
+  for (auto itr = ++_v.begin(); itr != _v.end(); itr++)
     _ostr << ", " << *itr;
-  }
   _ostr << "}";
   return _ostr;
 }
@@ -285,16 +280,14 @@ public:
     seg[k + sz] = x;
   }
   void build() {
-    for (int k = sz - 1; k > 0; k--) {
+    for (int k = sz - 1; k > 0; k--)
       seg[k] = f(seg[2 * k + 0], seg[2 * k + 1]);
-    }
   }
   void update(int k, const Monoid &x) {
     k += sz;
     seg[k] = x;
-    while (k >>= 1) {
+    while (k >>= 1)
       seg[k] = f(seg[2 * k + 0], seg[2 * k + 1]);
-    }
   }
   Monoid query(int a, int b) {
     Monoid L = M1, R = M1;
@@ -369,8 +362,6 @@ public:
   UnionFind() : n(0) {}
   UnionFind(int _n) : n(_n), par(_n, -1) {}
   int merge(int a, int b) {
-    assert(0 <= a && a < n);
-    assert(0 <= b && b < n);
     int x = root(a), y = root(b);
     if (x == y)
       return x;
@@ -381,18 +372,14 @@ public:
     return x;
   }
   bool isSame(int a, int b) {
-    assert(0 <= a && a < n);
-    assert(0 <= b && b < n);
     return root(a) == root(b);
   }
   int root(int a) {
-    assert(0 <= a && a < n);
     if (par[a] < 0)
       return a;
     return par[a] = root(par[a]);
   }
   int size(int a) {
-    assert(0 <= a && a < n);
     return -par[root(a)];
   }
   vector<vector<int>> groups() {
@@ -422,15 +409,6 @@ vector<int> divisor(const int _n) {
   }
   head.insert(head.end(), tail.rbegin(), tail.rend());
   return head;
-}
-
-int kadanes(vector<int>::iterator _begin, const vector<int>::iterator _end) {
-  int highestMax = 0, currentMax = 0;
-  for (; _begin < _end; _begin++) {
-    currentMax = max(*_begin, currentMax + *_begin);
-    highestMax = max(highestMax, currentMax);
-  }
-  return highestMax;
 }
 
 int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
