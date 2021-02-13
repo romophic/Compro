@@ -423,6 +423,7 @@ void execution();
 
 signed main() {
   cin.tie(nullptr);
+  cout.tie(nullptr);
   ios::sync_with_stdio(false);
   cout << fixed << setprecision(10);
 
