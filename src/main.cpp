@@ -354,6 +354,56 @@ public:
   }
 };
 
+class Graph{
+private:
+  struct Edge{
+    int to,cost;
+  };
+public:
+  int V;
+  vector<vector<Edge>> G;
+  vector<int> d;
+
+  Graph(int n){
+    init(n);
+  }
+
+  void init(int n){
+    V = n;
+    G.resize(V);
+    d.resize(V);
+    for(int i=0;i<V;i++){
+      d[i] = INT_MAX;
+    }
+  }
+
+  void add_edge(int s, int t, int cost){
+    Edge e;
+    e.to = t, e.cost = cost;
+    G[s].push_back(e);
+  }
+
+  void dijkstra(int s){
+    for(int i=0;i<V;i++){
+      d[i] = INT_MAX;
+    }
+    d[s] = 0;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
+    que.push(make_pair(0,s));
+    while(!que.empty()){
+      pair<int,int> p = que.top(); que.pop();
+      int v = p.second;
+      if(d[v]<p.first) continue;
+      for(auto e : G[v]){
+        if(d[e.to]>d[v]+e.cost){
+          d[e.to] = d[v]+e.cost;
+          que.push(make_pair(d[e.to],e.to));
+        }
+      }
+    }
+  }
+};
+
 class UnionFind {
 public:
   int n;
