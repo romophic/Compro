@@ -46,6 +46,7 @@
 #define int int64_t
 #define ALL(var) ((var).begin()), ((var).end())
 #define LEN(var) (static_cast<int>((var).size()))
+#define REP(var, lim) for (int var = 0; var < (lim); var++)
 #ifdef DEBUG
 # define PRINT(var) cout << #var << ": " << __func__ << " " << __LINE__ << "\n  " << var << endl;
 #else
