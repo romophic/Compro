@@ -115,12 +115,12 @@ ostream &operator<<(ostream &_ostr, const list<T> &_v) {
 }
 template <typename T, typename Y>
 ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
-  _ostr << "p(" << _v.first << ", " << _v.second << ")";
+  _ostr << "p{" << _v.first << ", " << _v.second << "}";
   return _ostr;
 }
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
-  _ostr << "t[";
+  _ostr << "t{";
   bool first = true;
   apply([&_ostr, &first](auto &&... args) {
     auto print = [&](auto &&val) {
@@ -132,7 +132,7 @@ ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
     (print(args), ...);
   },
         _v);
-  _ostr << "]";
+  _ostr << "}";
   return _ostr;
 }
 template <typename T, typename Y>
@@ -150,7 +150,7 @@ ostream &operator<<(ostream &_ostr, const map<T, Y> &_v) {
 }
 template <typename T, typename Y>
 ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v) {
-  _ostr << "m{";
+  _ostr << "um{";
   for (auto itr = _v.begin(); itr != _v.end(); itr++) {
     _ostr << "(" << itr->first << ", " << itr->second << ")";
     itr++;
@@ -447,6 +447,23 @@ public:
     result.erase(remove_if(result.begin(), result.end(), [&](const vector<int> &v) { return v.empty(); }), result.end());
     return result;
   }
+};
+
+class Range {
+private:
+  struct Cnt {
+    int num;
+    int operator*() { return num; }
+    bool operator!=(const Cnt &_num) { return num < _num.num; }
+    void operator++() { num++; }
+  };
+  Cnt st, ed;
+
+public:
+  Range(const int _end) : st({0}), ed({_end}) {}
+  Range(const int _start, const int _end) : st({_start}), ed({_end}) {}
+  Cnt &begin() { return st; }
+  Cnt &end() { return ed; }
 };
 
 vector<int> divisor(const int _n) {
