@@ -76,14 +76,14 @@ ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v);
 
 template <typename T>
 void dumpFromRangeList(ostream &_ostr, const T &_v) {
-  auto vlim = prev(_v.end(),1);
-  _ostr<<"{";
-  for(auto itr = _v.begin();itr != _v.end();itr++){
+  auto vlim = prev(_v.end(), 1);
+  _ostr << "{";
+  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
     _ostr << *itr;
-    if(itr != vlim)
+    if (itr != vlim)
       _ostr << ",";
   }
-  _ostr<<"}";
+  _ostr << "}";
 }
 
 template <typename T>
@@ -318,50 +318,53 @@ public:
   }
 };
 
-class Graph{
+class Graph {
 private:
-  struct Edge{
-    int to,cost;
+  struct Edge {
+    int to, cost;
   };
+
 public:
   int V;
   vector<vector<Edge>> G;
   vector<int> d;
 
-  Graph(int n){
+  Graph(int n) {
     init(n);
   }
 
-  void init(int n){
+  void init(int n) {
     V = n;
     G.resize(V);
     d.resize(V);
-    for(int i=0;i<V;i++){
+    for (int i = 0; i < V; i++) {
       d[i] = INT_MAX;
     }
   }
 
-  void add_edge(int s, int t, int cost){
+  void add_edge(int s, int t, int cost) {
     Edge e;
     e.to = t, e.cost = cost;
     G[s].push_back(e);
   }
 
-  void dijkstra(int s){
-    for(int i=0;i<V;i++){
+  void dijkstra(int s) {
+    for (int i = 0; i < V; i++) {
       d[i] = INT_MAX;
     }
     d[s] = 0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
-    que.push(make_pair(0,s));
-    while(!que.empty()){
-      pair<int,int> p = que.top(); que.pop();
+    que.push(make_pair(0, s));
+    while (!que.empty()) {
+      pair<int, int> p = que.top();
+      que.pop();
       int v = p.second;
-      if(d[v]<p.first) continue;
-      for(auto e : G[v]){
-        if(d[e.to]>d[v]+e.cost){
-          d[e.to] = d[v]+e.cost;
-          que.push(make_pair(d[e.to],e.to));
+      if (d[v] < p.first)
+        continue;
+      for (auto e : G[v]) {
+        if (d[e.to] > d[v] + e.cost) {
+          d[e.to] = d[v] + e.cost;
+          que.push(make_pair(d[e.to], e.to));
         }
       }
     }
