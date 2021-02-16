@@ -1,11 +1,11 @@
-//      _        ____   //
-//  U  /"\  u U /"___|  //
-//   \/ _ \/  \| | u    //
-//   / ___ \   | |/__   //
-//  /_/   \_\   \____|  //
-//   \\    >>  _// \\   //
-//  (__)  (__)(__)(__)  //
-//  Compro by NULLCT   //
+/*      _        ____   */
+/*  U  /"\  u U /"___|  */
+/*   \/ _ \/  \| | u    */
+/*   / ___ \   | |/__   */
+/*  /_/   \_\   \____|  */
+/*   \\    >>  _// \\   */
+/*  (__)  (__)(__)(__)  */
+/*  Compro by NULLCT   */
 
 #pragma GCC optimize("O3")
 
@@ -46,9 +46,8 @@
 #define int int64_t
 #define ALL(var) ((var).begin()), ((var).end())
 #define LEN(var) (static_cast<int>((var).size()))
-#define REP(var, lim) for (int var = 0; var < (lim); var++)
 #ifdef DEBUG
-# define PRINT(var) cout << #var << ": " << __func__ << " " << __LINE__ << "\n  " << var << endl;
+# define PRINT(var) cout << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
 #else
 # define PRINT(var) ;
 #endif
@@ -75,47 +74,38 @@ template <typename T>
 ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v);
 
 template <typename T>
+void dumpFromRangeList(ostream &_ostr, const T &_v) {
+  auto vlim = prev(_v.end(),1);
+  _ostr<<"{";
+  for(auto itr = _v.begin();itr != _v.end();itr++){
+    _ostr << *itr;
+    if(itr != vlim)
+      _ostr << ",";
+  }
+  _ostr<<"}";
+}
+
+template <typename T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
   _ostr << "v";
-  if (_v.empty()) {
-    _ostr << "{ }";
-    return _ostr;
-  }
-  _ostr << "{" << *_v.begin();
-  for (auto itr = ++_v.begin(); itr != _v.end(); itr++)
-    _ostr << ", " << *itr;
-  _ostr << "}";
+  dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 template <typename T>
 ostream &operator<<(ostream &_ostr, const deque<T> &_v) {
   _ostr << "d";
-  if (_v.empty()) {
-    _ostr << "{ }";
-    return _ostr;
-  }
-  _ostr << "{" << *_v.begin();
-  for (auto itr = ++_v.begin(); itr != _v.end(); itr++)
-    _ostr << ", " << *itr;
-  _ostr << "}";
+  dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 template <typename T>
 ostream &operator<<(ostream &_ostr, const list<T> &_v) {
   _ostr << "l";
-  if (_v.empty()) {
-    _ostr << "{ }";
-    return _ostr;
-  }
-  _ostr << "{" << *_v.begin();
-  for (auto itr = ++_v.begin(); itr != _v.end(); itr++)
-    _ostr << ", " << *itr;
-  _ostr << "}";
+  dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 template <typename T, typename Y>
 ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
-  _ostr << "p{" << _v.first << ", " << _v.second << "}";
+  _ostr << "p{" << _v.first << "," << _v.second << "}";
   return _ostr;
 }
 template <class... Ts>
@@ -137,54 +127,26 @@ ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
 }
 template <typename T, typename Y>
 ostream &operator<<(ostream &_ostr, const map<T, Y> &_v) {
-  _ostr << "m{";
-  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
-    _ostr << "(" << itr->first << ", " << itr->second << ")";
-    itr++;
-    if (itr != _v.end())
-      _ostr << ", ";
-    itr--;
-  }
-  _ostr << "}";
+  _ostr << "m";
+  dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 template <typename T, typename Y>
 ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v) {
-  _ostr << "um{";
-  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
-    _ostr << "(" << itr->first << ", " << itr->second << ")";
-    itr++;
-    if (itr != _v.end())
-      _ostr << ", ";
-    itr--;
-  }
-  _ostr << "}";
+  _ostr << "um";
+  dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 template <typename T>
 ostream &operator<<(ostream &_ostr, const set<T> &_v) {
-  _ostr << "s{";
-  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
-    _ostr << *itr;
-    ++itr;
-    if (itr != _v.end())
-      _ostr << ", ";
-    itr--;
-  }
-  _ostr << "}";
+  _ostr << "s";
+  dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 template <typename T>
 ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v) {
-  _ostr << "us{";
-  for (auto itr = _v.begin(); itr != _v.end(); itr++) {
-    _ostr << *itr;
-    ++itr;
-    if (itr != _v.end())
-      _ostr << ", ";
-    itr--;
-  }
-  _ostr << "}";
+  _ostr << "us";
+  dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 
