@@ -24,4 +24,4 @@ cp: $(SRC)
 	cat $(SRC) | $(SCRIPTPATH)/copi.sh
 
 clean:
-	rm $(BUILDPATH)/*
+	rm -r $(BUILDPATH)/*
