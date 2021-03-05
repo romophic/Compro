@@ -1,7 +1,7 @@
 CC = clang++
 INCLUDE =
 DEFINE = -D DEBUG
-FLAGS = -std=c++17 -O2 -g $(INCLUDE) $(DEFINE)
+FLAGS = -Wall -std=c++17 -O2 -g $(INCLUDE) $(DEFINE)
 
 SRCPATH = src
 BUILDPATH = build
