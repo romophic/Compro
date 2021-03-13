@@ -113,7 +113,7 @@ template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   _ostr << "t{";
   bool first = true;
-  apply([&_ostr, &first](auto &&...args) {
+  apply([&_ostr, &first](auto &&... args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << ",";
