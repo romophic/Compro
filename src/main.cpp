@@ -151,6 +151,24 @@ ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v) {
   return _ostr;
 }
 
+template <typename T>
+istream &operator>>(istream &_istr, vector<T> &_v);
+template <typename T>
+istream &operator>>(istream &_istr, deque<T> &_v);
+
+template <typename T>
+istream &operator>>(istream &_istr, vector<T> &_v){
+  for (auto &i : _v)
+    _istr >> i;
+  return _istr;
+}
+template <typename T>
+istream &operator>>(istream &_istr, deque<T> &_v){
+  for (auto &i : _v)
+    _istr >> i;
+  return _istr;
+}
+
 template <int MOD>
 class ModNum {
 public:
