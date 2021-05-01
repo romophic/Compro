@@ -470,6 +470,13 @@ int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
   return ok;
 }
 
+template <class T>
+pair<T, T> getLiner(pair<T, T> p0, pair<T, T> p1) {
+  T a = (p0.second - p1.second) / (p0.first - p1.first);
+  T b = p0.second - (p0.first * a);
+  return make_pair(a,b);
+}
+
 void execution();
 
 signed main() {
