@@ -484,18 +484,6 @@ pair<T, T> getLiner(pair<T, T> p0, pair<T, T> p1) {
   return make_pair(a,b);
 }
 
-template <class T>
-T mPow(T x, T n) {
-  T ret = 1;
-  while (n > 0) {
-    if (n & 1)
-      ret *= x;
-    x *= x;
-    n >>= 1;
-  }
-  return ret;
-}
-
 void execution();
 
 signed main() {
