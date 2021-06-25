@@ -76,7 +76,7 @@ ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v);
 
 template <typename T>
 void dumpFromRangeList(ostream &_ostr, const T &_v) {
-  _ostr << _v.size() << "{";
+  _ostr << "{";
   for (auto itr = _v.begin(); itr != _v.end(); itr++) {
     _ostr << *itr;
     if (next(itr,1) != _v.end())
