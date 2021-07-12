@@ -46,7 +46,6 @@
 
 #define int int64_t
 #define ALL(var) ((var).begin()), ((var).end())
-#define LEN(var) (static_cast<int>((var).size()))
 #ifdef DEBUG
 # define PRINT(var) cout << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
 #else
