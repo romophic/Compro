@@ -77,7 +77,7 @@ void dumpFromRangeList(ostream &_ostr, const T &_v) {
   _ostr << "{";
   for (auto itr = _v.begin(); itr != _v.end(); itr++) {
     _ostr << *itr;
-    if (next(itr,1) != _v.end())
+    if (next(itr, 1) != _v.end())
       _ostr << ",";
   }
   _ostr << "}";
@@ -156,19 +156,19 @@ template <typename T, typename Y>
 istream &operator>>(istream &_istr, pair<T, Y> &_v);
 
 template <typename T>
-istream &operator>>(istream &_istr, vector<T> &_v){
+istream &operator>>(istream &_istr, vector<T> &_v) {
   for (auto &i : _v)
     _istr >> i;
   return _istr;
 }
 template <typename T>
-istream &operator>>(istream &_istr, deque<T> &_v){
+istream &operator>>(istream &_istr, deque<T> &_v) {
   for (auto &i : _v)
     _istr >> i;
   return _istr;
 }
 template <typename T, typename Y>
-istream &operator>>(istream &_istr, pair<T, Y> &_v){
+istream &operator>>(istream &_istr, pair<T, Y> &_v) {
   _istr >> _v.first >> _v.second;
   return _istr;
 }
@@ -479,7 +479,7 @@ template <class T>
 pair<T, T> getLiner(pair<T, T> p0, pair<T, T> p1) {
   T a = (p0.second - p1.second) / (p0.first - p1.first);
   T b = p0.second - (p0.first * a);
-  return make_pair(a,b);
+  return make_pair(a, b);
 }
 
 void execution();
