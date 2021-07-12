@@ -46,9 +46,9 @@
 #define int long long
 #define ALL(var) ((var).begin()), ((var).end())
 #ifdef DEBUG
-# define PRINT(var) cout << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
+# define D(var) cout << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
 #else
-# define PRINT(var) ;
+# define D(var) ;
 #endif
 
 using namespace std;
