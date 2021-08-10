@@ -347,34 +347,29 @@ private:
   };
 
 public:
-  int V;
-  vector<vector<Edge>> G;
+  int v;
+  vector<vector<Edge>> g;
   vector<int> d;
+  vector<int> num;
 
   Graph(int n) {
     init(n);
   }
-
   void init(int n) {
-    V = n;
-    G.resize(V);
-    d.resize(V);
-    for (int i = 0; i < V; i++) {
-      d[i] = INT_MAX;
-    }
+    v = n;
+    g.resize(v);
+    d.resize(v);
+    num.resize(v);
+    d.assign(INT_MAX, d.size());
   }
-
   void add_edge(int s, int t, int cost) {
     Edge e;
     e.to = t, e.cost = cost;
-    G[s].push_back(e);
+    g[s].push_back(e);
   }
-
   void dijkstra(int s) {
-    for (int i = 0; i < V; i++) {
-      d[i] = INT_MAX;
-    }
     d[s] = 0;
+    num[s] = 1;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
     que.push(make_pair(0, s));
     while (!que.empty()) {
@@ -383,10 +378,14 @@ public:
       int v = p.second;
       if (d[v] < p.first)
         continue;
-      for (auto e : G[v]) {
+      for (auto e : g[v]) {
         if (d[e.to] > d[v] + e.cost) {
           d[e.to] = d[v] + e.cost;
+          num[e.to] = num[v];
           que.push(make_pair(d[e.to], e.to));
+        } else if (d[e.to] == d[v] + e.cost) {
+          num[e.to] += num[v];
+          num[e.to] %= 1000000007;
         }
       }
     }
