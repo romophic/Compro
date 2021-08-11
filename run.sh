@@ -21,7 +21,7 @@ function copy () {
 
 cat ./src/main.cpp | copy
 mkdir build > /dev/null 2>&1
-g++ -std=c++17 -pipe -Og -D DEBUG ./src/main.cpp -o ./build/main
+g++ -std=gnu++17 -O2 -g -pipe -D DEBUG ./src/main.cpp -o ./build/main
 
 echo "////////// build/main //////////"
 ./build/main
