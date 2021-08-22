@@ -46,9 +46,9 @@
 #define int long long
 #define ALL(var) ((var).begin()), ((var).end())
 #ifdef DEBUG
-# define D(var) cout << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
+#define D(var) cout << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
 #else
-# define D(var) ;
+#define D(var) ;
 #endif
 
 using namespace std;
@@ -464,6 +464,23 @@ vector<int> divisor(const int _n) {
   }
   head.insert(head.end(), tail.rbegin(), tail.rend());
   return head;
+}
+
+vector<pair<int, int>> primeFactorize(int n) {
+  vector<pair<int, int>> res;
+  for (int a = 2; a * a <= n; ++a) {
+    if (n % a != 0)
+      continue;
+    int ex = 0;
+    while (n % a == 0) {
+      ++ex;
+      n /= a;
+    }
+    res.push_back({a, ex});
+  }
+  if (n != 1)
+    res.push_back({n, 1});
+  return res;
 }
 
 int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
