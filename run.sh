@@ -22,6 +22,9 @@ function copy () {
 copy < ./src/main.cpp &
 mkdir build > /dev/null 2>&1
 g++ -std=gnu++17 -O2 -g -pipe -D DEBUG ./src/main.cpp -o ./build/main
-
-echo "////////// build/main //////////"
-./build/main
+if [[ $? == 0 ]]; then #succeed
+  echo "////////// build/main //////////"
+  ./build/main
+else
+  echo "Compile failed"
+fi
