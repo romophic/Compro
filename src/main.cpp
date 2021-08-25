@@ -110,7 +110,7 @@ template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   _ostr << "t{";
   bool first = true;
-  apply([&_ostr, &first](auto &&... args) {
+  apply([&_ostr, &first](auto &&...args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << ",";
@@ -452,6 +452,24 @@ public:
   Cnt &begin() { return st; }
   Cnt &end() { return ed; }
 };
+
+template <class T>
+bool chmax(T &a, const T &b) {
+  if (a < b) {
+    a = b;
+    return true;
+  }
+  return false;
+}
+
+template <class T>
+bool chmin(T &a, const T &b) {
+  if (a > b) {
+    a = b;
+    return true;
+  }
+  return false;
+}
 
 vector<int> divisor(const int _n) {
   vector<int> head, tail;
