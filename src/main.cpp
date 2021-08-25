@@ -53,6 +53,8 @@
 
 using namespace std;
 
+constexpr int MOD = 1000000007;
+
 template <typename T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
 template <typename T>
@@ -173,7 +175,6 @@ istream &operator>>(istream &_istr, pair<T, Y> &_v) {
   return _istr;
 }
 
-template <int MOD>
 class ModNum {
 public:
   int num;
@@ -230,9 +231,9 @@ public:
     return this->num == r.num;
   }
   constexpr bool operator!=(const ModNum &r) {
-    return this->num != r.val;
+    return this->num != r.num;
   }
-  constexpr ModNum<MOD> modpow(const ModNum<MOD> &a, int n) {
+  constexpr ModNum modpow(const ModNum &a, int n) {
     if (n == 0)
       return 1;
     auto t = modpow(a, n / 2);
@@ -241,7 +242,7 @@ public:
       t = t * a;
     return t;
   }
-  friend constexpr ostream &operator<<(ostream &os, const ModNum<MOD> &x) {
+  friend constexpr ostream &operator<<(ostream &os, const ModNum &x) {
     return os << x.num;
   }
 };
