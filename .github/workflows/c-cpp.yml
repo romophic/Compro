@@ -11,5 +11,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: run.sh
-      run: bash run.sh
+    - name: compile and run
+      run: g++ -std=gnu++17 -O2 -g -pipe -D DEBUG ./src/main.cpp
