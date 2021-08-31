@@ -242,7 +242,7 @@ public:
       t = t * a;
     return t;
   }
-  friend const ostream &operator<<(ostream &os, const ModNum &x) {
+  friend constexpr ostream &operator<<(ostream &os, const ModNum &x) {
     return os << x.num;
   }
 };
