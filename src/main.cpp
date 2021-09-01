@@ -528,4 +528,4 @@ signed main() {
   execution();
 }
 
-inline void execution() {}
+void execution() {}
