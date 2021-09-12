@@ -1,5 +1,5 @@
 # Competitive programming template
-
+![screenshot.png](screenshot.png)
 ## Depends
 
 - gcc
