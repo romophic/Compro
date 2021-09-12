@@ -1,12 +1,13 @@
-/*        _        ____     */
-/*    U  /"\  u U /"___|    */
-/*     \/ _ \/  \| | u      */
-/*     / ___ \   | |/__     */
-/*    /_/   \_\   \____|    */
-/*     \\    >>  _// \\     */
-/*    (__)  (__)(__)(__)    */
-/* github.com/NULLCT/Compro */
-/*   Copyriλht (c) NULLCT   */
+/*                 _        ____              */
+/*   AC        U  /"\  u U /"___|     AC      */
+/*              \/ _ \/  \| | u               */
+/*        AC    / ___ \   | |/__    AC        */
+/*             /_/   \_\   \____|             */
+/* AC           \\    >>  _// \\         AC   */
+/*             (__)  (__)(__)(__)             */
+/*          github.com/NULLCT/Compro          */
+/*            Copyriλht (c) NULLCT            */
+/*   Code is written at the bottom function   */
 
 #pragma GCC optimize("O3")
 
@@ -84,7 +85,6 @@ void dumpFromRangeList(ostream &_ostr, const T &_v) {
   }
   _ostr << "}";
 }
-
 template <typename T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
   _ostr << "v";
@@ -112,7 +112,7 @@ template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   _ostr << "t{";
   bool first = true;
-  apply([&_ostr, &first](auto &&...args) {
+  apply([&_ostr, &first](auto &&... args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << ",";
@@ -251,7 +251,6 @@ template <typename Monoid>
 class SegmentTree {
 public:
   using F = function<Monoid(Monoid, Monoid)>;
-
   int sz;
   vector<Monoid> seg;
   const F f;
@@ -341,58 +340,6 @@ public:
   }
 };
 
-class Graph {
-private:
-  struct Edge {
-    int to, cost;
-  };
-
-public:
-  int v;
-  vector<vector<Edge>> g;
-  vector<int> d;
-  vector<int> num;
-
-  Graph(int n) {
-    init(n);
-  }
-  void init(int n) {
-    v = n;
-    g.resize(v);
-    d.resize(v);
-    num.resize(v);
-    d.assign(INT_MAX, d.size());
-  }
-  void add_edge(int s, int t, int cost) {
-    Edge e;
-    e.to = t, e.cost = cost;
-    g[s].push_back(e);
-  }
-  void dijkstra(int s) {
-    d[s] = 0;
-    num[s] = 1;
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
-    que.push(make_pair(0, s));
-    while (!que.empty()) {
-      pair<int, int> p = que.top();
-      que.pop();
-      int v = p.second;
-      if (d[v] < p.first)
-        continue;
-      for (auto e : g[v]) {
-        if (d[e.to] > d[v] + e.cost) {
-          d[e.to] = d[v] + e.cost;
-          num[e.to] = num[v];
-          que.push(make_pair(d[e.to], e.to));
-        } else if (d[e.to] == d[v] + e.cost) {
-          num[e.to] += num[v];
-          num[e.to] %= 1000000007;
-        }
-      }
-    }
-  }
-};
-
 class UnionFind {
 public:
   int n;
@@ -437,8 +384,104 @@ public:
   }
 };
 
+class DirectedGraph {
+public:
+  struct Edge {
+    int to, cost;
+  };
+  int v;
+  vector<int> d, num;
+  vector<vector<Edge>> g;
+
+  DirectedGraph(int n) {
+    init(n);
+  }
+  void init(int n) {
+    v = n;
+    g.resize(v);
+    d.resize(v);
+    num.resize(v);
+    d.assign(INT_MAX, d.size());
+  }
+  void add_edge(int s, int t, int cost) {
+    Edge e;
+    e.to = t, e.cost = cost;
+    g[s].push_back(e);
+  }
+  void dijkstra(int s) {
+    d[s] = 0;
+    num[s] = 1;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
+    que.push(make_pair(0, s));
+    while (!que.empty()) {
+      pair<int, int> p = que.top();
+      que.pop();
+      int v = p.second;
+      if (d[v] < p.first)
+        continue;
+      for (auto e : g[v]) {
+        if (d[e.to] > d[v] + e.cost) {
+          d[e.to] = d[v] + e.cost;
+          num[e.to] = num[v];
+          que.push(make_pair(d[e.to], e.to));
+        } else if (d[e.to] == d[v] + e.cost) {
+          num[e.to] += num[v];
+          num[e.to] %= 1000000007;
+        }
+      }
+    }
+  }
+};
+
+class UndirectedGraph {
+public:
+  int n;
+  vector<pair<int, int>> ev;
+  vector<pair<int, int>> cv;
+
+  void init(int _n) {
+    n = _n;
+  }
+  UndirectedGraph(int _n) {
+    init(_n);
+  }
+  void add_nondirected_edge(int u, int v, int c) {
+    int eid;
+    eid = ev.size();
+    ev.push_back(make_pair(u, v));
+    cv.push_back(make_pair(c, eid));
+  }
+  int calc_valonly(void) {
+    vector<pair<int, int>> tmp;
+    return calc(tmp);
+  }
+  int calc(vector<pair<int, int>> &used_edge) {
+    UnionFind uf(n);
+    int res;
+    int c;
+    int eid, u, v;
+    res = 0;
+    sort(cv.begin(), cv.end());
+    for (pair<int, int> p : cv) {
+      c = p.first;
+      eid = p.second;
+      u = ev[eid].first;
+      v = ev[eid].second;
+      if (uf.root(u) != uf.root(v)) {
+        res += c;
+        uf.merge(u, v);
+        used_edge.push_back(pair<int, int>(u, v));
+      } else if (c < 0)
+        res += c;
+    }
+    if (uf.groups().size() != 1)
+      return -1;
+    return res;
+  }
+};
+
 class Range {
-private:
+public:
   struct Cnt {
     int num;
     int operator*() { return num; }
@@ -447,7 +490,6 @@ private:
   };
   Cnt st, ed;
 
-public:
   Range(const int _end) : st({0}), ed({_end}) {}
   Range(const int _start, const int _end) : st({_start}), ed({_end}) {}
   Cnt &begin() { return st; }
@@ -515,6 +557,15 @@ pair<T, T> getLiner(pair<T, T> p0, pair<T, T> p1) {
   T a = (p0.second - p1.second) / (p0.first - p1.first);
   T b = p0.second - (p0.first * a);
   return make_pair(a, b);
+}
+
+template <class T>
+vector<vector<T>> turnR(const vector<vector<char>> &s) {
+  vector<vector<T>> res(s[0].size(), vector<char>(s.size()));
+  for (int y = 0; y < s.size(); y++)
+    for (int x = 0; x < s[0].size(); x++)
+      res[x][s.size() - y - 1] = s[y][x];
+  return res;
 }
 
 void execution();
