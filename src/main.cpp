@@ -80,7 +80,7 @@ void dumpFromRangeList(ostream &_ostr, const T &_v) {
   _ostr << "{";
   for (auto itr = _v.begin(); itr != _v.end(); itr++) {
     _ostr << *itr;
-    if (next(itr, 1) != _v.end())
+    if (next(itr) != _v.end())
       _ostr << ",";
   }
   _ostr << "}";
@@ -390,18 +390,19 @@ public:
     int to, cost;
   };
   int n;
-  vector<vector<Edge>> G;
   vector<int> d;
+  vector<vector<Edge>> g;
 
-  DirectedGraph(int _n) : G(_n), d(_n, INT_MAX) {
+  DirectedGraph(int _n) : g(_n), d(_n) {
     n = _n;
   }
   void add_edge(int s, int t, int cost) {
     Edge e;
     e.to = t, e.cost = cost;
-    G[s].push_back(e);
+    g[s].push_back(e);
   }
   void dijkstra(int s) {
+    fill(d.begin(), d.end(), INT_MAX);
     d[s] = 0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
     que.push(make_pair(0, s));
@@ -411,7 +412,7 @@ public:
       int v = p.second;
       if (d[v] < p.first)
         continue;
-      for (auto e : G[v]) {
+      for (auto e : g[v]) {
         if (d[e.to] > d[v] + e.cost) {
           d[e.to] = d[v] + e.cost;
           que.push(make_pair(d[e.to], e.to));
@@ -427,13 +428,10 @@ public:
   vector<pair<int, int>> ev;
   vector<pair<int, int>> cv;
 
-  void init(int _n) {
+  UndirectedGraph(int _n) {
     n = _n;
   }
-  UndirectedGraph(int _n) {
-    init(_n);
-  }
-  void add_nondirected_edge(int u, int v, int c) {
+  void add_edge(int u, int v, int c) {
     int eid;
     eid = ev.size();
     ev.push_back(make_pair(u, v));
@@ -548,11 +546,20 @@ pair<T, T> getLiner(pair<T, T> p0, pair<T, T> p1) {
 }
 
 template <class T>
-vector<vector<T>> turnR(const vector<vector<char>> &s) {
-  vector<vector<T>> res(s[0].size(), vector<char>(s.size()));
+vector<vector<T>> turnR(const vector<vector<T>> &s) {
+  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
   for (int y = 0; y < s.size(); y++)
     for (int x = 0; x < s[0].size(); x++)
       res[x][s.size() - y - 1] = s[y][x];
+  return res;
+}
+
+template <class T>
+vector<vector<T>> turnL(const vector<vector<T>> &s) {
+  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
+  for (int y = 0; y < s.size(); y++)
+    for (int x = 0; x < s[0].size(); x++)
+      res[s[0].size() - x - 1][y] = s[y][x];
   return res;
 }
 
