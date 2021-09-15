@@ -389,28 +389,20 @@ public:
   struct Edge {
     int to, cost;
   };
-  int v;
-  vector<int> d, num;
-  vector<vector<Edge>> g;
+  int n;
+  vector<vector<Edge>> G;
+  vector<int> d;
 
-  DirectedGraph(int n) {
-    init(n);
-  }
-  void init(int n) {
-    v = n;
-    g.resize(v);
-    d.resize(v);
-    num.resize(v);
-    d.assign(INT_MAX, d.size());
+  DirectedGraph(int _n) : G(_n), d(_n, INT_MAX) {
+    n = _n;
   }
   void add_edge(int s, int t, int cost) {
     Edge e;
     e.to = t, e.cost = cost;
-    g[s].push_back(e);
+    G[s].push_back(e);
   }
   void dijkstra(int s) {
     d[s] = 0;
-    num[s] = 1;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
     que.push(make_pair(0, s));
     while (!que.empty()) {
@@ -419,14 +411,10 @@ public:
       int v = p.second;
       if (d[v] < p.first)
         continue;
-      for (auto e : g[v]) {
+      for (auto e : G[v]) {
         if (d[e.to] > d[v] + e.cost) {
           d[e.to] = d[v] + e.cost;
-          num[e.to] = num[v];
           que.push(make_pair(d[e.to], e.to));
-        } else if (d[e.to] == d[v] + e.cost) {
-          num[e.to] += num[v];
-          num[e.to] %= 1000000007;
         }
       }
     }
