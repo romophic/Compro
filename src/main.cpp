@@ -6,7 +6,7 @@
 /* AC           \\    >>  _// \\         AC   */
 /*             (__)  (__)(__)(__)             */
 /*          github.com/NULLCT/Compro          */
-/*            Copyriλht (c) NULLCT            */
+/*            Copyriaht (c) NULLCT            */
 /*   Code is written at the bottom function   */
 
 #pragma GCC optimize("O3")
