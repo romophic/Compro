@@ -179,41 +179,41 @@ class ModNum {
 public:
   int num;
 
-  constexpr ModNum(int v = 0) : num(v % MOD) {
+  ModNum(int v = 0) : num(v % MOD) {
     if (num < 0)
       num += MOD;
   }
-  constexpr int getmod() { return MOD; }
-  constexpr ModNum operator-() const { return num ? MOD - num : 0; }
-  constexpr ModNum operator+(const ModNum &r) {
+  int getmod() { return MOD; }
+  ModNum operator-() const { return num ? MOD - num : 0; }
+  ModNum operator+(const ModNum &r) {
     return ModNum(*this) += r;
   }
-  constexpr ModNum operator-(const ModNum &r) {
+  ModNum operator-(const ModNum &r) {
     return ModNum(*this) -= r;
   }
-  constexpr ModNum operator*(const ModNum &r) {
+  ModNum operator*(const ModNum &r) {
     return ModNum(*this) *= r;
   }
-  constexpr ModNum operator/(const ModNum &r) {
+  ModNum operator/(const ModNum &r) {
     return ModNum(*this) /= r;
   }
-  constexpr ModNum &operator+=(const ModNum &r) {
+  ModNum &operator+=(const ModNum &r) {
     num += r.num;
     if (num >= MOD)
       num -= MOD;
     return *this;
   }
-  constexpr ModNum &operator-=(const ModNum &r) {
+  ModNum &operator-=(const ModNum &r) {
     num -= r.num;
     if (num < 0)
       num += MOD;
     return *this;
   }
-  constexpr ModNum &operator*=(const ModNum &r) {
+  ModNum &operator*=(const ModNum &r) {
     num = num * r.num % MOD;
     return *this;
   }
-  constexpr ModNum &operator/=(const ModNum &r) {
+  ModNum &operator/=(const ModNum &r) {
     int a = r.num, b = MOD, u = 1, v = 0;
     while (b) {
       int t = a / b;
@@ -227,13 +227,13 @@ public:
       num += MOD;
     return *this;
   }
-  constexpr bool operator==(const ModNum &r) {
+  bool operator==(const ModNum &r) {
     return this->num == r.num;
   }
-  constexpr bool operator!=(const ModNum &r) {
+  bool operator!=(const ModNum &r) {
     return this->num != r.num;
   }
-  constexpr ModNum modpow(const ModNum &a, int n) {
+  ModNum modpow(const ModNum &a, int n) {
     if (n == 0)
       return 1;
     auto t = modpow(a, n / 2);
@@ -242,7 +242,7 @@ public:
       t = t * a;
     return t;
   }
-  friend const ostream &operator<<(ostream &os, const ModNum &x) {
+  friend ostream &operator<<(ostream &os, const ModNum &x) {
     return os << x.num;
   }
 };
@@ -573,4 +573,17 @@ signed main() {
   execution();
 }
 
-void execution() {}
+void execution() {
+  int n,q;cin>>n>>q;
+
+  SegmentTree<int> seg(n,[](int a,int b){return min(a,b);}, INT_MAX);
+
+  while(q--){
+    int t,x,y;cin>>t>>x>>y;
+    if(t == 0){
+      seg.update(x, y);
+    }else{
+      cout<<seg.query(x, y+1)<<"\n";
+    }
+  }
+}
