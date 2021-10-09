@@ -56,26 +56,26 @@ using namespace std;
 
 constexpr int MOD = 1000000007;
 
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const deque<T> &_v);
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const list<T> &_v);
-template <typename T, typename Y>
+template <class T, class Y>
 ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v);
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t);
-template <typename T, typename Y>
+template <class T, class Y>
 ostream &operator<<(ostream &_ostr, const map<T, Y> &_v);
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const set<T> &_v);
-template <typename T, typename Y>
+template <class T, class Y>
 ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v);
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v);
 
-template <typename T>
+template <class T>
 void dumpFromRangeList(ostream &_ostr, const T &_v) {
   _ostr << "{";
   for (auto itr = _v.begin(); itr != _v.end(); itr++) {
@@ -85,25 +85,25 @@ void dumpFromRangeList(ostream &_ostr, const T &_v) {
   }
   _ostr << "}";
 }
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
   _ostr << "v";
   dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const deque<T> &_v) {
   _ostr << "d";
   dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const list<T> &_v) {
   _ostr << "l";
   dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
-template <typename T, typename Y>
+template <class T, class Y>
 ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
   _ostr << "p{" << _v.first << "," << _v.second << "}";
   return _ostr;
@@ -125,51 +125,51 @@ ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   _ostr << "}";
   return _ostr;
 }
-template <typename T, typename Y>
+template <class T, class Y>
 ostream &operator<<(ostream &_ostr, const map<T, Y> &_v) {
   _ostr << "m";
   dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
-template <typename T, typename Y>
+template <class T, class Y>
 ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v) {
   _ostr << "um";
   dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const set<T> &_v) {
   _ostr << "s";
   dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
-template <typename T>
+template <class T>
 ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v) {
   _ostr << "us";
   dumpFromRangeList(_ostr, _v);
   return _ostr;
 }
 
-template <typename T>
+template <class T>
 istream &operator>>(istream &_istr, vector<T> &_v);
-template <typename T>
+template <class T>
 istream &operator>>(istream &_istr, deque<T> &_v);
-template <typename T, typename Y>
+template <class T, class Y>
 istream &operator>>(istream &_istr, pair<T, Y> &_v);
 
-template <typename T>
+template <class T>
 istream &operator>>(istream &_istr, vector<T> &_v) {
   for (auto &i : _v)
     _istr >> i;
   return _istr;
 }
-template <typename T>
+template <class T>
 istream &operator>>(istream &_istr, deque<T> &_v) {
   for (auto &i : _v)
     _istr >> i;
   return _istr;
 }
-template <typename T, typename Y>
+template <class T, class Y>
 istream &operator>>(istream &_istr, pair<T, Y> &_v) {
   _istr >> _v.first >> _v.second;
   return _istr;
@@ -247,7 +247,7 @@ public:
   }
 };
 
-template <typename Monoid>
+template <class Monoid>
 class SegmentTree {
 public:
   using F = function<Monoid(Monoid, Monoid)>;
@@ -288,7 +288,7 @@ public:
   Monoid operator[](const int &k) const {
     return seg[k + sz];
   }
-  template <typename C>
+  template <class C>
   int find_subtree(int a, const C &check, Monoid &M, bool type) {
     while (a < sz) {
       Monoid nxt = type ? f(seg[2 * a + type], M) : f(M, seg[2 * a + type]);
@@ -299,7 +299,7 @@ public:
     }
     return a - sz;
   }
-  template <typename C>
+  template <class C>
   int find_first(int a, const C &check) {
     Monoid L = M1;
     if (a <= 0) {
@@ -319,7 +319,7 @@ public:
     }
     return -1;
   }
-  template <typename C>
+  template <class C>
   int find_last(int b, const C &check) {
     Monoid R = M1;
     if (b >= sz) {
