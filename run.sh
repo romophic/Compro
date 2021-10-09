@@ -23,6 +23,7 @@ copy < ./src/main.cpp &
 mkdir build > /dev/null 2>&1
 clang++ -std=c++17 -O2 -g -pipe -D DEBUG ./src/main.cpp -o ./build/main
 if [[ $? == 0 ]]; then #succeed
+  tail ./src/main.cpp
   lldb ./build/main
 else
   echo "Compile failed"
