@@ -2,3 +2,5 @@
 .clangd/
 build/
 history/
+
+a.out

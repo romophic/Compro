@@ -20,11 +20,9 @@ function copy () {
 }
 
 copy < ./src/main.cpp &
-mkdir build > /dev/null 2>&1
-clang++ -std=c++17 -O2 -g -pipe -D DEBUG ./src/main.cpp -o ./build/main
+clang++ -std=c++17 -O2 -g -pipe -D DEBUG ./src/main.cpp
 if [[ $? == 0 ]]; then #succeed
-  tail ./src/main.cpp
-  lldb ./build/main
+  ./a.out
 else
   echo "Compile failed"
 fi
