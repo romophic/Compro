@@ -569,21 +569,7 @@ signed main() {
   cout.tie(nullptr);
   ios::sync_with_stdio(false);
   cout << fixed << setprecision(10);
-
   execution();
 }
 
-void execution() {
-  int n,q;cin>>n>>q;
-
-  SegmentTree<int> seg(n,[](int a,int b){return min(a,b);}, INT_MAX);
-
-  while(q--){
-    int t,x,y;cin>>t>>x>>y;
-    if(t == 0){
-      seg.update(x, y);
-    }else{
-      cout<<seg.query(x, y+1)<<"\n";
-    }
-  }
-}
+void execution() {}
