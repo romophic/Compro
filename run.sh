@@ -16,10 +16,9 @@ function copy () {
     exit
   fi
 
-  echo "Not found command for copy" >&2
+  echo "No command found to copy" >&2
 }
 
 copy < ./src/main.cpp &
 mkdir build &> /dev/null
-clang++ -std=c++17 -O2 -g -pipe -D DEBUG ./src/main.cpp -o ./build/a.out
-echo "done"
+clang++ -std=c++17 -Og -g -pipe -D DEBUG ./src/main.cpp -o ./build/main || lldb ./build/main
