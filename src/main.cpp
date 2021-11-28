@@ -21,6 +21,7 @@
 #include <climits>
 #include <cmath>
 #include <complex>
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -113,7 +114,7 @@ template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   _ostr << "t{";
   bool first = true;
-  apply([&_ostr, &first](auto &&... args) {
+  apply([&_ostr, &first](auto &&...args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << ",";
@@ -151,6 +152,8 @@ ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v) {
   return _ostr;
 }
 
+template <class T, size_t S>
+istream &operator>>(istream &_istr, array<T, S> &_v);
 template <class T>
 istream &operator>>(istream &_istr, vector<T> &_v);
 template <class T>
@@ -158,6 +161,12 @@ istream &operator>>(istream &_istr, deque<T> &_v);
 template <class T, class Y>
 istream &operator>>(istream &_istr, pair<T, Y> &_v);
 
+template <class T, size_t S>
+istream &operator>>(istream &_istr, array<T, S> &_v) {
+  for (auto &i : _v)
+    _istr >> i;
+  return _istr;
+}
 template <class T>
 istream &operator>>(istream &_istr, vector<T> &_v) {
   for (auto &i : _v)
