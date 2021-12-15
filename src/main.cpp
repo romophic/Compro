@@ -115,7 +115,7 @@ template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   _ostr << "t{";
   bool first = true;
-  apply([&_ostr, &first](auto &&...args) {
+  apply([&_ostr, &first](auto &&... args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << ",";
@@ -266,37 +266,30 @@ public:
 
   SuccinctIndexableDictionary() {
   }
-
   SuccinctIndexableDictionary(size_t _length) {
     length = _length;
     blocks = (length + 31) >> 5;
     bit.assign(blocks, 0U);
     sum.assign(blocks, 0U);
   }
-
   void set(int k) {
     bit[k >> 5] |= 1U << (k & 31);
   }
-
   void build() {
     sum[0] = 0U;
     for (int i = 1; i < blocks; i++) {
       sum[i] = sum[i - 1] + __builtin_popcount(bit[i - 1]);
     }
   }
-
   bool operator[](int k) const {
     return (bool((bit[k >> 5] >> (k & 31)) & 1));
   }
-
   int rank(int k) {
     return (sum[k >> 5] + __builtin_popcount(bit[k >> 5] & ((1U << (k & 31)) - 1)));
   }
-
   int rank(bool val, int k) {
     return (val ? rank(k) : k - rank(k));
   }
-
   int select(bool val, int k) {
     if (k < 0 || rank(val, length) <= k)
       return (-1);
@@ -310,7 +303,6 @@ public:
     }
     return (high - 1);
   }
-
   int select(bool val, int i, int l) {
     return select(val, i + rank(val, l));
   }
@@ -337,7 +329,6 @@ struct WaveletMatrix {
     return freq_dfs(d + 1, l - lc, r - rc, val, a, b) +
            freq_dfs(d + 1, lc + zs[d], rc + zs[d], nv, a, b);
   }
-
   WaveletMatrix(vector<T> data) {
     length = data.size();
     vector<T> l(length), r(length);
@@ -358,7 +349,6 @@ struct WaveletMatrix {
         data[left + i] = r[i];
     }
   }
-
   T access(int k) {
     int ret = 0;
     bool bit;
@@ -369,7 +359,6 @@ struct WaveletMatrix {
     }
     return (ret);
   }
-
   int rank(T val, int k) {
     int l = 0, r = k;
     for (int depth = 0; depth < MAXLOG; depth++) {
@@ -380,7 +369,6 @@ struct WaveletMatrix {
     }
     return (r - l);
   }
-
   int select(T val, int kth) {
     rank(val, length);
     for (int depth = MAXLOG - 1; depth >= 0; depth--) {
@@ -392,11 +380,9 @@ struct WaveletMatrix {
     }
     return (kth);
   }
-
   int select(T val, int k, int l) {
     return select(val, k + rank(val, l));
   }
-
   int quantile(int left, int right, int kth) {
     if (right - left <= kth || kth < 0)
       return (-1);
@@ -416,7 +402,6 @@ struct WaveletMatrix {
     }
     return ret;
   }
-
   int rangefreq(int left, int right, T lower, T upper) {
     return freq_dfs(0, left, right, 0, lower, upper);
   }
