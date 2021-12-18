@@ -626,17 +626,19 @@ public:
 };
 
 class Range {
-public:
   struct Cnt {
-    int num;
-    int operator*() { return num; }
-    bool operator!=(const Cnt &_num) { return num < _num.num; }
-    void operator++() { num++; }
+    int n;
+    int add = 1;
+    int operator*() { return n; }
+    bool operator!=(const Cnt &_n) { return n < _n.n; }
+    void operator++() { n += add; }
   };
   Cnt st, ed;
 
-  Range(const int _end) : st({0}), ed({_end}) {}
-  Range(const int _start, const int _end) : st({_start}), ed({_end}) {}
+public:
+  Range(const int &_ed) : st({0}), ed({_ed}) {}
+  Range(const int &_st, const int &_ed) : st({_st}), ed({_ed}) {}
+  Range(const int &_st, const int &_ed, const int &_add) : st({_st, _add}), ed({_ed, _add}) {}
   Cnt &begin() { return st; }
   Cnt &end() { return ed; }
 };
