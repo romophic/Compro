@@ -49,10 +49,6 @@
 
 #define int long long
 #define double long double
-#undef INT_MAX
-#undef INT_MIN
-#define INT_MAX LONG_LONG_MAX
-#define INT_MIN LONG_LONG_MIN
 #define ALL(var) ((var).begin()), ((var).end())
 #ifdef DEBUG
 #define D(var) cerr << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
@@ -425,6 +421,22 @@ public:
     Edge e;
     e.to = t, e.cost = cost;
     g[s].push_back(e);
+  }
+  vector<vector<int>> warshallfloyd(){
+    vector<vector<int>> d(n,vector<int>(n,INT_MAX));
+    for(int i=0;i<n;i++)
+      d[i][i] = 0;
+    for(int i=0;i<n;i++){
+      for(Edge &j:g[i]){
+        d[i][j.to] = min(d[i][j.to],j.cost);
+      }
+    }
+
+    for(int i=0;i<n;i++)
+      for(int j=0;j<n;j++)
+        for(int k=0;k<n;k++)
+          d[j][k] = min(d[j][k],d[j][i] + d[i][k]);
+    return d;
   }
   vector<int> dijkstra(int s) {
     vector<int> d(n,INT_MAX);
