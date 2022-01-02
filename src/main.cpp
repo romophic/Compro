@@ -48,6 +48,7 @@
 #include <vector>
 
 #define int long long
+#define double long double
 #define ALL(var) ((var).begin()), ((var).end())
 #ifdef DEBUG
 #define D(var) cerr << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
