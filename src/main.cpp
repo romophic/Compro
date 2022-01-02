@@ -49,6 +49,10 @@
 
 #define int long long
 #define double long double
+#undef INT_MAX
+#undef INT_MIN
+#define INT_MAX LONG_LONG_MAX
+#define INT_MIN LONG_LONG_MIN
 #define ALL(var) ((var).begin()), ((var).end())
 #ifdef DEBUG
 #define D(var) cerr << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
@@ -412,19 +416,18 @@ public:
     int to, cost;
   };
   int n;
-  vector<int> d;
   vector<vector<Edge>> g;
 
-  DirectedGraph(int _n) : g(_n), d(_n) {
+  DirectedGraph(int _n) : g(_n) {
     n = _n;
   }
-  void add_edge(int s, int t, int cost) {
+  void add(int s, int t, int cost) {
     Edge e;
     e.to = t, e.cost = cost;
     g[s].push_back(e);
   }
-  void dijkstra(int s) {
-    fill(d.begin(), d.end(), INT_MAX);
+  vector<int> dijkstra(int s) {
+    vector<int> d(n,INT_MAX);
     d[s] = 0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
     que.push(make_pair(0, s));
@@ -441,6 +444,37 @@ public:
         }
       }
     }
+    return d;
+  }
+  vector<int> bellmanfood(int s) {
+    vector<int> d(n,INT_MAX);
+    d[s] = 0;
+    for (int _ = 0; _ < n; _++) {
+      bool upd = false;
+      for (int u = 0; u < n; u++)
+        if (d[u] < INT_MAX)
+          for (const auto &e : g[u]) {
+            int v = e.to;
+            if (d[v] > d[u] + e.cost)
+              d[v] = d[u] + e.cost, upd = true;
+          }
+      if (!upd)
+        return d;
+    }
+    queue<int> Q;
+    for (int u = 0; u < n; u++)
+      if (d[u] < INT_MAX)
+        Q.emplace(u);
+    while (!Q.empty()) {
+      int u = Q.front();
+      Q.pop();
+      for (const auto &e : g[u]) {
+        int v = e.to;
+        if (d[v] > INT_MIN && (d[u] == INT_MIN || d[v] > d[u] + e.cost))
+          d[v] = INT_MIN, Q.emplace(v);
+      }
+    }
+    return d;
   }
 };
 
@@ -453,7 +487,7 @@ public:
   UndirectedGraph(int _n) {
     n = _n;
   }
-  void add_edge(int u, int v, int c) {
+  void add(int u, int v, int c) {
     int eid;
     eid = ev.size();
     ev.push_back(make_pair(u, v));
