@@ -89,7 +89,7 @@ template <class T>
 void orange(ostream &_ostr, const T &_v) {
   if (_v.size() == 0)
     return;
-  _ostr << _v[0];
+  _ostr << *_v.begin();
   for (auto itr = next(_v.begin()); itr != _v.end(); itr++)
     _ostr << " " << *itr;
 }
