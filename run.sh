@@ -21,4 +21,5 @@ function copy () {
 
 copy < ./src/main.cpp &
 mkdir build &> /dev/null
+rm -v ./build/main
 clang++ -std=c++17 -Og -g -pipe -D DEBUG ./src/main.cpp -o ./build/main && lldb ./build/main
