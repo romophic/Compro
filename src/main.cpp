@@ -570,6 +570,34 @@ bool chmin(T &a, const T &b) {
   return false;
 }
 
+void _matchPair(int n, vector<vector<pair<int, int>>> &res, vector<pair<int, int>> r, set<int> trs) {
+  if (trs.size() == 0) {
+    res.push_back(r);
+    return;
+  }
+  int mem1 = *trs.begin();
+  trs.erase(trs.begin());
+  for (auto &i : trs) {
+    {
+      auto t = trs;
+      t.erase(i);
+      r.push_back({mem1, i});
+      _matchPair(n, res, r, t);
+      r.pop_back();
+    }
+  }
+}
+
+vector<vector<pair<int, int>>> matchPair(int n) {
+  set<int> trs;
+  for (int i : Range(n))
+    trs.insert(i);
+  vector<pair<int, int>> r;
+  vector<vector<pair<int, int>>> res;
+  _matchPair(n, res, r, trs);
+  return res;
+}
+
 vector<int> divisor(const int _n) {
   vector<int> head, tail;
   for (int i = 1; i * i <= _n; i++) {
