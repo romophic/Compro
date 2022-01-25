@@ -422,24 +422,24 @@ public:
     e.to = t, e.cost = cost;
     g[s].push_back(e);
   }
-  vector<vector<int>> warshallfloyd(){
-    vector<vector<int>> d(n,vector<int>(n,INT_MAX));
-    for(int i=0;i<n;i++)
+  vector<vector<int>> warshallfloyd() {
+    vector<vector<int>> d(n, vector<int>(n, INT_MAX));
+    for (int i = 0; i < n; i++)
       d[i][i] = 0;
-    for(int i=0;i<n;i++){
-      for(Edge &j:g[i]){
-        d[i][j.to] = min(d[i][j.to],j.cost);
+    for (int i = 0; i < n; i++) {
+      for (Edge &j : g[i]) {
+        d[i][j.to] = min(d[i][j.to], j.cost);
       }
     }
 
-    for(int i=0;i<n;i++)
-      for(int j=0;j<n;j++)
-        for(int k=0;k<n;k++)
-          d[j][k] = min(d[j][k],d[j][i] + d[i][k]);
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < n; j++)
+        for (int k = 0; k < n; k++)
+          d[j][k] = min(d[j][k], d[j][i] + d[i][k]);
     return d;
   }
   vector<int> dijkstra(int s) {
-    vector<int> d(n,INT_MAX);
+    vector<int> d(n, INT_MAX);
     d[s] = 0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
     que.push(make_pair(0, s));
@@ -459,7 +459,7 @@ public:
     return d;
   }
   vector<int> bellmanfood(int s) {
-    vector<int> d(n,INT_MAX);
+    vector<int> d(n, INT_MAX);
     d[s] = 0;
     for (int _ = 0; _ < n; _++) {
       bool upd = false;
