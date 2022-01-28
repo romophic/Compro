@@ -367,17 +367,16 @@ public:
   int n;
   vector<int> par;
 
-  UnionFind() : n(0) {}
   UnionFind(int _n) : n(_n), par(_n, -1) {}
-  int merge(int a, int b) {
-    int x = root(a), y = root(b);
-    if (x == y)
-      return x;
-    if (-par[x] < -par[y])
-      swap(x, y);
-    par[x] += par[y];
-    par[y] = x;
-    return x;
+  bool merge(int a, int b) {
+    a = root(a), b = root(b);
+    if (a == b)
+      return false;
+    if (par[a] > par[b])
+      swap(a, b);
+    par[a] += par[b];
+    par[b] = a;
+    return true;
   }
   bool isSame(int a, int b) {
     return root(a) == root(b);
@@ -493,43 +492,25 @@ public:
 class UndirectedGraph {
 public:
   int n;
-  vector<pair<int, int>> ev;
-  vector<pair<int, int>> cv;
+  vector<tuple<int, int, int>> g;
 
   UndirectedGraph(int _n) {
     n = _n;
   }
   void add(int u, int v, int c) {
-    int eid;
-    eid = ev.size();
-    ev.push_back(make_pair(u, v));
-    cv.push_back(make_pair(c, eid));
+    g.push_back({u, v, c});
   }
-  int calc_valonly(void) {
-    vector<pair<int, int>> tmp;
-    return calc(tmp);
-  }
-  int calc(vector<pair<int, int>> &used_edge) {
+  vector<vector<int>> kruskal(){
     UnionFind uf(n);
-    int res;
-    int c;
-    int eid, u, v;
-    res = 0;
-    sort(cv.begin(), cv.end());
-    for (pair<int, int> p : cv) {
-      c = p.first;
-      eid = p.second;
-      u = ev[eid].first;
-      v = ev[eid].second;
-      if (uf.root(u) != uf.root(v)) {
-        res += c;
-        uf.merge(u, v);
-        used_edge.push_back(pair<int, int>(u, v));
-      } else if (c < 0)
-        res += c;
+    vector<vector<int>> res(n);
+    sort(g.begin(),g.end(),[](auto &l, auto &r){return get<2>(l) < get<2>(r);});
+    D(g);
+    for(auto &[a,b,cost]:g){
+      if(uf.merge(a,b)){
+        res[a].push_back(b);
+        res[b].push_back(a);
+      }
     }
-    if (uf.groups().size() != 1)
-      return -1;
     return res;
   }
 };
