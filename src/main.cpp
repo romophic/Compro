@@ -116,7 +116,7 @@ ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   bool first = true;
-  apply([&_ostr, &first](auto &&... args) {
+  apply([&_ostr, &first](auto &&...args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << " ";
@@ -197,78 +197,63 @@ istream &operator>>(istream &_istr, pair<T, Y> &_v) {
   return _istr;
 }
 
-class ModNum {
+template <int mod>
+class ModInt {
 public:
-  int num;
-  int mod;
-
-  ModNum(int _num, int _mod) : num(_num % _mod), mod(_mod) {
-    if (num < 0)
-      num += mod;
+  int n;
+  constexpr ModInt(const int x = 0) noexcept : n(x % mod) {}
+  constexpr int &value() noexcept { return n; }
+  constexpr const int &value() const noexcept { return n; }
+  constexpr ModInt operator+(const ModInt rhs) const noexcept {
+    return ModInt(*this) += rhs;
   }
-  int getmod() { return mod; }
-  ModNum operator-() const { return ModNum(num ? mod - num : 0, mod); }
-  ModNum operator+(const ModNum &r) {
-    return ModNum(*this) += r;
+  constexpr ModInt operator-(const ModInt rhs) const noexcept {
+    return ModInt(*this) -= rhs;
   }
-  ModNum operator-(const ModNum &r) {
-    return ModNum(*this) -= r;
+  constexpr ModInt operator*(const ModInt rhs) const noexcept {
+    return ModInt(*this) *= rhs;
   }
-  ModNum operator*(const ModNum &r) {
-    return ModNum(*this) *= r;
+  constexpr ModInt operator/(const ModInt rhs) const noexcept {
+    return ModInt(*this) /= rhs;
   }
-  ModNum operator/(const ModNum &r) {
-    return ModNum(*this) /= r;
-  }
-  ModNum &operator+=(const ModNum &r) {
-    num += r.num;
-    if (num >= mod)
-      num -= mod;
+  constexpr ModInt &operator+=(const ModInt rhs) noexcept {
+    n += rhs.n;
+    if (n >= mod)
+      n -= mod;
     return *this;
   }
-  ModNum &operator-=(const ModNum &r) {
-    num -= r.num;
-    if (num < 0)
-      num += mod;
+  constexpr ModInt &operator-=(const ModInt rhs) noexcept {
+    if (n < rhs.n)
+      n += mod;
+    n -= rhs.n;
     return *this;
   }
-  ModNum &operator*=(const ModNum &r) {
-    num = num * r.num % mod;
+  constexpr ModInt &operator*=(const ModInt rhs) noexcept {
+    n = n * rhs.n % mod;
     return *this;
   }
-  ModNum &operator/=(const ModNum &r) {
-    int a = r.num, b = mod, u = 1, v = 0;
-    while (b) {
-      int t = a / b;
-      a -= t * b;
-      swap(a, b);
-      u -= t * v;
-      swap(u, v);
+  constexpr ModInt &operator/=(ModInt rhs) noexcept {
+    int exp = mod - 2;
+    while (exp) {
+      if (exp % 2)
+        *this *= rhs;
+      rhs *= rhs;
+      exp /= 2;
     }
-    num = num * u % mod;
-    if (num < 0)
-      num += mod;
     return *this;
-  }
-  bool operator==(const ModNum &r) {
-    return this->num == r.num;
-  }
-  bool operator!=(const ModNum &r) {
-    return this->num != r.num;
-  }
-  ModNum modpow(const ModNum &a, int n) {
-    if (n == 0)
-      return ModNum(1, mod);
-    auto t = modpow(a, n / 2);
-    t = t * t;
-    if (n & 1)
-      t = t * a;
-    return t;
-  }
-  friend ostream &operator<<(ostream &os, const ModNum &x) {
-    return os << x.num;
   }
 };
+
+int modpow(int a, int n, int mod) {
+  int res = 1;
+  while (n > 0) {
+    if (n & 1)
+      res = res * a % mod;
+    a = a * a % mod;
+    n >>= 1;
+  }
+  return res;
+}
 
 template <class T>
 class SegmentTree {
@@ -500,13 +485,13 @@ public:
   void add(int u, int v, int c) {
     g.push_back({u, v, c});
   }
-  vector<vector<int>> kruskal(){
+  vector<vector<int>> kruskal() {
     UnionFind uf(n);
     vector<vector<int>> res(n);
-    sort(g.begin(),g.end(),[](auto &l, auto &r){return get<2>(l) < get<2>(r);});
+    sort(g.begin(), g.end(), [](auto &l, auto &r) { return get<2>(l) < get<2>(r); });
     D(g);
-    for(auto &[a,b,cost]:g){
-      if(uf.merge(a,b)){
+    for (auto &[a, b, cost] : g) {
+      if (uf.merge(a, b)) {
         res[a].push_back(b);
         res[b].push_back(a);
       }
