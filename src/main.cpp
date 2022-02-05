@@ -262,7 +262,6 @@ public:
   vector<T> seg;
   const function<T(T, T)> f;
   const T M1;
-
   SegmentTree(int n, const function<T(T, T)> f, const T &M1) : f(f), M1(M1) {
     sz = 1;
     while (sz < n)
@@ -351,7 +350,6 @@ class UnionFind {
 public:
   int n;
   vector<int> par;
-
   UnionFind(int _n) : n(_n), par(_n, -1) {}
   bool merge(int a, int b) {
     a = root(a), b = root(b);
@@ -478,7 +476,6 @@ class UndirectedGraph {
 public:
   int n;
   vector<tuple<int, int, int>> g;
-
   UndirectedGraph(int _n) {
     n = _n;
   }
