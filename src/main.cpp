@@ -281,6 +281,7 @@ public:
     while (k >>= 1)
       seg[k] = f(seg[2 * k + 0], seg[2 * k + 1]);
   }
+  // O(log n)
   T query(int a, int b) {
     T L = M1, R = M1;
     for (a += sz, b += sz; a < b; a >>= 1, b >>= 1) {
@@ -351,6 +352,7 @@ public:
   int n;
   vector<int> par;
   UnionFind(int _n) : n(_n), par(_n, -1) {}
+  // O(α(n))
   bool merge(int a, int b) {
     a = root(a), b = root(b);
     if (a == b)
@@ -361,6 +363,7 @@ public:
     par[b] = a;
     return true;
   }
+  // O(α(n))
   bool isSame(int a, int b) {
     return root(a) == root(b);
   }
@@ -404,6 +407,7 @@ public:
     e.to = t, e.cost = cost;
     g[s].push_back(e);
   }
+  // O(V^3)
   vector<vector<int>> warshallfloyd() {
     vector<vector<int>> d(n, vector<int>(n, INT_MAX));
     for (int i = 0; i < n; i++)
@@ -420,6 +424,7 @@ public:
           d[j][k] = min(d[j][k], d[j][i] + d[i][k]);
     return d;
   }
+  // O(E+VlogV)
   vector<int> dijkstra(int s) {
     vector<int> d(n, INT_MAX);
     d[s] = 0;
@@ -440,6 +445,7 @@ public:
     }
     return d;
   }
+  // O(V*E)
   vector<int> bellmanfood(int s) {
     vector<int> d(n, INT_MAX);
     d[s] = 0;
@@ -482,6 +488,7 @@ public:
   void add(int u, int v, int c) {
     g.push_back({u, v, c});
   }
+  // O(ElogV)
   vector<vector<int>> kruskal() {
     UnionFind uf(n);
     vector<vector<int>> res(n);
@@ -634,5 +641,6 @@ signed main() {
   cout << fixed << setprecision(16);
   execution();
 }
+
 
 void execution() {}
