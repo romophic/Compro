@@ -446,7 +446,7 @@ public:
     return d;
   }
   // O(V*E)
-  vector<int> bellmanfood(int s) {
+  vector<int> bellmanford(int s) {
     vector<int> d(n, INT_MAX);
     d[s] = 0;
     for (int _ = 0; _ < n; _++) {
