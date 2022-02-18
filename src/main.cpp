@@ -116,7 +116,7 @@ ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   bool first = true;
-  apply([&_ostr, &first](auto &&...args) {
+  apply([&_ostr, &first](auto &&... args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << " ";
@@ -412,12 +412,9 @@ public:
     vector<vector<int>> d(n, vector<int>(n, INT_MAX));
     for (int i = 0; i < n; i++)
       d[i][i] = 0;
-    for (int i = 0; i < n; i++) {
-      for (Edge &j : g[i]) {
+    for (int i = 0; i < n; i++)
+      for (Edge &j : g[i])
         d[i][j.to] = min(d[i][j.to], j.cost);
-      }
-    }
-
     for (int i = 0; i < n; i++)
       for (int j = 0; j < n; j++)
         for (int k = 0; k < n; k++)
@@ -641,6 +638,5 @@ signed main() {
   cout << fixed << setprecision(16);
   execution();
 }
-
 
 void execution() {}
