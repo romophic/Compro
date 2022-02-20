@@ -197,15 +197,6 @@ istream &operator>>(istream &_istr, pair<T, Y> &_v) {
   return _istr;
 }
 
-template <class T>
-class lambda {
-public:
-  T f;
-  template <class... Args>
-  decltype(auto) operator()(Args &&... args) const & { return f(ref(*this), forward<Args>(args)...); }
-};
-template <class F> lambda(F) -> lambda<F>;
-
 template <int mod>
 class ModInt {
 public:
