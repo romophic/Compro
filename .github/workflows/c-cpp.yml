@@ -11,5 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: compile and run
-      run: g++ -std=gnu++17 -O2 -g -pipe -D DEBUG ./src/main.cpp
+    #https://atcoder.jp/contests/APG4b/rules
+    - name: compile by g++
+      run: g++ -std=gnu++17 -Wall -Wextra -O2 -DONLINE_JUDGE -I/opt/boost/gcc/include -L/opt/boost/gcc/lib -I/opt/ac-library -o ./a.out ./src/main.cpp
+
+    - name: compile by clang++
+      run: clang++ -std=c++17 -stdlib=libc++ -Wall -O2 -DNDEBUG -DONLINE_JUDGE -I/opt/boost/clang/include -L/opt/boost/clang/lib -I/opt/ac-library -o ./a.out ./src/main.cpp
