@@ -201,38 +201,36 @@ template <int mod>
 class ModInt {
 public:
   int n;
-  constexpr ModInt(const int x = 0) noexcept : n(x % mod) {}
-  constexpr int &value() noexcept { return n; }
-  constexpr const int &value() const noexcept { return n; }
-  constexpr ModInt operator+(const ModInt rhs) const noexcept {
+  constexpr ModInt(const int x = 0) : n(x % mod) {}
+  constexpr ModInt operator+(const ModInt &rhs) {
     return ModInt(*this) += rhs;
   }
-  constexpr ModInt operator-(const ModInt rhs) const noexcept {
+  constexpr ModInt operator-(const ModInt &rhs) {
     return ModInt(*this) -= rhs;
   }
-  constexpr ModInt operator*(const ModInt rhs) const noexcept {
+  constexpr ModInt operator*(const ModInt &rhs) {
     return ModInt(*this) *= rhs;
   }
-  constexpr ModInt operator/(const ModInt rhs) const noexcept {
+  constexpr ModInt operator/(const ModInt &rhs) {
     return ModInt(*this) /= rhs;
   }
-  constexpr ModInt &operator+=(const ModInt rhs) noexcept {
+  constexpr ModInt &operator+=(const ModInt &rhs) {
     n += rhs.n;
     if (n >= mod)
       n -= mod;
     return *this;
   }
-  constexpr ModInt &operator-=(const ModInt rhs) noexcept {
+  constexpr ModInt &operator-=(const ModInt &rhs) {
     if (n < rhs.n)
       n += mod;
     n -= rhs.n;
     return *this;
   }
-  constexpr ModInt &operator*=(const ModInt rhs) noexcept {
+  constexpr ModInt &operator*=(const ModInt &rhs) {
     n = n * rhs.n % mod;
     return *this;
   }
-  constexpr ModInt &operator/=(ModInt rhs) noexcept {
+  constexpr ModInt &operator/=(const ModInt &rhs) {
     int exp = mod - 2;
     while (exp) {
       if (exp % 2)
@@ -241,6 +239,14 @@ public:
       exp /= 2;
     }
     return *this;
+  }
+  constexpr bool operator==(const ModInt &rhs) {
+    return n == rhs.n;
+  }
+  template <int T>
+  friend ostream &operator<<(ostream &_ostr, const ModInt<T> &_v) {
+    _ostr << _v.n;
+    return _ostr;
   }
 };
 
