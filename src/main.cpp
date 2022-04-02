@@ -9,7 +9,10 @@
 /*            Copyriaht (c) NULLCT            */
 /*   Code is written at the bottom function   */
 
+#pragma GCC target("avx2")
 #pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 
 #include <algorithm>
 #include <array>
@@ -53,11 +56,15 @@
 #define ALL(var) ((var).begin()), ((var).end())
 #ifdef DEBUG
 #define D(var) cerr << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
+#define DD(var) for_each(var.begin(), var.end(), [](const auto &i) { D(i); })
 #else
 #define D(var) ;
+#define DD(var) ;
 #endif
 
 using namespace std;
+
+constexpr array<int, 4> dx{1, 1, -1, -1}, dy{-1, 1, 1, -1};
 
 template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
