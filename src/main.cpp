@@ -644,7 +644,7 @@ vector<vector<T>> turnL(const vector<vector<T>> &s) {
   return res;
 }
 
-void execution();
+void solve();
 
 signed main() {
   cin.tie(nullptr);
@@ -652,7 +652,7 @@ signed main() {
   ios::sync_with_stdio(false);
   ios_base::sync_with_stdio(false);
   cout << fixed << setprecision(16);
-  execution();
+  solve();
 }
 
-void execution() {}
+void solve() {}
