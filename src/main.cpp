@@ -6,8 +6,6 @@
 /* AC           \\    >>  _// \\         AC   */
 /*             (__)  (__)(__)(__)             */
 /*          github.com/NULLCT/Compro          */
-/*            Copyriaht (c) NULLCT            */
-/*   Code is written at the bottom function   */
 
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
