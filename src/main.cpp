@@ -64,6 +64,8 @@ using namespace std;
 
 constexpr array<int, 4> dx{1, 1, -1, -1}, dy{-1, 1, 1, -1};
 
+template <class T,size_t S>
+ostream &operator<<(ostream &_ostr, const array<T,S> &_v);
 template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
 template <class T>
@@ -98,6 +100,11 @@ void orange(ostream &_ostr, const T &_v) {
   _ostr << *_v.begin();
   for (auto itr = next(_v.begin()); itr != _v.end(); itr++)
     _ostr << " " << *itr;
+}
+template <class T,size_t S>
+ostream &operator<<(ostream &_ostr, const array<T,S> &_v) {
+  orange(_ostr, _v);
+  return _ostr;
 }
 template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
