@@ -3,6 +3,5 @@ a.exe
 a.out
 .cache/
 .clangd/
-.vscode/
 build/
 history/

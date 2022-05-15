@@ -26,6 +26,4 @@ function copy () {
 }
 
 copy < ./src/main.cpp && echo "👍"
-mkdir build &> /dev/null
-rm -v ./build/main
-clang++ -std=c++17 -Og -g -pipe -D DEBUG ./src/main.cpp -o ./build/main && lldb ./build/main
+g++ -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover -fstack-protector -pipe -DDEBUG  -std=c++17 -O3 ./src/main.cpp
