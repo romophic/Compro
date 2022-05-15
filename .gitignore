@@ -1,4 +1,6 @@
 out.txt
+a.exe
+a.out
 .cache/
 .clangd/
 .vscode/
