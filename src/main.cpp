@@ -53,7 +53,7 @@
 #define rep(i, e) for (int i = 0; i < (e); i++)
 #define ALL(var) ((var).begin()), ((var).end())
 #ifdef DEBUG
-#define D(var) cerr << "(\e[34m" << #var << "\e[0m \e[2m@" << __LINE__ << "\e[0m): \e[36m\e[1m" << var << "\e[0m" << endl;
+#define D(var) cerr << __LINE__ << ":" << #var << " " << var << endl;
 #define DD(var) for_each(var.begin(), var.end(), [](const auto &i) { D(i); })
 #else
 #define D(var) ;
@@ -64,8 +64,8 @@ using namespace std;
 
 constexpr array<int, 4> dx{1, 1, -1, -1}, dy{-1, 1, 1, -1};
 
-template <class T,size_t S>
-ostream &operator<<(ostream &_ostr, const array<T,S> &_v);
+template <class T, size_t S>
+ostream &operator<<(ostream &_ostr, const array<T, S> &_v);
 template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
 template <class T>
@@ -101,8 +101,8 @@ void orange(ostream &_ostr, const T &_v) {
   for (auto itr = next(_v.begin()); itr != _v.end(); itr++)
     _ostr << " " << *itr;
 }
-template <class T,size_t S>
-ostream &operator<<(ostream &_ostr, const array<T,S> &_v) {
+template <class T, size_t S>
+ostream &operator<<(ostream &_ostr, const array<T, S> &_v) {
   orange(_ostr, _v);
   return _ostr;
 }
@@ -281,11 +281,11 @@ public:
   vector<T> seg;
   const function<T(T, T)> f;
   const T M1;
-  SegmentTree(int n, const function<T(T, T)> f, const T &M1) : f(f), M1(M1) {
+  SegmentTree(int n, const function<T(T, T)> _f, const T &_M1) : f(_f), M1(_M1) {
     sz = 1;
     while (sz < n)
       sz <<= 1;
-    seg.assign(2 * sz, M1);
+    seg.assign(2 * sz, _M1);
   }
   void set(int k, const T &x) {
     seg[k + sz] = x;
