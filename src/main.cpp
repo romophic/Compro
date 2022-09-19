@@ -263,12 +263,23 @@ public:
   }
 };
 
-int modpow(int a, int n, int mod) {
+int mop(int a, int n, int mod) {
   int res = 1;
   while (n > 0) {
     if (n & 1)
       res = res * a % mod;
     a = a * a % mod;
+    n >>= 1;
+  }
+  return res;
+}
+
+int mop(int a, int n) {
+  int res = 1;
+  while (n > 0) {
+    if (n & 1)
+      res = res * a;
+    a = a * a;
     n >>= 1;
   }
   return res;
@@ -369,44 +380,48 @@ public:
 class UnionFind {
 public:
   int n;
-  vector<int> par;
-  UnionFind(int _n) : n(_n), par(_n, -1) {}
-  // O(α(n))
-  bool merge(int a, int b) {
-    a = root(a), b = root(b);
-    if (a == b)
-      return false;
-    if (par[a] > par[b])
-      swap(a, b);
-    par[a] += par[b];
-    par[b] = a;
-    return true;
+  vector<int> p;
+  UnionFind(int _n) : n(_n), p(_n, -1) {}
+  int merge(int a, int b) {
+    assert(0 <= a && a < n);
+    assert(0 <= b && b < n);
+    int x = root(a), y = root(b);
+    if (x == y)
+      return x;
+    if (-p[x] < -p[y])
+      swap(x, y);
+    p[x] += p[y];
+    p[y] = x;
+    return x;
   }
-  // O(α(n))
   bool isSame(int a, int b) {
+    assert(0 <= a && a < n);
+    assert(0 <= b && b < n);
     return root(a) == root(b);
   }
   int root(int a) {
-    if (par[a] < 0)
+    assert(0 <= a && a < n);
+    if (p[a] < 0)
       return a;
-    return par[a] = root(par[a]);
+    return p[a] = root(p[a]);
   }
   int size(int a) {
-    return -par[root(a)];
+    assert(0 <= a && a < n);
+    return -p[root(a)];
   }
   vector<vector<int>> groups() {
-    vector<int> leader_buf(n), group_size(n);
+    vector<int> buf(n), size(n);
     for (int i = 0; i < n; i++) {
-      leader_buf[i] = root(i);
-      group_size[leader_buf[i]]++;
+      buf[i] = root(i);
+      size[buf[i]]++;
     }
-    vector<vector<int>> result(n);
+    vector<vector<int>> res(n);
     for (int i = 0; i < n; i++)
-      result[i].reserve(group_size[i]);
+      res[i].reserve(size[i]);
     for (int i = 0; i < n; i++)
-      result[leader_buf[i]].push_back(i);
-    result.erase(remove_if(result.begin(), result.end(), [&](const vector<int> &v) { return v.empty(); }), result.end());
-    return result;
+      res[buf[i]].push_back(i);
+    res.erase(remove_if(res.begin(), res.end(), [&](const vector<int> &v) { return v.empty(); }), res.end());
+    return res;
   }
 };
 
