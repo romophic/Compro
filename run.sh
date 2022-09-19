@@ -26,4 +26,5 @@ function copy () {
 }
 
 copy < ./src/main.cpp && echo "👍"
-g++ -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover -fstack-protector -pipe -DDEBUG  -std=c++17 -O3 ./src/main.cpp
+rm a.out
+g++ -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fno-sanitize-recover -fstack-protector -pipe -DDEBUG  -std=c++17 -O3 ./src/main.cpp
