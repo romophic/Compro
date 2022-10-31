@@ -28,6 +28,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <deque>
+#include <fstream>
 #include <functional>
 #include <iomanip>
 #include <ios>
@@ -208,41 +209,43 @@ istream &operator>>(istream &_istr, pair<T, Y> &_v) {
   return _istr;
 }
 
-template <int mod>
-class ModInt {
+template <int Modulus>
+class modint {
 public:
   int n;
-  constexpr ModInt(const int x = 0) : n(x % mod) {}
-  constexpr ModInt operator+(const ModInt &rhs) {
-    return ModInt(*this) += rhs;
+  constexpr modint(const int x = 0) noexcept : n(x % Modulus) {}
+  constexpr int &value() noexcept { return n; }
+  constexpr const int &value() const noexcept { return n; }
+  constexpr modint operator+(const modint rhs) const noexcept {
+    return modint(*this) += rhs;
   }
-  constexpr ModInt operator-(const ModInt &rhs) {
-    return ModInt(*this) -= rhs;
+  constexpr modint operator-(const modint rhs) const noexcept {
+    return modint(*this) -= rhs;
   }
-  constexpr ModInt operator*(const ModInt &rhs) {
-    return ModInt(*this) *= rhs;
+  constexpr modint operator*(const modint rhs) const noexcept {
+    return modint(*this) *= rhs;
   }
-  constexpr ModInt operator/(const ModInt &rhs) {
-    return ModInt(*this) /= rhs;
+  constexpr modint operator/(const modint rhs) const noexcept {
+    return modint(*this) /= rhs;
   }
-  constexpr ModInt &operator+=(const ModInt &rhs) {
+  constexpr modint &operator+=(const modint rhs) noexcept {
     n += rhs.n;
-    if (n >= mod)
-      n -= mod;
+    if (n >= Modulus)
+      n -= Modulus;
     return *this;
   }
-  constexpr ModInt &operator-=(const ModInt &rhs) {
+  constexpr modint &operator-=(const modint rhs) noexcept {
     if (n < rhs.n)
-      n += mod;
+      n += Modulus;
     n -= rhs.n;
     return *this;
   }
-  constexpr ModInt &operator*=(const ModInt &rhs) {
-    n = n * rhs.n % mod;
+  constexpr modint &operator*=(const modint rhs) noexcept {
+    n = n * rhs.n % Modulus;
     return *this;
   }
-  constexpr ModInt &operator/=(const ModInt &rhs) {
-    int exp = mod - 2;
+  constexpr modint &operator/=(modint rhs) noexcept {
+    int exp = Modulus - 2;
     while (exp) {
       if (exp % 2)
         *this *= rhs;
@@ -251,19 +254,15 @@ public:
     }
     return *this;
   }
-  constexpr bool operator==(const ModInt &rhs) {
-    return n == rhs.n;
-  }
-  template <int T>
-  friend ostream &operator<<(ostream &_ostr, const ModInt<T> &_v) {
-    _ostr << _v.n;
-    return _ostr;
-  }
-  template <int T>
-  friend istream &operator>>(istream &_istr, ModInt<T> &_v) {
-    int in;cin>>in;
-    _v = in;
+  template <int mod>
+  friend istream &operator>>(istream &_istr, modint<mod> &rhs) {
+    _istr >> rhs.n;
+    rhs.n %= Modulus;
     return _istr;
+  }
+  template <int mod>
+  friend ostream &operator<<(ostream &_ostr, const modint<mod> &rhs) {
+    return _ostr << rhs.n;
   }
 };
 
