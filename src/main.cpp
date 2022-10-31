@@ -62,8 +62,6 @@
 
 using namespace std;
 
-constexpr array<int, 4> dx{1, 1, -1, -1}, dy{-1, 1, 1, -1};
-
 template <class T, size_t S>
 ostream &operator<<(ostream &_ostr, const array<T, S> &_v);
 template <class T>
@@ -260,6 +258,12 @@ public:
   friend ostream &operator<<(ostream &_ostr, const ModInt<T> &_v) {
     _ostr << _v.n;
     return _ostr;
+  }
+  template <int T>
+  friend istream &operator>>(istream &_istr, ModInt<T> &_v) {
+    int in;cin>>in;
+    _v = in;
+    return _istr;
   }
 };
 
