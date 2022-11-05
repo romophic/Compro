@@ -47,6 +47,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <valarray>
 #include <vector>
 
 #define int long long
@@ -67,6 +68,8 @@ template <class T, size_t S>
 ostream &operator<<(ostream &_ostr, const array<T, S> &_v);
 template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v);
+template <class T>
+ostream &operator<<(ostream &_ostr, const valarray<T> &_v);
 template <class T>
 ostream &operator<<(ostream &_ostr, const deque<T> &_v);
 template <class T>
@@ -107,6 +110,11 @@ ostream &operator<<(ostream &_ostr, const array<T, S> &_v) {
 }
 template <class T>
 ostream &operator<<(ostream &_ostr, const vector<T> &_v) {
+  orange(_ostr, _v);
+  return _ostr;
+}
+template <class T>
+ostream &operator<<(ostream &_ostr, const valarray<T> &_v) {
   orange(_ostr, _v);
   return _ostr;
 }
@@ -181,6 +189,8 @@ istream &operator>>(istream &_istr, array<T, S> &_v);
 template <class T>
 istream &operator>>(istream &_istr, vector<T> &_v);
 template <class T>
+istream &operator>>(istream &_istr, valarray<T> &_v);
+template <class T>
 istream &operator>>(istream &_istr, deque<T> &_v);
 template <class T, class Y>
 istream &operator>>(istream &_istr, pair<T, Y> &_v);
@@ -193,6 +203,12 @@ istream &operator>>(istream &_istr, array<T, S> &_v) {
 }
 template <class T>
 istream &operator>>(istream &_istr, vector<T> &_v) {
+  for (auto &i : _v)
+    _istr >> i;
+  return _istr;
+}
+template <class T>
+istream &operator>>(istream &_istr, valarray<T> &_v) {
   for (auto &i : _v)
     _istr >> i;
   return _istr;
