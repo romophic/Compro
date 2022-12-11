@@ -1,6 +1,7 @@
 out.txt
 a.exe
 a.out
+main
 .cache/
 .clangd/
 build/
