@@ -3,7 +3,6 @@
 ## Depends
 
 - gcc
-- xclip or pbcopy or copy.exe
 
 ## How
 
