@@ -282,7 +282,7 @@ public:
   }
 };
 
-int mop(int a, int n, int mod=LLONG_MAX) {
+int mop(int a, int n, int mod = LLONG_MAX) {
   int res = 1;
   while (n > 0) {
     if (n & 1)
