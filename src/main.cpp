@@ -53,10 +53,10 @@
 #define int long long
 #define double long double
 #define rep(i, e) for (int i = 0; i < (e); i++)
-#define ALL(var) ((var).begin()), ((var).end())
+#define ALL(var) begin(var), end(var)
 #ifdef DEBUG
 #define D(var) cerr << __LINE__ << ":" << #var << " " << var << endl;
-#define DD(var) for_each(var.begin(), var.end(), [](const auto &i) { D(i); })
+#define DD(var) for_each(begin(var), end(var), [](const auto &i) { D(i); })
 #else
 #define D(var) ;
 #define DD(var) ;
@@ -99,8 +99,8 @@ template <class T>
 void orange(ostream &_ostr, const T &_v) {
   if (_v.size() == 0)
     return;
-  _ostr << *_v.begin();
-  for (auto itr = next(_v.begin()); itr != _v.end(); itr++)
+  _ostr << *begin(_v);
+  for (auto itr = next(begin(_v)); itr != end(_v); itr++)
     _ostr << " " << *itr;
 }
 template <class T, size_t S>
@@ -136,7 +136,7 @@ ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   bool first = true;
-  apply([&_ostr, &first](auto &&...args) {
+  apply([&_ostr, &first](auto &&... args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << " ";
@@ -639,10 +639,8 @@ vector<pair<int, int>> primeFactorize(int n) {
     if (n % a != 0)
       continue;
     int ex = 0;
-    while (n % a == 0) {
-      ++ex;
-      n /= a;
-    }
+    while (n % a == 0)
+      ++ex, n /= a;
     res.push_back({a, ex});
   }
   if (n != 1)
