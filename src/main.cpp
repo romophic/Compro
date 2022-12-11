@@ -282,23 +282,12 @@ public:
   }
 };
 
-int mop(int a, int n, int mod) {
+int mop(int a, int n, int mod=LLONG_MAX) {
   int res = 1;
   while (n > 0) {
     if (n & 1)
       res = res * a % mod;
     a = a * a % mod;
-    n >>= 1;
-  }
-  return res;
-}
-
-int mop(int a, int n) {
-  int res = 1;
-  while (n > 0) {
-    if (n & 1)
-      res = res * a;
-    a = a * a;
     n >>= 1;
   }
   return res;
