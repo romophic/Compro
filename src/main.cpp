@@ -29,15 +29,12 @@
 #include <ctime>
 #include <deque>
 #include <fstream>
-#include <functional>
 #include <iomanip>
-#include <ios>
 #include <iostream>
 #include <iterator>
 #include <list>
 #include <map>
 #include <numeric>
-#include <ostream>
 #include <queue>
 #include <set>
 #include <stack>
@@ -100,7 +97,7 @@ void orange(ostream &_ostr, const T &_v) {
   if (_v.size() == 0)
     return;
   _ostr << *begin(_v);
-  for (auto itr = next(begin(_v)); itr != end(_v); itr++)
+  for (auto itr = next(begin(_v)), enditr = end(_v); itr != enditr; itr++)
     _ostr << " " << *itr;
 }
 template <class T, size_t S>
@@ -673,10 +670,8 @@ vector<vector<T>> turnL(const vector<vector<T>> &s) {
 void solve();
 
 signed main() {
-  cin.tie(nullptr);
-  cout.tie(nullptr);
+  cin.tie(0)->sync_with_stdio(0);
   ios::sync_with_stdio(false);
-  ios_base::sync_with_stdio(false);
   cout << fixed << setprecision(16);
   solve();
 }
