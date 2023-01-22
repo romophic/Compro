@@ -29,6 +29,7 @@
 #include <ctime>
 #include <deque>
 #include <fstream>
+#include <functional>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -60,6 +61,8 @@
 #endif
 
 using namespace std;
+
+constexpr int INF = 1LL << 60;
 
 template <class T, size_t S>
 ostream &operator<<(ostream &_ostr, const array<T, S> &_v);
@@ -222,6 +225,89 @@ istream &operator>>(istream &_istr, pair<T, Y> &_v) {
   return _istr;
 }
 
+vector<int> divisor(int n) {
+  vector<int> head, tail;
+  for (int i = 1; i * i <= n; i++) {
+    if (n % i == 0) {
+      head.push_back(i);
+      if (i * i != n)
+        tail.push_back(n / i);
+    }
+  }
+  head.insert(head.end(), tail.rbegin(), tail.rend());
+  return head;
+}
+
+vector<pair<int, int>> primeFactorize(int n) {
+  vector<pair<int, int>> res;
+  for (int a = 2; a * a <= n; ++a) {
+    if (n % a != 0)
+      continue;
+    int ex = 0;
+    while (n % a == 0)
+      ++ex, n /= a;
+    res.push_back({a, ex});
+  }
+  if (n != 1)
+    res.push_back({n, 1});
+  return res;
+}
+
+int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
+  while (ok - ng > 1) {
+    int mid = (ng + ok) / 2;
+    (discriminant(mid) ? ok : ng) = mid;
+  }
+  return ok;
+}
+
+template <class T>
+vector<vector<T>> turnR(const vector<vector<T>> &s) {
+  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
+  for (int y = 0; y < s.size(); y++)
+    for (int x = 0; x < s[0].size(); x++)
+      res[x][s.size() - y - 1] = s[y][x];
+  return res;
+}
+
+template <class T>
+vector<vector<T>> turnL(const vector<vector<T>> &s) {
+  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
+  for (int y = 0; y < s.size(); y++)
+    for (int x = 0; x < s[0].size(); x++)
+      res[s[0].size() - x - 1][y] = s[y][x];
+  return res;
+}
+
+int mop(int a, int n, int mod = INF) {
+  int res = 1;
+  while (n > 0) {
+    if (n & 1)
+      res = res * a % mod;
+    a = a * a % mod;
+    n >>= 1;
+  }
+  return res;
+}
+
+template <class T>
+bool chmax(T &a, const T &b) {
+  if (a < b) {
+    a = b;
+    return true;
+  }
+  return false;
+}
+
+template <class T>
+bool chmin(T &a, const T &b) {
+  if (a > b) {
+    a = b;
+    return true;
+  }
+  return false;
+}
+
 template <int Modulus>
 class modint {
 public:
@@ -278,17 +364,6 @@ public:
     return _ostr << rhs.n;
   }
 };
-
-int mop(int a, int n, int mod = LLONG_MAX) {
-  int res = 1;
-  while (n > 0) {
-    if (n & 1)
-      res = res * a % mod;
-    a = a * a % mod;
-    n >>= 1;
-  }
-  return res;
-}
 
 template <class T>
 class SegmentTree {
@@ -388,8 +463,6 @@ public:
   vector<int> p;
   UnionFind(int _n) : n(_n), p(_n, -1) {}
   int merge(int a, int b) {
-    assert(0 <= a && a < n);
-    assert(0 <= b && b < n);
     int x = root(a), y = root(b);
     if (x == y)
       return x;
@@ -400,18 +473,14 @@ public:
     return x;
   }
   bool isSame(int a, int b) {
-    assert(0 <= a && a < n);
-    assert(0 <= b && b < n);
     return root(a) == root(b);
   }
   int root(int a) {
-    assert(0 <= a && a < n);
     if (p[a] < 0)
       return a;
     return p[a] = root(p[a]);
   }
   int size(int a) {
-    assert(0 <= a && a < n);
     return -p[root(a)];
   }
   vector<vector<int>> groups() {
@@ -430,39 +499,114 @@ public:
   }
 };
 
+template <class Type>
+class WeightedUnionFind {
+public:
+  WeightedUnionFind() = default;
+  /// @brief 重み付き Union-Find 木を構築します。
+  /// @param n 要素数
+  explicit WeightedUnionFind(size_t n)
+      : m_parentsOrSize(n, -1), m_diffWeights(n) {}
+  /// @brief 頂点 i の root のインデックスを返します。
+  /// @param i 調べる頂点のインデックス
+  /// @return 頂点 i の root のインデックス
+  int find(int i) {
+    if (m_parentsOrSize[i] < 0)
+      return i;
+    const int root = find(m_parentsOrSize[i]);
+    m_diffWeights[i] += m_diffWeights[m_parentsOrSize[i]];
+    // 経路圧縮
+    return (m_parentsOrSize[i] = root);
+  }
+  /// @brief a のグループと b のグループを統合します。
+  /// @param a 一方のインデックス
+  /// @param b 他方のインデックス
+  /// @param w (b の重み) - (a の重み)
+  void merge(int a, int b, Type w) {
+    w += weight(a);
+    w -= weight(b);
+    a = find(a);
+    b = find(b);
+    if (a != b) {
+      // union by size (小さいほうが子になる）
+      if (-m_parentsOrSize[a] < -m_parentsOrSize[b]) {
+        swap(a, b);
+        w = -w;
+      }
+      m_parentsOrSize[a] += m_parentsOrSize[b];
+      m_parentsOrSize[b] = a;
+      m_diffWeights[b] = w;
+    }
+  }
+  /// @brief (b の重み) - (a の重み) を返します。
+  /// @param a 一方のインデックス
+  /// @param b 他方のインデックス
+  /// @remark a と b が同じグループに属さない場合の結果は不定です。
+  /// @return (b の重み) - (a の重み)
+  Type diff(int a, int b) {
+    return (weight(b) - weight(a));
+  }
+  /// @brief a と b が同じグループに属すかを返します。
+  /// @param a 一方のインデックス
+  /// @param b 他方のインデックス
+  /// @return a と b が同じグループに属す場合 true, それ以外の場合は false
+  bool connected(int a, int b) {
+    return (find(a) == find(b));
+  }
+  /// @brief i が属するグループの要素数を返します。
+  /// @param i インデックス
+  /// @return i が属するグループの要素数
+  int size(int i) {
+    return -m_parentsOrSize[find(i)];
+  }
+
+private:
+  // m_parentsOrSize[i] は i の 親,
+  // ただし root の場合は (-1 * そのグループに属する要素数)
+  vector<int> m_parentsOrSize;
+  // 重み
+  vector<Type> m_diffWeights;
+  Type weight(int i) {
+    find(i); // 経路圧縮
+    return m_diffWeights[i];
+  }
+};
+
 class DirectedGraph {
 public:
   struct Edge {
     int to, cost;
   };
-  int n;
+  const int N;
   vector<vector<Edge>> g;
-
-  DirectedGraph(int _n) : g(_n) {
-    n = _n;
-  }
+  DirectedGraph(int _n) : g(_n), N(_n) {}
   void add(int s, int t, int cost) {
-    Edge e;
-    e.to = t, e.cost = cost;
-    g[s].push_back(e);
+    g[s].push_back({t, cost});
   }
+  struct warshallfloyd_return {
+    vector<vector<int>> dist, next;
+  };
   // O(V^3)
-  vector<vector<int>> warshallfloyd() {
-    vector<vector<int>> d(n, vector<int>(n, INT_MAX));
-    for (int i = 0; i < n; i++)
-      d[i][i] = 0;
-    for (int i = 0; i < n; i++)
-      for (Edge &j : g[i])
-        d[i][j.to] = min(d[i][j.to], j.cost);
-    for (int i = 0; i < n; i++)
-      for (int j = 0; j < n; j++)
-        for (int k = 0; k < n; k++)
-          d[j][k] = min(d[j][k], d[j][i] + d[i][k]);
-    return d;
+  warshallfloyd_return warshallfloyd() {
+    vector<vector<int>> dist(N, vector<int>(N, INF)), next(N, vector<int>(N, INF));
+    for (int i = 0; i < N; i++)
+      dist[i][i] = 0;
+    for (int i = 0; i < N; i++)
+      for (int j = 0; j < N; j++)
+        next[i][j] = j;
+    for (int i = 0; i < N; i++)
+      for (auto &j : g[i])
+        chmin(dist[i][j.to], j.cost);
+    for (int k = 0; k < N; k++)
+      for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+          if (chmin(dist[i][j], dist[i][k] + dist[k][j]))
+            next[i][j] = next[i][k];
+    return {dist, next};
   }
   // O(E+VlogV)
   vector<int> dijkstra(int s) {
-    vector<int> d(n, INT_MAX);
+    vector<int> d(N, INF);
     d[s] = 0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
     que.push(make_pair(0, s));
@@ -481,45 +625,54 @@ public:
     }
     return d;
   }
+  struct bellmanford_return {
+    vector<int> path, distances;
+    bool hascycle;
+  };
   // O(V*E)
-  vector<int> bellmanford(int s) {
-    vector<int> d(n, INT_MAX);
-    d[s] = 0;
-    for (int _ = 0; _ < n; _++) {
-      bool upd = false;
-      for (int u = 0; u < n; u++)
-        if (d[u] < INT_MAX)
-          for (const auto &e : g[u]) {
-            int v = e.to;
-            if (d[v] > d[u] + e.cost)
-              d[v] = d[u] + e.cost, upd = true;
+  // https://zenn.dev/reputeless/books/standard-cpp-for-competitive-programming/viewer/bellman-ford
+  bellmanford_return bellmanford_SPFA(int st, int ed) {
+    vector<int> counts(g.size()), distances(g.size(), INF), path;
+    vector<bool> inqueue(g.size());
+    queue<int> q;
+    vector<int> p(g.size(), -1);
+    distances[st] = 0;
+    q.push(st);
+    inqueue[st] = true;
+    while (!q.empty()) {
+      const int from = q.front();
+      q.pop();
+      inqueue[from] = false;
+      for (const auto &edge : g[from]) {
+        const long long d = (distances[from] + edge.cost);
+        if (d < distances[edge.to]) {
+          distances[edge.to] = d;
+          p[edge.to] = from;
+          if (!inqueue[edge.to]) {
+            q.push(edge.to);
+            inqueue[edge.to] = true;
+            ++counts[edge.to];
+            if (g.size() < counts[edge.to])
+              return {vector<int>(), vector<int>(), true};
           }
-      if (!upd)
-        return d;
-    }
-    queue<int> Q;
-    for (int u = 0; u < n; u++)
-      if (d[u] < INT_MAX)
-        Q.emplace(u);
-    while (!Q.empty()) {
-      int u = Q.front();
-      Q.pop();
-      for (const auto &e : g[u]) {
-        int v = e.to;
-        if (d[v] > INT_MIN && (d[u] == INT_MIN || d[v] > d[u] + e.cost))
-          d[v] = INT_MIN, Q.emplace(v);
+        }
       }
     }
-    return d;
+    if (distances[ed] != INF) {
+      for (int i = ed; i != -1; i = p[i])
+        path.push_back(i);
+      reverse(path.begin(), path.end());
+    }
+    return {path, distances, false};
   }
   // O(V+E)
   vector<int> topologicalSort() {
-    vector<int> d, ind(n);
-    for (int i = 0; i < n; i++)
+    vector<int> d, ind(N);
+    for (int i = 0; i < N; i++)
       for (auto e : g[i])
         ind[e.to]++;
     queue<int> que;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < N; i++)
       if (ind[i] == 0)
         que.push(i);
     while (!que.empty()) {
@@ -579,92 +732,13 @@ public:
   const int &operator*() const { return m_value; }
 };
 Range range(int end) {
-  return {static_cast<int>(0), end, static_cast<int>(1)};
+  return {0LL, end, 1LL};
 }
 Range range(int begin, int end) {
-  return {begin, end, static_cast<int>(1)};
+  return {begin, end, 1LL};
 }
 Range range(int begin, int end, int stride) {
   return {begin, end, stride};
-}
-
-template <class T>
-bool chmax(T &a, const T &b) {
-  if (a < b) {
-    a = b;
-    return true;
-  }
-  return false;
-}
-
-template <class T>
-bool chmin(T &a, const T &b) {
-  if (a > b) {
-    a = b;
-    return true;
-  }
-  return false;
-}
-
-vector<int> divisor(int n) {
-  vector<int> head, tail;
-  for (int i = 1; i * i <= n; i++) {
-    if (n % i == 0) {
-      head.push_back(i);
-      if (i * i != n)
-        tail.push_back(n / i);
-    }
-  }
-  head.insert(head.end(), tail.rbegin(), tail.rend());
-  return head;
-}
-
-vector<pair<int, int>> primeFactorize(int n) {
-  vector<pair<int, int>> res;
-  for (int a = 2; a * a <= n; ++a) {
-    if (n % a != 0)
-      continue;
-    int ex = 0;
-    while (n % a == 0)
-      ++ex, n /= a;
-    res.push_back({a, ex});
-  }
-  if (n != 1)
-    res.push_back({n, 1});
-  return res;
-}
-
-int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
-  while (ok - ng > 1) {
-    int mid = (ng + ok) / 2;
-    (discriminant(mid) ? ok : ng) = mid;
-  }
-  return ok;
-}
-
-template <class T>
-pair<T, T> getLiner(pair<T, T> p0, pair<T, T> p1) {
-  T a = (p0.second - p1.second) / (p0.first - p1.first);
-  T b = p0.second - (p0.first * a);
-  return make_pair(a, b);
-}
-
-template <class T>
-vector<vector<T>> turnR(const vector<vector<T>> &s) {
-  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
-  for (int y = 0; y < s.size(); y++)
-    for (int x = 0; x < s[0].size(); x++)
-      res[x][s.size() - y - 1] = s[y][x];
-  return res;
-}
-
-template <class T>
-vector<vector<T>> turnL(const vector<vector<T>> &s) {
-  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
-  for (int y = 0; y < s.size(); y++)
-    for (int x = 0; x < s[0].size(); x++)
-      res[s[0].size() - x - 1][y] = s[y][x];
-  return res;
 }
 
 void solve();
