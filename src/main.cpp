@@ -5,7 +5,7 @@
 /*             /_/   \_\   \____|             */
 /* AC           \\    >>  _// \\         AC   */
 /*             (__)  (__)(__)(__)             */
-/*          github.com/NULLCT/Compro          */
+/*         github.com/romophic/Compro         */
 
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2")
@@ -114,11 +114,14 @@ ostream &operator<<(ostream &_ostr, const deque<T> &_v) { return _orange(_ostr, 
 template <class T>
 ostream &operator<<(ostream &_ostr, const list<T> &_v) { return _orange(_ostr, _v); }
 template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) { return _orange(_ostr, _v); }
+ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
+  _ostr << _v.first << ":" << _v.second;
+  return _ostr;
+}
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   bool first = true;
-  apply([&_ostr, &first](auto &&... args) {
+  apply([&_ostr, &first](auto &&...args) {
     auto print = [&](auto &&val) {
       if (!first)
         _ostr << " ";
@@ -420,7 +423,7 @@ public:
       return false;
     if (-p[x] < -p[y])
       swap(x, y);
-    p[x] += p[y],p[y]=x;
+    p[x] += p[y], p[y] = x;
     return true;
   }
   bool isSame(int a, int b) {
