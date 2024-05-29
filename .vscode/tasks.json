@@ -2,32 +2,27 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build",
-      "command": "g++",
+      "type": "cppbuild",
+      "label": "C/C++: clang++ アクティブなファイルのビルド",
+      "command": "/usr/bin/clang++",
       "args": [
-        "-Wall",
-        "-Wextra",
-        "-pedantic",
-        "-Wshadow",
-        "-Wformat=2",
-        "-Wfloat-equal",
-        "-Wconversion",
-        "-Wlogical-op",
-        "-Wshift-overflow=2",
-        "-Wduplicated-cond",
-        "-Wcast-qual",
-        "-Wcast-align",
-        "-D_GLIBCXX_DEBUG",
-        "-D_GLIBCXX_DEBUG_PEDANTIC",
-        "-D_FORTIFY_SOURCE=2",
-        "-fno-sanitize-recover",
-        "-fstack-protector",
-        "-pipe",
-        "-DDEBUG",
         "-std=c++17",
-        "-O3",
-        "${file}"
-      ]
+        "-fcolor-diagnostics",
+        "-fansi-escape-codes",
+        "-g",
+        "-D DEBUG",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build",
+      "detail": "デバッガーによって生成されたタスク。"
     }
   ]
 }
