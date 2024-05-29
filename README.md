@@ -1,17 +1,3 @@
 # COMpetitive PROgramming template
-![image](https://user-images.githubusercontent.com/45321757/206922969-dfa08ede-5cab-42ba-afa8-6ac923108641.png)
+<img width="821" alt="スクリーンショット 2024-05-29 17 58 29" src="https://github.com/romophic/Compro/assets/45321757/0c1ab207-b2fc-4b03-8558-75367cf381ae">
 
-## build
-```bash
-make
-```
-
-## build and run
-```bash
-make run
-```
-
-## clean
-```bash
-make clean
-```
