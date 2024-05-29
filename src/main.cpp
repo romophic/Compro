@@ -54,9 +54,11 @@
 #ifdef DEBUG
 #define D(var) cerr << __LINE__ << ":" << #var << " " << var << endl;
 #define DD(var) for_each(begin(var), end(var), [](const auto &i) { D(i); })
+#define DDD(var) for_each(begin(var), end(var), [](const auto &i) { DD(i); })
 #else
 #define D(var) ;
 #define DD(var) ;
+#define DDD(var) ;
 #endif
 
 using namespace std;
@@ -71,6 +73,10 @@ template <class T>
 ostream &operator<<(ostream &_ostr, const valarray<T> &_v);
 template <class T>
 ostream &operator<<(ostream &_ostr, const deque<T> &_v);
+template <class T>
+ostream &operator<<(ostream &_ostr, stack<T> _v);
+template <class T>
+ostream &operator<<(ostream &_ostr, queue<T> _v);
 template <class T>
 ostream &operator<<(ostream &_ostr, const list<T> &_v);
 template <class T, class Y>
@@ -112,12 +118,31 @@ ostream &operator<<(ostream &_ostr, const valarray<T> &_v) { return _orange(_ost
 template <class T>
 ostream &operator<<(ostream &_ostr, const deque<T> &_v) { return _orange(_ostr, _v); }
 template <class T>
-ostream &operator<<(ostream &_ostr, const list<T> &_v) { return _orange(_ostr, _v); }
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) {
-  _ostr << _v.first << ":" << _v.second;
+ostream &operator<<(ostream &_ostr, stack<T> _v) {
+  vector<T> v;
+  while (!_v.empty()) {
+    v.push_back(_v.top());
+    _v.pop();
+  }
+  reverse(v.begin(), v.end());
+  return _ostr << v;
+}
+template <class T>
+ostream &operator<<(ostream &_ostr, queue<T> _v) {
+  if (_v.size() == 0)
+    return _ostr;
+  _ostr << _v.front();
+  _v.pop();
+  while (!_v.empty()) {
+    _ostr << " " << _v.front();
+    _v.pop();
+  }
   return _ostr;
 }
+template <class T>
+ostream &operator<<(ostream &_ostr, const list<T> &_v) { return _orange(_ostr, _v); }
+template <class T, class Y>
+ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) { return _ostr << _v.first << ":" << _v.second; }
 template <class... Ts>
 ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
   bool first = true;
@@ -174,11 +199,7 @@ istream &operator>>(istream &_istr, valarray<T> &_v) { return _irange(_istr, _v)
 template <class T>
 istream &operator>>(istream &_istr, deque<T> &_v) { return _irange(_istr, _v); }
 template <class T, class Y>
-istream &operator>>(istream &_istr, pair<T, Y> &_v) {
-  for (auto &i : _v)
-    _istr >> i.first >> i.second;
-  return _istr;
-}
+istream &operator>>(istream &_istr, pair<T, Y> &_v) { return _istr >> _v.first >> _v.second; }
 
 vector<int> divisor(int n) {
   vector<int> head, tail;
