@@ -6,3 +6,4 @@ main
 .clangd/
 build/
 history/
+info.plist
