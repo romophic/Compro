@@ -3,7 +3,7 @@
   "tasks": [
     {
       "type": "cppbuild",
-      "label": "C/C++: clang++ アクティブなファイルのビルド",
+      "label": "C++ build",
       "command": "/usr/bin/clang++",
       "args": [
         "-std=c++17",
@@ -21,8 +21,11 @@
       "problemMatcher": [
         "$gcc"
       ],
-      "group": "build",
-      "detail": "デバッガーによって生成されたタスク。"
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "compile c++ file"
     }
   ]
 }
