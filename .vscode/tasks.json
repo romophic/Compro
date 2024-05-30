@@ -4,11 +4,11 @@
     {
       "type": "cppbuild",
       "label": "C++ build",
-      "command": "/usr/bin/clang++",
+      "command": "g++",
       "args": [
         "-std=c++17",
-        "-fcolor-diagnostics",
-        "-fansi-escape-codes",
+        "-O2",
+        "-march=native",
         "-g",
         "-D DEBUG",
         "${file}",
