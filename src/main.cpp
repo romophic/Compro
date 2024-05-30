@@ -729,7 +729,6 @@ public:
     UnionFind uf(n);
     vector<vector<int>> res(n);
     sort(g.begin(), g.end(), [](auto &l, auto &r) { return get<2>(l) < get<2>(r); });
-    D(g);
     for (auto &[a, b, cost] : g) {
       if (uf.merge(a, b)) {
         res[a].push_back(b);
