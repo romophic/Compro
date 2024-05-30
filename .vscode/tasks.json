@@ -7,8 +7,8 @@
       "command": "g++",
       "args": [
         "-std=c++17",
-        "-O2",
         "-march=native",
+        "-Og",
         "-g",
         "-D DEBUG",
         "${file}",
