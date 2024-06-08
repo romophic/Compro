@@ -6,201 +6,20 @@
 /* AC           \\    >>  _// \\         AC   */
 /*             (__)  (__)(__)(__)             */
 /*         github.com/romophic/Compro         */
-
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2")
-
-#include <algorithm>
-#include <array>
-#include <bitset>
-#include <cassert>
-#include <cctype>
-#include <chrono>
-#include <cinttypes>
-#include <climits>
-#include <cmath>
-#include <complex>
-#include <cstddef>
-#include <cstdint>
-#include <cstdio>
-#include <cstdlib>
-#include <ctime>
-#include <deque>
-#include <fstream>
-#include <functional>
-#include <iomanip>
-#include <iostream>
-#include <iterator>
-#include <list>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <random>
-#include <set>
-#include <stack>
-#include <stdexcept>
-#include <string>
-#include <tuple>
-#include <unordered_map>
-#include <unordered_set>
-#include <utility>
-#include <valarray>
-#include <vector>
-
+#include <bits/stdc++.h>
 #define int long long
 #define double long double
 #define rep(i, e) for (int i = 0; i < (e); i++)
 #define ALL(var) begin(var), end(var)
-#ifdef DEBUG
-#define D(var) cerr << __LINE__ << ":" << #var << " " << var << endl;
-#define DD(var) for_each(begin(var), end(var), [](const auto &i) { D(i); })
-#define DDD(var) for_each(begin(var), end(var), [](const auto &i) { DD(i); })
-#else
-#define D(var) ;
-#define DD(var) ;
-#define DDD(var) ;
-#endif
-
 using namespace std;
-
 constexpr int INF = 1LL << 60;
-
-template <class T, size_t S>
-ostream &operator<<(ostream &_ostr, const array<T, S> &_v);
+constexpr int MOD = 998244353;
 template <class T>
-ostream &operator<<(ostream &_ostr, const vector<T> &_v);
+bool chmax(T &a, const T &b) { return a < b ? a = b, true : false; }
 template <class T>
-ostream &operator<<(ostream &_ostr, const valarray<T> &_v);
-template <class T>
-ostream &operator<<(ostream &_ostr, const deque<T> &_v);
-template <class T>
-ostream &operator<<(ostream &_ostr, stack<T> _v);
-template <class T>
-ostream &operator<<(ostream &_ostr, queue<T> _v);
-template <class T>
-ostream &operator<<(ostream &_ostr, const list<T> &_v);
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v);
-template <class... Ts>
-ostream &operator<<(ostream &_ostr, const tuple<Ts...> &t);
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const map<T, Y> &_v);
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const multimap<T, Y> &_v);
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v);
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const unordered_multimap<T, Y> &_v);
-template <class T>
-ostream &operator<<(ostream &_ostr, const set<T> &_v);
-template <class T>
-ostream &operator<<(ostream &_ostr, const multiset<T> &_v);
-template <class T>
-ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v);
-template <class T>
-ostream &operator<<(ostream &_ostr, const unordered_multiset<T> &_v);
-
-template <class T>
-ostream &_orange(ostream &_ostr, const T &_v) {
-  if (_v.size() == 0)
-    return _ostr;
-  _ostr << *begin(_v);
-  for (auto itr = next(begin(_v)), enditr = end(_v); itr != enditr; itr++)
-    _ostr << " " << *itr;
-  return _ostr;
-}
-template <class T, size_t S>
-ostream &operator<<(ostream &_ostr, const array<T, S> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, const vector<T> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, const valarray<T> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, const deque<T> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, stack<T> _v) {
-  vector<T> v;
-  while (!_v.empty()) {
-    v.push_back(_v.top());
-    _v.pop();
-  }
-  reverse(v.begin(), v.end());
-  return _ostr << v;
-}
-template <class T>
-ostream &operator<<(ostream &_ostr, queue<T> _v) {
-  if (_v.size() == 0)
-    return _ostr;
-  _ostr << _v.front();
-  _v.pop();
-  while (!_v.empty()) {
-    _ostr << " " << _v.front();
-    _v.pop();
-  }
-  return _ostr;
-}
-template <class T>
-ostream &operator<<(ostream &_ostr, const list<T> &_v) { return _orange(_ostr, _v); }
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const pair<T, Y> &_v) { return _ostr << _v.first << ":" << _v.second; }
-template <class... Ts>
-ostream &operator<<(ostream &_ostr, const tuple<Ts...> &_v) {
-  bool first = true;
-  apply([&_ostr, &first](auto &&...args) {
-    auto print = [&](auto &&val) {
-      if (!first)
-        _ostr << " ";
-      (_ostr << val);
-      first = false;
-    };
-    (print(args), ...);
-  },
-        _v);
-  return _ostr;
-}
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const map<T, Y> &_v) { return _orange(_ostr, _v); }
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const multimap<T, Y> &_v) { return _orange(_ostr, _v); }
-template <class T, class Y>
-ostream &operator<<(ostream &_ostr, const unordered_map<T, Y> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, const set<T> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, const multiset<T> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, const unordered_set<T> &_v) { return _orange(_ostr, _v); }
-template <class T>
-ostream &operator<<(ostream &_ostr, const unordered_multiset<T> &_v) { return _orange(_ostr, _v); }
-
-template <class T, size_t S>
-istream &operator>>(istream &_istr, array<T, S> &_v);
-template <class T>
-istream &operator>>(istream &_istr, vector<T> &_v);
-template <class T>
-istream &operator>>(istream &_istr, valarray<T> &_v);
-template <class T>
-istream &operator>>(istream &_istr, deque<T> &_v);
-template <class T, class Y>
-istream &operator>>(istream &_istr, pair<T, Y> &_v);
-
-template <class T>
-istream &_irange(istream &_istr, T &_v) {
-  for (auto &i : _v)
-    _istr >> i;
-  return _istr;
-}
-template <class T, size_t S>
-istream &operator>>(istream &_istr, array<T, S> &_v) { return _irange(_istr, _v); }
-template <class T>
-istream &operator>>(istream &_istr, vector<T> &_v) { return _irange(_istr, _v); }
-template <class T>
-istream &operator>>(istream &_istr, valarray<T> &_v) { return _irange(_istr, _v); }
-template <class T>
-istream &operator>>(istream &_istr, deque<T> &_v) { return _irange(_istr, _v); }
-template <class T, class Y>
-istream &operator>>(istream &_istr, pair<T, Y> &_v) { return _istr >> _v.first >> _v.second; }
-
+bool chmin(T &a, const T &b) { return a > b ? a = b, true : false; }
 vector<int> divisor(int n) {
   vector<int> head, tail;
   for (int i = 1; i * i <= n; i++) {
@@ -213,7 +32,6 @@ vector<int> divisor(int n) {
   head.insert(head.end(), tail.rbegin(), tail.rend());
   return head;
 }
-
 vector<pair<int, int>> primeFactorize(int n) {
   vector<pair<int, int>> res;
   for (int a = 2; a * a <= n; ++a) {
@@ -228,7 +46,6 @@ vector<pair<int, int>> primeFactorize(int n) {
     res.push_back({n, 1});
   return res;
 }
-
 int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
   while (ok - ng > 1) {
     int mid = (ng + ok) / 2;
@@ -236,26 +53,7 @@ int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
   }
   return ok;
 }
-
-template <class T>
-vector<vector<T>> turnR(const vector<vector<T>> &s) {
-  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
-  for (int y = 0; y < s.size(); y++)
-    for (int x = 0; x < s[0].size(); x++)
-      res[x][s.size() - y - 1] = s[y][x];
-  return res;
-}
-
-template <class T>
-vector<vector<T>> turnL(const vector<vector<T>> &s) {
-  vector<vector<T>> res(s[0].size(), vector<T>(s.size()));
-  for (int y = 0; y < s.size(); y++)
-    for (int x = 0; x < s[0].size(); x++)
-      res[s[0].size() - x - 1][y] = s[y][x];
-  return res;
-}
-
-int mop(int a, int n, int mod = INF) {
+int mop(int a, int n, int mod = LLONG_MAX) {
   int res = 1;
   while (n > 0) {
     if (n & 1)
@@ -265,62 +63,34 @@ int mop(int a, int n, int mod = INF) {
   }
   return res;
 }
-
-template <class T>
-bool chmax(T &a, const T &b) {
-  if (a < b) {
-    a = b;
-    return true;
-  }
-  return false;
-}
-
-template <class T>
-bool chmin(T &a, const T &b) {
-  if (a > b) {
-    a = b;
-    return true;
-  }
-  return false;
-}
-
-template <int Modulus>
-class modint {
+template <int Mod = MOD>
+class ModInt {
 public:
   int n;
-  constexpr modint(const int x = 0) noexcept : n(x % Modulus) {}
+  constexpr ModInt(const int x = 0) noexcept : n(x % Mod) {}
   constexpr int &value() noexcept { return n; }
-  constexpr const int &value() const noexcept { return n; }
-  constexpr modint operator+(const modint rhs) const noexcept {
-    return modint(*this) += rhs;
-  }
-  constexpr modint operator-(const modint rhs) const noexcept {
-    return modint(*this) -= rhs;
-  }
-  constexpr modint operator*(const modint rhs) const noexcept {
-    return modint(*this) *= rhs;
-  }
-  constexpr modint operator/(const modint rhs) const noexcept {
-    return modint(*this) /= rhs;
-  }
-  constexpr modint &operator+=(const modint rhs) noexcept {
+  constexpr ModInt operator+(const ModInt rhs) const noexcept { return ModInt(*this) += rhs; }
+  constexpr ModInt operator-(const ModInt rhs) const noexcept { return ModInt(*this) -= rhs; }
+  constexpr ModInt operator*(const ModInt rhs) const noexcept { return ModInt(*this) *= rhs; }
+  constexpr ModInt operator/(const ModInt rhs) const noexcept { return ModInt(*this) /= rhs; }
+  constexpr ModInt &operator+=(const ModInt rhs) noexcept {
     n += rhs.n;
-    if (n >= Modulus)
-      n -= Modulus;
+    if (n >= Mod)
+      n -= Mod;
     return *this;
   }
-  constexpr modint &operator-=(const modint rhs) noexcept {
+  constexpr ModInt &operator-=(const ModInt rhs) noexcept {
     if (n < rhs.n)
-      n += Modulus;
+      n += Mod;
     n -= rhs.n;
     return *this;
   }
-  constexpr modint &operator*=(const modint rhs) noexcept {
-    n = n * rhs.n % Modulus;
+  constexpr ModInt &operator*=(const ModInt rhs) noexcept {
+    n = n * rhs.n % Mod;
     return *this;
   }
-  constexpr modint &operator/=(modint rhs) noexcept {
-    int exp = Modulus - 2;
+  constexpr ModInt &operator/=(ModInt rhs) noexcept {
+    int exp = Mod - 2;
     while (exp) {
       if (exp % 2)
         *this *= rhs;
@@ -329,18 +99,7 @@ public:
     }
     return *this;
   }
-  template <int mod>
-  friend istream &operator>>(istream &_istr, modint<mod> &rhs) {
-    _istr >> rhs.n;
-    rhs.n %= Modulus;
-    return _istr;
-  }
-  template <int mod>
-  friend ostream &operator<<(ostream &_ostr, const modint<mod> &rhs) {
-    return _ostr << rhs.n;
-  }
 };
-
 template <class T>
 class SegmentTree {
 public:
@@ -354,9 +113,7 @@ public:
       sz <<= 1;
     seg.assign(2 * sz, _M1);
   }
-  void set(int k, const T &x) {
-    seg[k + sz] = x;
-  }
+  void set(int k, const T &x) { seg[k + sz] = x; }
   void build() {
     for (int k = sz - 1; k > 0; k--)
       seg[k] = f(seg[2 * k + 0], seg[2 * k + 1]);
@@ -378,9 +135,7 @@ public:
     }
     return f(L, R);
   }
-  T operator[](const int &k) const {
-    return seg[k + sz];
-  }
+  T operator[](const int &k) const { return seg[k + sz]; }
   template <class C>
   int find_subtree(int a, const C &check, T &M, bool type) {
     while (a < sz) {
@@ -432,7 +187,6 @@ public:
     return -1;
   }
 };
-
 class UnionFind {
 public:
   int n;
@@ -447,17 +201,13 @@ public:
     p[x] += p[y], p[y] = x;
     return true;
   }
-  bool isSame(int a, int b) {
-    return root(a) == root(b);
-  }
+  bool isSame(int a, int b) { return root(a) == root(b); }
   int root(int a) {
     if (p[a] < 0)
       return a;
     return p[a] = root(p[a]);
   }
-  int size(int a) {
-    return -p[root(a)];
-  }
+  int size(int a) { return -p[root(a)]; }
   vector<vector<int>> groups() {
     vector<int> buf(n), size(n);
     for (int i = 0; i < n; i++) {
@@ -474,16 +224,12 @@ public:
   }
 };
 class RollingHash {
-  static constexpr unsigned mod = 1000000007;
-
 public:
   vector<unsigned> hashed, power;
   inline unsigned mul(unsigned a, unsigned b) const {
     unsigned long long x = (unsigned long long)a * b;
     unsigned xh = (unsigned)(x >> 32), xl = (unsigned)x, d, m;
-    asm("divl %4; \n\t"
-        : "=a"(d), "=d"(m)
-        : "d"(xh), "a"(xl), "r"(mod));
+    asm("divl %4; \n\t" : "=a"(d), "=d"(m) : "d"(xh), "a"(xl), "r"(MOD));
     return m;
   }
   RollingHash(const string &s, unsigned base = 10007) {
@@ -494,20 +240,20 @@ public:
     for (int i = 0; i < sz; i++) {
       power[i + 1] = mul(power[i], base);
       hashed[i + 1] = mul(hashed[i], base) + s[i];
-      if (hashed[i + 1] >= mod)
-        hashed[i + 1] -= mod;
+      if (hashed[i + 1] >= MOD)
+        hashed[i + 1] -= MOD;
     }
   }
   unsigned get(int l, int r) const {
-    unsigned ret = hashed[r] + mod - mul(hashed[l], power[r - l]);
-    if (ret >= mod)
-      ret -= mod;
+    unsigned ret = hashed[r] + MOD - mul(hashed[l], power[r - l]);
+    if (ret >= MOD)
+      ret -= MOD;
     return ret;
   }
   unsigned connect(unsigned h1, int h2, int h2len) const {
     unsigned ret = mul(h1, power[h2len]) + h2;
-    if (ret >= mod)
-      ret -= mod;
+    if (ret >= MOD)
+      ret -= MOD;
     return ret;
   }
   int LCP(const RollingHash &b, int l1, int r1, int l2, int r2) {
@@ -523,7 +269,6 @@ public:
     return (low);
   }
 };
-
 template <class Type>
 class WeightedUnionFind {
 public:
@@ -596,7 +341,6 @@ private:
     return m_diffWeights[i];
   }
 };
-
 class DirectedGraph {
 public:
   struct Edge {
@@ -713,14 +457,11 @@ public:
     return d;
   }
 };
-
 class UndirectedGraph {
 public:
   int n;
   vector<tuple<int, int, int>> g;
-  UndirectedGraph(int _n) {
-    n = _n;
-  }
+  UndirectedGraph(int _n) : n(_n) {}
   void add(int u, int v, int c) {
     g.push_back({u, v, c});
   }
@@ -738,40 +479,11 @@ public:
     return res;
   }
 };
-
-class Range {
-  int m_value;
-  const int m_end;
-  const int m_stride;
-
-public:
-  Range(int begin, int end, int stride) : m_value(begin), m_end(end), m_stride(stride) {}
-  const int &value() const { return m_value; }
-  Range begin() const { return *this; }
-  int end() const { return m_end; }
-  bool operator!=(const int &value) const {
-    return m_stride > 0 ? m_value < value : m_value > value;
+struct init {
+  init() {
+    cin.tie(0)->sync_with_stdio(0);
+    ios::sync_with_stdio(false);
+    cout << fixed << setprecision(16);
   }
-  void operator++() { m_value += m_stride; }
-  const int &operator*() const { return m_value; }
-};
-Range range(int end) {
-  return {0LL, end, 1LL};
-}
-Range range(int begin, int end) {
-  return {begin, end, 1LL};
-}
-Range range(int begin, int end, int stride) {
-  return {begin, end, stride};
-}
-
-void solve();
-
-signed main() {
-  cin.tie(0)->sync_with_stdio(0);
-  ios::sync_with_stdio(false);
-  cout << fixed << setprecision(16);
-  solve();
-}
-
-void solve() {}
+} init;
+signed main() {}
