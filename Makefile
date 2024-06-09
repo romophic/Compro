@@ -1,5 +1,9 @@
 main: src/main.cpp
-	@g++ ./src/main.cpp -o main -std=c++17 -Og -g -D DEBUG -fsanitize=address,undefined,float-divide-by-zero,bounds,float-cast-overflow,alignment,object-size,vptr,signed-integer-overflow,builtin,pointer-overflow,pointer-compare,pointer-subtract
+	@g++ -std=gnu++20 -O2 -DONLINE_JUDGE -DATCODER \
+	-Wall -Wextra \
+	-mtune=native -march=native \
+	-fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 \
+	-o main.out src/main.cpp
 
 run:
 	@make && ./main

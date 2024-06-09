@@ -6,8 +6,6 @@
 /* AC           \\    >>  _// \\         AC   */
 /*             (__)  (__)(__)(__)             */
 /*         github.com/romophic/Compro         */
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2")
 #include <bits/stdc++.h>
 #define int long long
 #define double long double
@@ -486,4 +484,5 @@ struct init {
     cout << fixed << setprecision(16);
   }
 } init;
-signed main() {}
+signed main() {
+}

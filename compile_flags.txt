@@ -1,1 +1,1 @@
--std=gnu++17
+-I/usr/local/include
