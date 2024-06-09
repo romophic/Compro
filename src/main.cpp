@@ -346,7 +346,7 @@ public:
   };
   const int N;
   vector<vector<Edge>> g;
-  DirectedGraph(int _n) : g(_n), N(_n) {}
+  DirectedGraph(int _n) : N(_n), g(_n) {}
   void add(int s, int t, int cost) {
     g[s].push_back({t, cost});
   }
@@ -419,7 +419,7 @@ public:
             q.push(edge.to);
             inqueue[edge.to] = true;
             ++counts[edge.to];
-            if (g.size() < counts[edge.to])
+            if ((int)g.size() < counts[edge.to])
               return {vector<int>(), vector<int>(), true};
           }
         }
@@ -484,5 +484,4 @@ struct init {
     cout << fixed << setprecision(16);
   }
 } init;
-signed main() {
-}
+signed main() {}
