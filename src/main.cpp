@@ -123,12 +123,11 @@ vector<int> divisor(int n) {
 vector<pair<int, int>> primeFactorize(int n) {
   vector<pair<int, int>> res;
   for (int a = 2; a * a <= n; ++a) {
-    if (n % a != 0)
-      continue;
-    int ex = 0;
-    while (n % a == 0)
-      ++ex, n /= a;
-    res.push_back({a, ex});
+    if (n % a == 0) {
+      res.push_back({a, 0});
+      while (n % a == 0)
+        ++res.back().second, n /= a;
+    }
   }
   if (n != 1)
     res.push_back({n, 1});
@@ -188,19 +187,20 @@ public:
     return *this;
   }
 };
-template <class T>
+template <class T, class F>
 class SegmentTree {
 public:
   int sz;
   vector<T> seg;
-  const function<T(T, T)> f;
+  const F f;
   const T M1;
-  SegmentTree(int n, const function<T(T, T)> _f, const T &_M1) : f(_f), M1(_M1) {
+  SegmentTree(int n, F _f, const T &_M1) : f(_f), M1(_M1) {
     sz = 1;
     while (sz < n)
       sz <<= 1;
     seg.assign(2 * sz, _M1);
   }
+  // replace only
   void set(int k, const T &x) { seg[k + sz] = x; }
   void build() {
     for (int k = sz - 1; k > 0; k--)
