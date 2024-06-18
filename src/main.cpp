@@ -275,6 +275,34 @@ public:
     return -1;
   }
 };
+template<class T, class F>
+struct SparseTable{
+  F f;
+  vector<vector<T>> st;
+  vector<int> lookup;
+  explicit SparseTable(const vector<T> &v, const F &f) : f(f) {
+    const int N = (int)v.size();
+    int siz = 0;
+    int tmp = N;
+    while (tmp != 0) {
+      siz++;
+      tmp >>= 1;
+    }
+    st.assign(siz, vector<T>(N));
+    for(int i=0;i<v.size();i++)
+      st[0][i] = v[i];
+    for(int i=1;i<siz;i++)
+      for(int j=0;j< N + 1 - (1 << i);j++)
+        st[i][j] = f(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+    lookup.resize(v.size() + 1);
+    for(int i= 2;i<lookup.size();i++)
+      lookup[i] = lookup[i >> 1] + 1;
+  }
+  T fold(int l, int r) const {
+    int b = lookup[r - l];
+    return f(st[b][l], st[b][r - (1 << b)]);
+  }
+};
 class UnionFind {
 public:
   int n;
@@ -574,6 +602,4 @@ struct init {
     cout << fixed << setprecision(16);
   }
 } init;
-signed main() {
-
-}
+signed main() {}
