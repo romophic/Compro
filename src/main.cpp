@@ -6,6 +6,7 @@
 /* AC           \\    >>  _// \\         AC   */
 /*             (__)  (__)(__)(__)             */
 /*         github.com/romophic/Compro         */
+#include <atcoder/all>
 #include <bits/stdc++.h>
 #define int long long
 #define double long double
@@ -14,6 +15,8 @@
 using namespace std;
 constexpr int INF = 1LL << 60;
 constexpr int MOD = 998244353;
+constexpr int dx[] = {1, 0, 0, -1};
+constexpr int dy[] = {0, 1, -1, 0};
 template <class T>
 bool chmax(T &a, const T &b) { return a < b ? a = b, true : false; }
 template <class T>
@@ -274,8 +277,8 @@ public:
     return -1;
   }
 };
-template<class T, class F>
-struct SparseTable{
+template <class T, class F>
+struct SparseTable {
   F f;
   vector<vector<T>> st;
   vector<int> lookup;
@@ -288,13 +291,13 @@ struct SparseTable{
       tmp >>= 1;
     }
     st.assign(siz, vector<T>(N));
-    for(int i=0;i<v.size();i++)
+    for (int i = 0; i < v.size(); i++)
       st[0][i] = v[i];
-    for(int i=1;i<siz;i++)
-      for(int j=0;j< N + 1 - (1 << i);j++)
+    for (int i = 1; i < siz; i++)
+      for (int j = 0; j < N + 1 - (1 << i); j++)
         st[i][j] = f(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
     lookup.resize(v.size() + 1);
-    for(int i= 2;i<lookup.size();i++)
+    for (int i = 2; i < lookup.size(); i++)
       lookup[i] = lookup[i >> 1] + 1;
   }
   T fold(int l, int r) const {
@@ -602,3 +605,4 @@ struct init {
   }
 } init;
 signed main() {}
+
