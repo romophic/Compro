@@ -12,8 +12,5 @@ jobs:
     - uses: actions/checkout@v2
 
     #https://atcoder.jp/contests/APG4b/rules
-    - name: compile by g++
-      run: g++ -std=gnu++17 -Wall -Wextra -O2 -DONLINE_JUDGE -I/opt/boost/gcc/include -L/opt/boost/gcc/lib -I/opt/ac-library -o ./a.out ./src/main.cpp
-
-    - name: compile by clang++
-      run: clang++ -std=c++17 -Wall -O2 -DNDEBUG -DONLINE_JUDGE -I/opt/boost/clang/include -L/opt/boost/clang/lib -I/opt/ac-library -o ./a.out ./src/main.cpp
+    - name: compile it
+      run: make run
