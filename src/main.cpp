@@ -14,9 +14,8 @@
 #define ALL(var) begin(var), end(var)
 using namespace std;
 constexpr int INF = 1LL << 60;
-constexpr int MOD = 998244353;
-constexpr int dx[] = {1, 0, 0, -1};
-constexpr int dy[] = {0, 1, -1, 0};
+constexpr array<int, 4> dx({1, 0, 0, -1});
+constexpr array<int, 4> dy({0, 1, -1, 0});
 template <class T>
 bool chmax(T &a, const T &b) { return a < b ? a = b, true : false; }
 template <class T>
