@@ -13,4 +13,4 @@ jobs:
 
     #https://atcoder.jp/contests/APG4b/rules
     - name: compile it
-      run: make run
+      run: git submodule update && make run
