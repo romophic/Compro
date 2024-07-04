@@ -12,5 +12,8 @@ jobs:
     - uses: actions/checkout@v2
 
     #https://atcoder.jp/contests/APG4b/rules
-    - name: compile it
-      run: git submodule update && make run
+    - name: install ac-lib
+      run: git submodule init && git submodule update
+
+    - name: make it
+      run: make run
