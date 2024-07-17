@@ -49,7 +49,7 @@ ostream &operator<<(ostream &_ostr, const unordered_multiset<T> &_v);
 template <class T>
 ostream &_orange(ostream &_ostr, const T &_v) {
   _ostr << "[";
-  for (bool tr = true; auto &i : _v)
+  for (bool tr = true; auto &&i : _v)
     _ostr << (tr ? tr = false, "" : ", ") << i;
   return _ostr << "]";
 }
@@ -134,7 +134,7 @@ vector<pair<int, int>> primeFactorize(int n) {
     res.push_back({n, 1});
   return res;
 }
-int dichotomy(int ng, int ok, function<bool(int)> discriminant) {
+int dichotomy(int ng, int ok, auto discriminant) {
   while (ok - ng > 1) {
     int mid = (ng + ok) / 2;
     (discriminant(mid) ? ok : ng) = mid;
