@@ -6,7 +6,7 @@
       "label": "C++ build",
       "command": "g++",
       "args": [
-        "-std=gnu++20",
+        "-std=gnu++23",
         "-Wall",
         "-Og",
         "-g",
