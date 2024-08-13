@@ -7,18 +7,9 @@
       "command": "g++",
       "args": [
         "-std=gnu++20",
-        "-mtune=native",
-        "-march=native",
         "-Wall",
-        "-Wextra",
-        "-fconstexpr-depth=2147483647",
-        "-fconstexpr-loop-limit=2147483647",
-        "-fconstexpr-ops-limit=2147483647",
-        "-I",
-        "${workspaceFolder}/ac-library",
         "-Og",
         "-g",
-        "-D DEBUG",
         "${file}",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}"
