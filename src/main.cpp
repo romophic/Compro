@@ -2,6 +2,9 @@
 #include <bits/stdc++.h>
 #define int long long
 #define double long double
+#define uint unsigned long long
+#define int128 __int128
+#define uint128 unsigned __int128
 #define rep(i, e) for (int i = 0; i < (int)(e); i++)
 #define rrep(i, b, e) for (int i = (b); i < (int)(e), i++)
 #define all(var) begin(var), end(var)
