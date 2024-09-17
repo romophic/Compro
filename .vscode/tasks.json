@@ -3,8 +3,8 @@
   "tasks": [
     {
       "type": "cppbuild",
-      "label": "C++ build",
-      "command": "g++",
+      "label": "build by clang",
+      "command": "clang++",
       "args": [
         "-std=gnu++23",
         "-Wall",

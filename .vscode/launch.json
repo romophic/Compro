@@ -2,17 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C++ build & debug",
-      "type": "cppdbg",
+      "type": "lldb",
       "request": "launch",
+      "name": "Launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}",
       "args": [],
-      "stopAtEntry": false,
-      "cwd": "${fileDirname}",
-      "environment": [],
-      "externalConsole": true,
-      "MIMode": "gdb",
-      "preLaunchTask": "C++ build"
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build by clang"
     }
   ]
 }
