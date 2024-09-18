@@ -8,7 +8,7 @@
       "program": "${fileDirname}/${fileBasenameNoExtension}",
       "args": [],
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "build by clang"
+      "preLaunchTask": "Build src/main.cpp by clang++ using src/stdc++.h.pch"
     }
   ]
 }

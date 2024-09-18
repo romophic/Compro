@@ -1,5 +1,11 @@
 {
   "files.associations": {
-    "numbers": "cpp"
-  }
+    "numbers": "cpp",
+    "iostream": "cpp",
+    "__config": "cpp",
+    "cctype": "cpp",
+    "cassert": "cpp",
+    "initializer_list": "cpp",
+    "valarray": "cpp"
+  },
 }

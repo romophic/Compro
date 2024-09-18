@@ -3,19 +3,23 @@
   "tasks": [
     {
       "type": "cppbuild",
-      "label": "build by clang",
+      "label": "Build src/main.cpp by clang++ using src/stdc++.h.pch",
       "command": "clang++",
       "args": [
         "-std=gnu++23",
+        "-include-pch",
+        "src/stdc++.h.pch",
         "-Wall",
-        "-Og",
+        "-Wno-unused-variable",
+        "-Wno-unknown-pragmas",
+        "-fsanitize=address",
         "-g",
-        "${file}",
+        "src/main.cpp",
         "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
+        "src/main.exe"
       ],
       "options": {
-        "cwd": "${fileDirname}"
+        "cwd": "${workspaceFolder}"
       },
       "problemMatcher": [
         "$gcc"
@@ -23,6 +27,27 @@
       "group": {
         "kind": "build",
         "isDefault": true
+      },
+      "detail": "compile c++ file"
+    },
+    {
+      "type": "cppbuild",
+      "label": "Make src/stdc++.h.pch",
+      "command": "clang++",
+      "args": [
+        "-std=gnu++23",
+        "-fsanitize=address",
+        "-g",
+        "src/stdc++.h",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build"
       },
       "detail": "compile c++ file"
     }
