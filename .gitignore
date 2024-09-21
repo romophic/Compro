@@ -1,6 +1,7 @@
 out.txt
 *.exe
 *.out
+*.pch
 main
 .cache/
 .clangd/
