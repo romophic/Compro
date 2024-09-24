@@ -6,7 +6,7 @@
       "label": "Build src/main.cpp by clang++ using src/stdc++.h.pch",
       "command": "clang++",
       "args": [
-        "-std=gnu++23",
+        "-std=gnu++2b",
         "-include-pch",
         "src/stdc++.h.pch",
         "-Wall",
@@ -14,9 +14,9 @@
         "-Wno-unknown-pragmas",
         "-fsanitize=address",
         "-g",
-        "src/main.cpp",
+        "${workspaceFolder}/src/main.cpp",
         "-o",
-        "src/main.exe"
+        "${workspaceFolder}/src/main"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -35,10 +35,12 @@
       "label": "Make src/stdc++.h.pch",
       "command": "clang++",
       "args": [
-        "-std=gnu++23",
+        "-std=gnu++2b",
         "-fsanitize=address",
         "-g",
-        "src/stdc++.h",
+        "${workspaceFolder}/src/stdc++.h",
+        "-o",
+        "${workspaceFolder}/src/stdc++.h.pch"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
