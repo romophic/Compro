@@ -5,7 +5,7 @@
       "type": "lldb",
       "request": "launch",
       "name": "Launch",
-      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "program": "${workspaceFolder}/src/main",
       "args": [],
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "Build src/main.cpp by clang++ using src/stdc++.h.pch"

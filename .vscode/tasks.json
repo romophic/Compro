@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "cppbuild",
+      "type": "process",
       "label": "Build src/main.cpp by clang++ using src/stdc++.h.pch",
       "command": "clang++",
       "args": [
@@ -21,9 +21,6 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -31,7 +28,7 @@
       "detail": "compile c++ file"
     },
     {
-      "type": "cppbuild",
+      "type": "process",
       "label": "Make src/stdc++.h.pch",
       "command": "clang++",
       "args": [
@@ -45,9 +42,6 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
       "group": {
         "kind": "build"
       },
