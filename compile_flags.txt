@@ -1,3 +1,2 @@
 -I/usr/local/include
--I./ac-library
--std=c++20
+-std=gnu++2b
