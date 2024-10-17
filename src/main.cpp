@@ -66,6 +66,7 @@ template <class T> ostream &operator<<(ostream &_ostr, const unordered_multiset<
 template <class T> istream &operator>>(istream &_istr, vector<T> &_v);
 template <class T> istream &operator>>(istream &_istr, deque<T> &_v);
 template <class T, class Y> istream &operator>>(istream &_istr, pair<T, Y> &_v);
+template <class... Ts> istream &operator>>(istream &_istr, tuple<Ts...> &_v);
 template <class T> istream &_irange(istream &_istr, T &_v) {
   for (auto &i : _v)
     _istr >> i;
@@ -74,6 +75,10 @@ template <class T> istream &_irange(istream &_istr, T &_v) {
 template <class T> istream &operator>>(istream &_istr, vector<T> &_v) { return _irange(_istr, _v); }
 template <class T> istream &operator>>(istream &_istr, deque<T> &_v) { return _irange(_istr, _v); }
 template <class T, class Y> istream &operator>>(istream &_istr, pair<T, Y> &_v) { return _istr >> _v.first >> _v.second; }
+template <class... Ts> istream &operator>>(istream &_istr, tuple<Ts...> &_v) {
+  apply([&_istr](auto &&...args) { ((_istr >> args), ...); }, _v);
+  return _istr;
+}
 template <class T> bool chmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
 template <class T> bool chmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
 struct init {
