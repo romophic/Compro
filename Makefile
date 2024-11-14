@@ -1,9 +1,5 @@
-build/main: src/main.cpp
-	mkdir -p build
-	clang++ -std=gnu++20 -O2 -I ./ac-library/ -Wall -o build/main src/main.cpp
+src/main: src/main.cpp
+	clang++ -std=gnu++2b -include-pch src/stdc++.h.pch -Wall -Wno-unused-variable -Wno-unused-pragmas -fsanitize=address -g src/main.cpp -o src/main
 
-run:
-	@make && echo "build complete" && ./build/main
-
-clean:
-	rm -rf build
+run: src/main
+	./src/main
